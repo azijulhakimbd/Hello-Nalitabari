@@ -1,6 +1,7 @@
+
+import Image from "next/image";
 import Link from "next/link";
 import {
-
   Heart,
   Mail,
   MapPin,
@@ -19,21 +20,15 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link
               href="/"
-              className="inline-flex items-center gap-3"
+              className="inline-flex items-center"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-white">
-                <span className="text-lg font-bold">ন</span>
-              </div>
-
-              <div>
-                <p className="font-bold">
-                  নালিতাবাড়ী উপজেলা
-                </p>
-
-                <p className="text-xs text-muted-foreground">
-                  তথ্য পোর্টাল
-                </p>
-              </div>
+              <Image
+                src="/logo.png"
+                alt="নালিতাবাড়ী উপজেলা তথ্য পোর্টাল"
+                width={220}
+                height={135}
+                className="h-24 w-auto object-contain"
+              />
             </Link>
 
             <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground">
@@ -112,6 +107,7 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+
                 <span>
                   নালিতাবাড়ী উপজেলা,
                   <br />
@@ -121,6 +117,7 @@ export function Footer() {
 
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 shrink-0 text-emerald-600" />
+
                 <Link
                   href="tel:999"
                   className="hover:text-emerald-600"
@@ -131,6 +128,7 @@ export function Footer() {
 
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 shrink-0 text-emerald-600" />
+
                 <Link
                   href="/contact"
                   className="hover:text-emerald-600"
@@ -150,9 +148,9 @@ export function Footer() {
           </p>
 
           <p className="flex items-center justify-center gap-1 text-muted-foreground">
-            Developed with
+            Developed with{" "}
             <Heart className="h-4 w-4 fill-current text-red-500" />
-            by{" "}
+            {" "}by{" "}
             <a
               href="https://azijul.pro.bd"
               target="_blank"
@@ -167,3 +165,4 @@ export function Footer() {
     </footer>
   );
 }
+

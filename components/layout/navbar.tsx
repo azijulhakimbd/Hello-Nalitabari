@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -47,35 +48,26 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const { theme, setTheme } = useTheme();
-
   const isDark = theme === "dark";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-xl">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
+
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-3"
+          className="flex items-center"
           onClick={() => setMobileOpen(false)}
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
-            <span className="text-lg font-bold">ন</span>
-          </div>
-
-          <div className="hidden sm:block">
-            <p className="text-base font-bold leading-tight">
-              {language === "bn"
-                ? "নালিতাবাড়ী উপজেলা"
-                : "Nalitabari Upazila"}
-            </p>
-
-            <p className="text-xs text-muted-foreground">
-              {language === "bn"
-                ? "তথ্য পোর্টাল"
-                : "Information Portal"}
-            </p>
-          </div>
+          <Image
+            src="/logo.png"
+            alt="নালিতাবাড়ী উপজেলা তথ্য পোর্টাল"
+            width={180}
+            height={70}
+            priority
+            className="h-12 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -93,9 +85,7 @@ export function Navbar() {
                     : "rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 }
               >
-                {isEmergency && (
-                  <ShieldAlert className="h-4 w-4" />
-                )}
+                {isEmergency && <ShieldAlert className="h-4 w-4" />}
 
                 {language === "bn" ? item.bn : item.en}
               </Link>
@@ -109,11 +99,7 @@ export function Navbar() {
             variant="ghost"
             size="icon"
             asChild
-            aria-label={
-              language === "bn"
-                ? "তথ্য খুঁজুন"
-                : "Search"
-            }
+            aria-label={language === "bn" ? "তথ্য খুঁজুন" : "Search"}
           >
             <Link href="/search">
               <Search className="h-4 w-4" />
@@ -123,9 +109,7 @@ export function Navbar() {
           <Button
             variant="outline"
             size="icon"
-            onClick={() =>
-              setTheme(isDark ? "light" : "dark")
-            }
+            onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
           >
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -139,9 +123,7 @@ export function Navbar() {
           <Button
             variant="outline"
             size="icon"
-            onClick={() =>
-              setTheme(isDark ? "light" : "dark")
-            }
+            onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
           >
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -187,9 +169,7 @@ export function Navbar() {
                       <ShieldAlert className="h-4 w-4" />
                     )}
 
-                    {language === "bn"
-                      ? item.bn
-                      : item.en}
+                    {language === "bn" ? item.bn : item.en}
                   </Link>
                 );
               })}
@@ -207,9 +187,8 @@ export function Navbar() {
                   onClick={() => setMobileOpen(false)}
                 >
                   <Search className="mr-2 h-4 w-4" />
-                  {language === "bn"
-                    ? "তথ্য খুঁজুন"
-                    : "Search"}
+
+                  {language === "bn" ? "তথ্য খুঁজুন" : "Search"}
                 </Link>
               </Button>
             </div>
