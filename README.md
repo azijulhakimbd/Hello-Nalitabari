@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hello Nalitabari
+
+A bilingual local information portal for Nalitabari Upazila, built with Next.js and Tailwind CSS. The landing page is designed to help residents quickly find services, institutions, and emergency information in both Bangla and English.
+
+## Features
+
+- Bangla and English language toggle
+- Dark/light theme support
+- Local government and service discovery UI
+- Healthcare, education, government, and emergency category cards
+- Responsive hero section for desktop and mobile
+- Clean modern design with shadcn-style UI components
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Lucide React
+- next-themes
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+app/
+  Home/
+    hero.tsx
+  page.tsx
+components/
+  ui/
+  language-toggle.tsx
+  theme-provider.tsx
+  theme-toggle.tsx
+lib/
+  utils.ts
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is a landing page prototype for a local information portal and is ready for expansion into dedicated directory, emergency, education, healthcare, and government service pages.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is currently unlicensed unless you add a license file for deployment or distribution.
