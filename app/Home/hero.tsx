@@ -58,15 +58,15 @@ export function Hero() {
   const t = content[language];
 
   return (
-    <section className="relative min-h-[calc(100vh-64px)] overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-background to-green-100 dark:from-emerald-950/40 dark:via-background dark:to-green-950/30" />
+    <section className="relative isolate min-h-[calc(100vh-64px)] overflow-hidden border-b border-border/60 bg-background">
+      {/* Modern shadcn-inspired background */}
+      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.15),transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(34,197,94,0.12),transparent_33%),linear-gradient(to_br,_background,_background)]" />
 
-        <div className="absolute -left-20 top-20 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:42px_42px] [mask-image:radial-gradient(circle_at_center,black_35%,transparent_80%)]" />
 
-        <div className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-green-500/10 blur-3xl" />
-      </div>
+      <div className="absolute -left-24 top-10 -z-10 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
+      <div className="absolute right-0 top-20 -z-10 h-80 w-80 rounded-full bg-green-500/12 blur-3xl" />
+      <div className="absolute bottom-0 left-1/3 -z-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
 
       <div className="container mx-auto flex min-h-[calc(100vh-64px)] items-center px-4 py-20">
         <div className="grid w-full items-center gap-12 lg:grid-cols-2">
@@ -170,8 +170,8 @@ export function Hero() {
           <div className="relative hidden lg:block">
             <div className="relative mx-auto aspect-square max-w-[520px]">
               {/* Main card */}
-              <div className="absolute inset-8 rounded-[2rem] border bg-background/70 p-6 shadow-2xl backdrop-blur-xl">
-                <div className="flex h-full flex-col justify-between rounded-[1.5rem] bg-gradient-to-br from-emerald-600 to-green-700 p-8 text-white">
+              <div className="absolute inset-8 rounded-[2rem] border border-border/70 bg-card/80 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:shadow-[0_30px_80px_rgba(2,6,23,0.45)]">
+                <div className="flex h-full flex-col justify-between rounded-[1.5rem] bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700 p-8 text-white shadow-inner">
                   <div>
                     <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
                       <MapPin className="h-7 w-7" />
@@ -221,7 +221,7 @@ export function Hero() {
               </div>
 
               {/* Floating card */}
-              <div className="absolute -right-2 top-20 rounded-2xl border bg-background p-4 shadow-xl">
+              <div className="absolute -right-2 top-20 rounded-2xl border border-border/70 bg-card/90 p-4 shadow-xl backdrop-blur">
                 <div className="flex items-center gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950">
                     <Siren className="h-5 w-5" />
@@ -244,7 +244,7 @@ export function Hero() {
               </div>
 
               {/* Bottom card */}
-              <div className="absolute -bottom-2 -left-6 rounded-2xl border bg-background p-4 shadow-xl">
+              <div className="absolute -bottom-2 -left-6 rounded-2xl border border-border/70 bg-card/90 p-4 shadow-xl backdrop-blur">
                 <div className="flex items-center gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950">
                     <GraduationCap className="h-5 w-5" />
