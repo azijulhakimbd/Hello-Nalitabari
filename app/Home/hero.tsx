@@ -15,8 +15,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { LanguageToggle } from "@/components/language-toggle";
 
 const content = {
   bn: {
@@ -55,7 +53,7 @@ const content = {
 };
 
 export function Hero() {
-  const [language, setLanguage] = useState<"bn" | "en">("bn");
+  const language: "bn" | "en" = "bn";
 
   const t = content[language];
 
@@ -68,16 +66,6 @@ export function Hero() {
         <div className="absolute -left-20 top-20 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
 
         <div className="absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-green-500/10 blur-3xl" />
-      </div>
-
-      {/* Top Controls */}
-      <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
-        <LanguageToggle
-          language={language}
-          onLanguageChange={setLanguage}
-        />
-
-        <ThemeToggle />
       </div>
 
       <div className="container mx-auto flex min-h-[calc(100vh-64px)] items-center px-4 py-20">
