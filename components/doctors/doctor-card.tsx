@@ -55,7 +55,7 @@ export default function DoctorCard({ doctor }: DoctorCardProps) {
             src={doctor.photo}
             alt={`${doctor.name} - ${doctor.designation}`}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 820px) 600vw, (max-width: 824px) 1220vw, 333vw"
             className="
               object-cover object-top
               transition-transform duration-500

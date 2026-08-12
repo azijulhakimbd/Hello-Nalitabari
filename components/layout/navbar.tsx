@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Menu,
   Moon,
@@ -60,12 +60,29 @@ type NavbarProps = {
 
 export function Navbar({ session }: NavbarProps) {
   const language: "bn" | "en" = "bn";
+
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { theme, setTheme } = useTheme();
   const isDark = theme === "dark";
 
   const isLoggedIn = !!session?.user;
+
+  // Detect scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleLogout = async () => {
     await signOut({
@@ -74,7 +91,18 @@ export function Navbar({ session }: NavbarProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-xl">
+    <header
+      className={`
+        sticky top-0 z-50 w-full
+        border-b
+        transition-all duration-300 ease-in-out
+        ${
+          isScrolled
+            ? "border-white/20 bg-green-700/60 shadow-lg backdrop-blur-xl"
+            : "border-green-500/20 bg-gradient-to-r from-green-700 via-green-600 to-emerald-600"
+        }
+      `}
+    >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link
@@ -103,8 +131,26 @@ export function Navbar({ session }: NavbarProps) {
                 href={item.href}
                 className={
                   isEmergency
-                    ? "ml-2 inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
-                    : "rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    ? `
+                      ml-2 inline-flex items-center gap-2
+                      rounded-lg
+                      bg-red-600
+                      px-4 py-2
+                      text-sm font-medium text-white
+                      shadow-sm
+                      transition-all
+                      hover:bg-red-700
+                      hover:shadow-md
+                    `
+                    : `
+                      rounded-lg
+                      px-3 py-2
+                      text-sm font-medium
+                      text-white/90
+                      transition-all
+                      hover:bg-white/15
+                      hover:text-white
+                    `
                 }
               >
                 {isEmergency && <ShieldAlert className="h-4 w-4" />}
@@ -122,6 +168,7 @@ export function Navbar({ session }: NavbarProps) {
             variant="ghost"
             size="icon"
             asChild
+            className="text-white hover:bg-white/15 hover:text-white"
             aria-label={language === "bn" ? "তথ্য খুঁজুন" : "Search"}
           >
             <Link href="/search">
@@ -134,6 +181,7 @@ export function Navbar({ session }: NavbarProps) {
             variant="outline"
             size="icon"
             onClick={() => setTheme(isDark ? "light" : "dark")}
+            className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
             aria-label="Toggle theme"
           >
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -144,7 +192,12 @@ export function Navbar({ session }: NavbarProps) {
           {/* Authentication */}
           {isLoggedIn ? (
             <>
-              <Button variant="ghost" size="sm" asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="text-white hover:bg-white/15 hover:text-white"
+              >
                 <Link href="/dashboard">
                   <LayoutDashboard className="mr-2 h-4 w-4" />
                   {language === "bn" ? "ড্যাশবোর্ড" : "Dashboard"}
@@ -162,14 +215,23 @@ export function Navbar({ session }: NavbarProps) {
             </>
           ) : (
             <>
-              <Button variant="ghost" size="sm" asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="text-white hover:bg-white/15 hover:text-white"
+              >
                 <Link href="/auth/login">
                   <LogIn className="mr-2 h-4 w-4" />
                   {language === "bn" ? "লগইন" : "Login"}
                 </Link>
               </Button>
 
-              <Button size="sm" asChild>
+              <Button
+                size="sm"
+                asChild
+                className="bg-white text-green-700 hover:bg-white/90"
+              >
                 <Link href="/auth/register">
                   <UserPlus className="mr-2 h-4 w-4" />
                   {language === "bn" ? "রেজিস্টার" : "Register"}
@@ -186,6 +248,7 @@ export function Navbar({ session }: NavbarProps) {
             variant="outline"
             size="icon"
             onClick={() => setTheme(isDark ? "light" : "dark")}
+            className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
             aria-label="Toggle theme"
           >
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -198,6 +261,7 @@ export function Navbar({ session }: NavbarProps) {
             variant="outline"
             size="icon"
             onClick={() => setMobileOpen(!mobileOpen)}
+            className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
             aria-label="Toggle navigation"
           >
             {mobileOpen ? (
@@ -211,7 +275,7 @@ export function Navbar({ session }: NavbarProps) {
 
       {/* Mobile Navigation */}
       {mobileOpen && (
-        <div className="border-t bg-background lg:hidden">
+        <div className="border-t border-white/20 bg-green-800/90 backdrop-blur-xl lg:hidden">
           <div className="container mx-auto px-4 py-4">
             {/* Navigation Links */}
             <div className="flex flex-col gap-1">
@@ -226,7 +290,7 @@ export function Navbar({ session }: NavbarProps) {
                     className={
                       isEmergency
                         ? "flex items-center gap-2 rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white"
-                        : "rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                        : "rounded-lg px-4 py-3 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                     }
                   >
                     {isEmergency && (
@@ -240,12 +304,12 @@ export function Navbar({ session }: NavbarProps) {
             </div>
 
             {/* Mobile Search */}
-            <div className="mt-4 flex items-center gap-2 border-t pt-4">
+            <div className="mt-4 flex items-center gap-2 border-t border-white/20 pt-4">
               <Button
                 variant="outline"
                 size="sm"
                 asChild
-                className="flex-1"
+                className="flex-1 border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               >
                 <Link
                   href="/search"
@@ -265,6 +329,7 @@ export function Navbar({ session }: NavbarProps) {
                     variant="outline"
                     size="sm"
                     asChild
+                    className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
                   >
                     <Link
                       href="/dashboard"
@@ -295,6 +360,7 @@ export function Navbar({ session }: NavbarProps) {
                     variant="outline"
                     size="sm"
                     asChild
+                    className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
                   >
                     <Link
                       href="/auth/login"
@@ -305,7 +371,11 @@ export function Navbar({ session }: NavbarProps) {
                     </Link>
                   </Button>
 
-                  <Button size="sm" asChild>
+                  <Button
+                    size="sm"
+                    asChild
+                    className="bg-white text-green-700 hover:bg-white/90"
+                  >
                     <Link
                       href="/auth/register"
                       onClick={() => setMobileOpen(false)}
