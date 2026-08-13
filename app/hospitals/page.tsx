@@ -51,7 +51,7 @@ const hospitals = [
     name: "মায়ান জেনারেল হসপিটাল এন্ড ডায়াগনেস্টিক সেন্টার",
     type: "বেসরকারি হাসপাতাল",
     address: "নালিতাবাড়ী, শেরপুর",
-    phone: "০১৮XXXXXXXX",
+    phone: "০১XXXXXXXXX",
     mapsLink:
       "https://maps.app.goo.gl/MSsioZGedmLGtmKa8",
     emergency: true,

@@ -3,10 +3,10 @@
 import * as React from "react";
 import {
   ArrowLeft,
-  Facebook,
+  
   Globe,
   ImagePlus,
-  Instagram,
+ 
   Link2,
   Mail,
   MapPin,
@@ -16,7 +16,7 @@ import {
   Trash2,
   Upload,
   User,
-  Youtube,
+  
 } from "lucide-react";
 import Link from "next/link";
 
