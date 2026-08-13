@@ -179,37 +179,6 @@ export default function FeaturesPage() {
     <div className="absolute left-1/2 top-0 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />
   </div>
 
-  {/* Hero */}
-  <section className="relative overflow-hidden border-b">
-    <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/[0.10] via-green-500/[0.03] to-background" />
-
-    <div className="relative container mx-auto px-4 py-20 md:py-28">
-      <div className="mx-auto max-w-3xl text-center">
-
-        {/* Badge */}
-        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-xl">
-          <Activity className="size-4 text-emerald-600 dark:text-emerald-400" />
-          <span>নালিতাবাড়ী তথ্য পোর্টাল</span>
-        </div>
-
-        {/* Heading */}
-        <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
-          নালিতাবাড়ীর সব তথ্য
-
-          <span className="block bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
-            এক জায়গায়
-          </span>
-        </h1>
-
-        {/* Description */}
-        <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-          স্বাস্থ্য, শিক্ষা, সরকারি সেবা, জরুরি নম্বর, ব্যবসা,
-          দর্শনীয় স্থান, সংবাদ এবং স্থানীয় গুরুত্বপূর্ণ তথ্য সহজেই
-          খুঁজে পাওয়ার জন্য একটি পূর্ণাঙ্গ ডিজিটাল প্ল্যাটফর্ম।
-        </p>
-      </div>
-    </div>
-  </section>
 
   {/* Features */}
   <section className="relative">

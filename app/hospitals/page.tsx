@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -24,40 +25,85 @@ const hospitals = [
     id: "1",
     name: "নালিতাবাড়ী উপজেলা স্বাস্থ্য কমপ্লেক্স",
     type: "সরকারি হাসপাতাল",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "০৯৩২৪৭৩০২৫",
+    address: "গড়কান্দা, নালিতাবাড়ী, শেরপুর",
+    phone: "01716426892",
+    image: "/hospitals/NHC.png",
     mapsLink:
-      "https://maps.app.goo.gl/q3YZp4DL3wg9qhhx5",
+      "https://maps.google.com/?q=25.1413667,90.1869644",
     emergency: true,
     open: "২৪ ঘণ্টা",
     description:
-      "নালিতাবাড়ী উপজেলার প্রধান সরকারি স্বাস্থ্যসেবা প্রতিষ্ঠান। এখানে বহির্বিভাগ, জরুরি বিভাগ ও বিভিন্ন স্বাস্থ্যসেবা প্রদান করা হয়।",
+      "নালিতাবাড়ী উপজেলার প্রধান সরকারি স্বাস্থ্যসেবা প্রতিষ্ঠান। উপজেলা পর্যায়ে বহির্বিভাগ, জরুরি স্বাস্থ্যসেবা ও বিভিন্ন চিকিৎসা সেবা প্রদান করা হয়।",
   },
   {
     id: "2",
-    name: "নালিতাবাড়ী ডায়াবেটিক হাসপাতাল",
-    type: "হাসপাতাল",
-    address: "নালিতাবাড়ী দক্ষিণ বাজার, শেরপুর",
-    phone: "01762244441",
+    name: "আওয়ার লেডি অফ লুর্ডস ক্লিনিক",
+    type: "বেসরকারি হাসপাতাল/ক্লিনিক",
+    address: "নালিতাবাড়ী, শেরপুর",
+    phone: "",
+    image: "",
     mapsLink:
-      "https://maps.app.goo.gl/JCcG6WqsY7bfFqi9A",
+      "https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lords+Clinic+Nalitabari+Sherpur",
     emergency: false,
-    open: "সকাল ৮টা - রাত ৯টা",
+    open: "সময় যাচাই করুন",
     description:
-      "বিভিন্ন ধরনের পরীক্ষা-নিরীক্ষা ও চিকিৎসা সংক্রান্ত সেবা প্রদানকারী স্থানীয় ডায়াগনস্টিক সেন্টার।",
+      "DGHS Facility Registry-তে নালিতাবাড়ী উপজেলার একটি বেসরকারি হাসপাতাল/ক্লিনিক হিসেবে তালিকাভুক্ত স্বাস্থ্যসেবা প্রতিষ্ঠান।",
   },
   {
     id: "3",
-    name: "মায়ান জেনারেল হসপিটাল এন্ড ডায়াগনেস্টিক সেন্টার",
-    type: "বেসরকারি হাসপাতাল",
+    name: "ব্র্যাক (BHP) - নালিতাবাড়ী",
+    type: "এনজিও হাসপাতাল/ক্লিনিক",
     address: "নালিতাবাড়ী, শেরপুর",
-    phone: "০১XXXXXXXXX",
+    phone: "",
+    image: "",
     mapsLink:
-      "https://maps.app.goo.gl/MSsioZGedmLGtmKa8",
-    emergency: true,
-    open: "২৪ ঘণ্টা",
+      "https://www.google.com/maps/search/?api=1&query=BRAC+BHP+Nalitabari+Sherpur",
+    emergency: false,
+    open: "সময় যাচাই করুন",
     description:
-      "স্থানীয় জনগণের জন্য চিকিৎসা, ভর্তি এবং জরুরি স্বাস্থ্যসেবা প্রদানকারী বেসরকারি প্রতিষ্ঠান।",
+      "DGHS Facility Registry-তে নালিতাবাড়ী উপজেলার NGO Hospital/Clinic হিসেবে তালিকাভুক্ত স্বাস্থ্যসেবা প্রতিষ্ঠান।",
+  },
+  {
+    id: "4",
+    name: "নালিতাবাড়ী ডায়াগনস্টিক সেন্টার (প্যাথলজি)",
+    type: "ডায়াগনস্টিক সেন্টার",
+    address: "নালিতাবাড়ী, শেরপুর",
+    phone: "",
+    image: "",
+    mapsLink:
+      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Diagnostic+Center+Sherpur",
+    emergency: false,
+    open: "সময় যাচাই করুন",
+    description:
+      "নালিতাবাড়ী উপজেলার একটি ডায়াগনস্টিক ও প্যাথলজি সেবা প্রতিষ্ঠান। DGHS Facility Registry-তে তালিকাভুক্ত।",
+  },
+  {
+    id: "5",
+    name: "ডক্টরস চেম্বার এন্ড ডায়াগনস্টিক",
+    type: "ডায়াগনস্টিক সেন্টার",
+    address: "নালিতাবাড়ী, শেরপুর",
+    phone: "",
+    image: "",
+    mapsLink:
+      "https://www.google.com/maps/search/?api=1&query=Doctors+Chamber+Diagnostic+Nalitabari+Sherpur",
+    emergency: false,
+    open: "সময় যাচাই করুন",
+    description:
+      "নালিতাবাড়ী উপজেলার একটি Consultancy & Diagnostic Center হিসেবে DGHS Facility Registry-তে তালিকাভুক্ত।",
+  },
+  {
+    id: "6",
+    name: "নালিতাবাড়ী ইউনিয়ন স্বাস্থ্য কেন্দ্র",
+    type: "সরকারি স্বাস্থ্য কেন্দ্র",
+    address: "নালিতাবাড়ী, শেরপুর",
+    phone: "01759222059",
+    image: "",
+    mapsLink:
+      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Union+Health+Center+Sherpur",
+    emergency: false,
+    open: "সরকারি সেবা সময়",
+    description:
+      "নালিতাবাড়ী উপজেলার ইউনিয়ন পর্যায়ের সরকারি স্বাস্থ্যসেবা কেন্দ্র।",
   },
 ];
 
@@ -178,34 +224,59 @@ export default function HospitalsPage() {
                 hover:shadow-emerald-500/10
               "
             >
+              {/* Hospital Image */}
+              <div className="relative h-52 w-full overflow-hidden bg-gradient-to-br from-emerald-500/10 via-green-500/5 to-teal-500/10">
+                {hospital.image ? (
+                  <Image
+                    src={hospital.image}
+                    alt={hospital.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                ) : (
+                  <>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(16,185,129,0.18),transparent_35%),radial-gradient(circle_at_80%_70%,rgba(34,197,94,0.12),transparent_40%)]" />
+
+                    <div className="relative flex h-full items-center justify-center">
+                      <div className="flex size-20 items-center justify-center rounded-2xl bg-background/80 text-emerald-600 shadow-lg ring-1 ring-emerald-500/10 backdrop-blur">
+                        <Hospital className="size-10" />
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Image overlay */}
+                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/30 to-transparent" />
+
+                {/* Emergency Badge */}
+                {hospital.emergency && (
+                  <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-red-500 px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+                    <ShieldCheck className="size-3.5" />
+                    জরুরি সেবা
+                  </div>
+                )}
+              </div>
+
               {/* Glow */}
-              <div className="absolute -right-16 -top-16 size-40 rounded-full bg-emerald-500/10 blur-3xl transition-all group-hover:bg-emerald-500/20" />
+              <div className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-emerald-500/10 blur-3xl transition-all group-hover:bg-emerald-500/20" />
 
               <CardHeader className="relative">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex gap-4">
-                    <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/15 to-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/10">
-                      <Building2 className="size-6" />
+                <div className="flex items-start gap-4">
+                  <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/15 to-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/10">
+                    <Building2 className="size-6" />
+                  </div>
+
+                  <div className="min-w-0">
+                    <div className="mb-1 flex flex-wrap items-center gap-2">
+                      <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                        {hospital.type}
+                      </span>
                     </div>
 
-                    <div>
-                      <div className="mb-1 flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
-                          {hospital.type}
-                        </span>
-
-                        {hospital.emergency && (
-                          <span className="flex items-center gap-1 rounded-full bg-red-500/10 px-2.5 py-1 text-xs font-medium text-red-600">
-                            <ShieldCheck className="size-3" />
-                            জরুরি সেবা
-                          </span>
-                        )}
-                      </div>
-
-                      <CardTitle className="text-lg leading-7">
-                        {hospital.name}
-                      </CardTitle>
-                    </div>
+                    <CardTitle className="text-lg leading-7">
+                      {hospital.name}
+                    </CardTitle>
                   </div>
                 </div>
               </CardHeader>
@@ -220,7 +291,7 @@ export default function HospitalsPage() {
                   <div className="flex items-start gap-3 rounded-xl bg-muted/40 p-3">
                     <MapPin className="mt-0.5 size-4 shrink-0 text-emerald-600" />
 
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-xs text-muted-foreground">
                         ঠিকানা
                       </p>
@@ -234,14 +305,23 @@ export default function HospitalsPage() {
                   <div className="flex items-start gap-3 rounded-xl bg-muted/40 p-3">
                     <Phone className="mt-0.5 size-4 shrink-0 text-emerald-600" />
 
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-xs text-muted-foreground">
                         ফোন
                       </p>
 
-                      <p className="mt-1 text-sm font-medium">
-                        {hospital.phone}
-                      </p>
+                      {hospital.phone ? (
+                        <a
+                          href={`tel:${hospital.phone}`}
+                          className="mt-1 block truncate text-sm font-medium hover:text-emerald-600"
+                        >
+                          {hospital.phone}
+                        </a>
+                      ) : (
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          তথ্য পাওয়া যায়নি
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -249,7 +329,6 @@ export default function HospitalsPage() {
                 {/* Opening Hours */}
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Clock className="size-4 text-emerald-600" />
-
                   <span>{hospital.open}</span>
                 </div>
 
@@ -267,19 +346,30 @@ export default function HospitalsPage() {
                   </Button>
 
                   {/* Phone */}
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="border-emerald-500/15 hover:bg-emerald-500/5"
-                  >
-                    <a
-                      href={`tel:${hospital.phone}`}
-                      aria-label={`${hospital.name}-এ ফোন করুন`}
+                  {hospital.phone ? (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="border-emerald-500/15 hover:bg-emerald-500/5"
+                    >
+                      <a
+                        href={`tel:${hospital.phone}`}
+                        aria-label={`${hospital.name}-এ ফোন করুন`}
+                      >
+                        <Phone className="mr-2 size-4" />
+                        ফোন
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      variant="outline"
+                      className="border-emerald-500/15"
                     >
                       <Phone className="mr-2 size-4" />
-                      ফোন
-                    </a>
-                  </Button>
+                      ফোন নেই
+                    </Button>
+                  )}
 
                   {/* Google Maps */}
                   <Button
