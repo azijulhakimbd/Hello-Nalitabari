@@ -6,12 +6,14 @@ import { useMemo, useState } from "react";
 import {
   ArrowRight,
   Camera,
+  Landmark,
   MapPin,
   Mountain,
   Search,
   Trees,
   Waves,
   X,
+  type LucideIcon,
 } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -23,26 +25,77 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const places = [
+type Place = {
+  id: string;
+  name: string;
+  englishName: string;
+  location: string;
+  category: string;
+  icon: LucideIcon;
+  image: string;
+  description: string;
+  details?: string;
+  highlights: string[];
+  travel?: string;
+  mapQuery?: string;
+  mapsUrl?: string;
+};
+
+const places: Place[] = [
   {
     id: "madhutila-eco-park",
     name: "মধুটিলা ইকোপার্ক",
     englishName: "Madhutila Eco Park",
-    location: "পোড়াগাঁও ইউনিয়ন, নালিতাবাড়ী",
+    location: "পোড়াগাঁও ইউনিয়ন, নালিতাবাড়ী, শেরপুর",
     category: "প্রকৃতি",
     icon: Trees,
-    image:
-      "/places/Modhutila.png",
+    image: "/places/Modhutila.png",
     description:
-      "গারো পাহাড়ের পাদদেশে অবস্থিত মধুটিলা ইকোপার্ক নালিতাবাড়ীর অন্যতম জনপ্রিয় প্রাকৃতিক পর্যটন কেন্দ্র। পাহাড়, বন, সবুজ পরিবেশ ও বিভিন্ন বিনোদন সুবিধার জন্য এটি ভ্রমণপ্রেমীদের কাছে আকর্ষণীয়।",
+      "মধুটিলা ইকোপার্ক নালিতাবাড়ী উপজেলার পোড়াগাঁও ইউনিয়নে অবস্থিত একটি উল্লেখযোগ্য প্রাকৃতিক পর্যটন কেন্দ্র। পাহাড়ি ঢাল, বনভূমি ও সবুজ পরিবেশ এই স্থানটিকে নালিতাবাড়ীর অন্যতম আকর্ষণীয় ভ্রমণ গন্তব্যে পরিণত করেছে।",
+    details:
+      "পার্কে প্রবেশের পর উঁচু গাছের সারি, খোলা প্রান্তর এবং পাহাড়ি ঢালের আঁকাবাঁকা রাস্তা দেখা যায়। পর্যটকদের জন্য পিকনিক স্পট, শিশুদের বিনোদন ব্যবস্থা, তথ্যকেন্দ্র, পার্কিং, ক্যানটিন, মিনি চিড়িয়াখানা এবং বিভিন্ন প্রজাতির গাছপালার ব্যবস্থা রয়েছে। পাহাড়ের চূড়ায় মহুয়া রেস্টহাউসও রয়েছে।",
     highlights: [
-      "পাহাড় ও বনাঞ্চলের প্রাকৃতিক সৌন্দর্য",
+      "পাহাড় ও বনাঞ্চল",
       "পিকনিক স্পট",
-      "শিশুদের বিনোদন ব্যবস্থা",
-      "পাহাড়ের চূড়ায় মহুয়া রেস্টহাউস",
-      "মিনি চিড়িয়াখানা ও বিভিন্ন উদ্ভিদ",
+      "শিশুদের বিনোদন",
+      "মহুয়া রেস্টহাউস",
+      "মিনি চিড়িয়াখানা",
+      "বিভিন্ন প্রজাতির বৃক্ষ ও ফুল",
     ],
+    travel:
+      "নালিতাবাড়ী সদর থেকে অটোরিকশা বা মোটরসাইকেলে মধুটিলা ইকোপার্কে যাওয়া যায়। শেরপুর জেলা প্রশাসনের তথ্য অনুযায়ী নালিতাবাড়ী থেকে প্রায় ২০–২৫ মিনিটে মধুটিলায় পৌঁছানো যায়।",
+    mapQuery: "Madhutila Eco Park, Nalitabari, Sherpur, Bangladesh",
   },
+
+  {
+    id: "nalitabari-model-mosque",
+    name: "নালিতাবাড়ী উপজেলা মডেল মসজিদ এবং ইসলামিক ঐতিহ্য কেন্দ্র",
+    englishName:
+      "Nalitabari Upazila Model Mosque and Islamic Cultural Centre (NMM-ICC)",
+    location: "নালিতাবাড়ী উপজেলা, শেরপুর",
+    category: "ধর্মীয় ও সাংস্কৃতিক",
+    icon: Landmark,
+    image: "/places/NMMF.png",
+    description:
+      "নালিতাবাড়ী উপজেলা মডেল মসজিদ এবং ইসলামিক ঐতিহ্য কেন্দ্র (NMM-ICC) নালিতাবাড়ীর একটি গুরুত্বপূর্ণ ধর্মীয় ও সাংস্কৃতিক স্থাপনা। আধুনিক স্থাপত্য, ইসলামী ঐতিহ্য ও ধর্মীয় পরিবেশের সমন্বয়ে নির্মিত এই কেন্দ্রটি স্থানীয় মুসল্লি ও দর্শনার্থীদের জন্য একটি গুরুত্বপূর্ণ স্থান।",
+    details:
+      "নালিতাবাড়ী উপজেলা মডেল মসজিদ ও ইসলামিক ঐতিহ্য কেন্দ্রটি আধুনিক ইসলামিক স্থাপত্যশৈলীর একটি উল্লেখযোগ্য স্থাপনা। এখানে মুসল্লিদের নামাজ আদায়ের পাশাপাশি ইসলামিক শিক্ষা, ধর্মীয় আলোচনা ও সাংস্কৃতিক কার্যক্রমের সুযোগ রয়েছে। মসজিদটির নান্দনিক স্থাপত্য, পরিচ্ছন্ন পরিবেশ এবং ধর্মীয় আবহ এটিকে নালিতাবাড়ীর একটি গুরুত্বপূর্ণ ধর্মীয় ও সাংস্কৃতিক স্থানে পরিণত করেছে।",
+    highlights: [
+      "আধুনিক ইসলামিক স্থাপত্য",
+      "নামাজ ও ধর্মীয় কার্যক্রমের সুবিধা",
+      "ইসলামিক শিক্ষা ও ধর্মীয় আলোচনা",
+      "ইসলামিক সাংস্কৃতিক ও ঐতিহ্য চর্চা",
+      "পরিচ্ছন্ন ও মনোরম পরিবেশ",
+      "স্থানীয় মুসল্লি ও দর্শনার্থীদের জন্য গুরুত্বপূর্ণ ধর্মীয় কেন্দ্র",
+    ],
+    travel:
+      "নালিতাবাড়ী উপজেলা সদর থেকে অটোরিকশা, সিএনজি, মোটরসাইকেল বা ব্যক্তিগত যানবাহনে সহজেই মডেল মসজিদ ও ইসলামিক ঐতিহ্য কেন্দ্রে যাওয়া যায়। গুগল ম্যাপ ব্যবহার করে সরাসরি লোকেশন অনুসরণ করা যাবে।",
+    mapQuery:
+      "Nalitabari Upazila Model Mosque and Islamic Cultural Centre, Nalitabari, Sherpur, Bangladesh",
+    mapsUrl:
+      "https://maps.app.goo.gl/YtUPCngBJeGNc5xf6",
+  },
+
   {
     id: "panihata",
     name: "পানিহাতা",
@@ -50,8 +103,7 @@ const places = [
     location: "পানিহাতা, নালিতাবাড়ী",
     category: "পাহাড় ও সীমান্ত",
     icon: Mountain,
-    image:
-      "/places/Panihata.png",
+    image: "/places/Panihata.png",
     description:
       "পানিহাতা নালিতাবাড়ীর উত্তরাঞ্চলের একটি প্রাকৃতিক সৌন্দর্যময় এলাকা। সীমান্তবর্তী পাহাড়, সবুজ প্রকৃতি এবং স্থানীয় পরিবেশের কারণে জায়গাটি প্রকৃতিপ্রেমীদের জন্য আকর্ষণীয়।",
     highlights: [
@@ -61,6 +113,7 @@ const places = [
       "প্রকৃতি উপভোগের সুযোগ",
     ],
   },
+
   {
     id: "nalitabari-rubber-dam",
     name: "নালিতাবাড়ী রাবার ড্যাম",
@@ -68,8 +121,7 @@ const places = [
     location: "সন্যাসীভিটা, বাঘবেড় ইউনিয়ন",
     category: "নদী ও জলপ্রকৃতি",
     icon: Waves,
-    image:
-      "/places/RDN.png",
+    image: "/places/RDN.png",
     description:
       "চেল্লাখালী নদীর ওপর নির্মিত নালিতাবাড়ী রাবার ড্যাম স্থানীয়ভাবে পরিচিত একটি দর্শনীয় স্থান। নদী, পানি ও আশপাশের সবুজ পরিবেশ একসঙ্গে উপভোগ করা যায়।",
     highlights: [
@@ -79,6 +131,7 @@ const places = [
       "ফটোগ্রাফি",
     ],
   },
+
   {
     id: "baruamari-mission",
     name: "বারোমারী মিশন",
@@ -86,8 +139,7 @@ const places = [
     location: "বারোমারী, নালিতাবাড়ী",
     category: "ঐতিহ্য ও সংস্কৃতি",
     icon: Camera,
-    image:
-      "/places/BM.png",
+    image: "/places/BM.png",
     description:
       "বারোমারী মিশন নালিতাবাড়ীর উল্লেখযোগ্য ঐতিহাসিক ও সাংস্কৃতিক স্থানগুলোর একটি। স্থানীয় ইতিহাস ও ঐতিহ্যের সঙ্গে জায়গাটির সম্পর্ক রয়েছে।",
     highlights: [
@@ -198,6 +250,7 @@ export default function PlacesPage() {
             <p className="text-sm font-medium text-primary">
               Tourist Guide
             </p>
+
             <h2 className="mt-1 text-2xl font-bold sm:text-3xl">
               ঘুরে দেখুন
             </h2>
@@ -212,9 +265,11 @@ export default function PlacesPage() {
           <Card className="py-16 text-center">
             <CardContent>
               <MapPin className="mx-auto h-10 w-10 text-muted-foreground" />
+
               <h3 className="mt-4 text-lg font-semibold">
                 কোনো স্থান পাওয়া যায়নি
               </h3>
+
               <p className="mt-2 text-sm text-muted-foreground">
                 অন্য কোনো নাম বা ক্যাটাগরি দিয়ে চেষ্টা করুন।
               </p>

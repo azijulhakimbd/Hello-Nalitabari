@@ -357,7 +357,7 @@ export default function AboutPage() {
               {/* Developer Image */}
               <div className="relative min-h-105 overflow-hidden bg-muted lg:min-h-125">
                 <Image
-                  src="/developer.jpg"
+                  src="/developer.png"
                   alt="মোঃ আজিজুল হাকিম"
                   fill
                   priority
