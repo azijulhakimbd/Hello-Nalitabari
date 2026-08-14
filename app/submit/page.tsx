@@ -408,12 +408,13 @@ export default function SubmitPage() {
                   key={index}
                   className="flex flex-col gap-2 md:flex-row"
                 >
-                  <Select
-                    value={social.platform}
-                    onValueChange={(value) =>
-                      updateSocialPlatform(index, value)
-                    }
-                  >
+                 <Select
+  value={social.platform}
+  onValueChange={(value) =>
+    updateSocialPlatform(index, value ?? "")
+  }
+>
+                  
                     <SelectTrigger className="h-11 md:w-48">
                       <SelectValue />
                     </SelectTrigger>

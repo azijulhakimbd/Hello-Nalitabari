@@ -1,6 +1,8 @@
 
 "use client";
+"use client";
 
+import {  useState } from "react";
 import * as React from "react";
 import Image from "next/image";
 import {
@@ -50,7 +52,7 @@ interface SchoolData {
   eiin?: string;
   mapUrl: string;
 }
-
+const [category, setCategory] = useState("");
 
 const schools: SchoolData[] = [
   {
@@ -557,7 +559,10 @@ export default function SchoolsPage() {
               <div className="flex items-center gap-2">
                 <Filter className="hidden h-4 w-4 text-muted-foreground sm:block" />
 
-                <Select value={type} onValueChange={setType}>
+                <Select
+  value={category}
+  onValueChange={(value) => setCategory(value ?? "")}
+>
                   <SelectTrigger className="h-11 w-full sm:w-[220px]">
                     <SelectValue placeholder="প্রতিষ্ঠানের ধরন" />
                   </SelectTrigger>
