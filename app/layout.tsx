@@ -99,15 +99,17 @@ export default async function RootLayout({
       className={`${hindSiliguri.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider>
-          <Navbar session={session} />
+        <AuthSessionProvider>
+          <ThemeProvider>
+            <Navbar session={session} />
 
-          <AuthSessionProvider>
-            {children}
-          </AuthSessionProvider>
+            <main className="flex-1">
+              {children}
+            </main>
 
-          <Footer />
-        </ThemeProvider>
+            <Footer />
+          </ThemeProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );
