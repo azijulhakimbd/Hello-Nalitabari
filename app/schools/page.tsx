@@ -47,6 +47,7 @@ interface SchoolData {
   students: string;
   established: string;
   image: string;
+  eiin?: string;
   mapUrl: string;
 }
 
