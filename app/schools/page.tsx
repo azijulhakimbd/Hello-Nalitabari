@@ -1,8 +1,5 @@
-
-"use client";
 "use client";
 
-import {  useState } from "react";
 import * as React from "react";
 import Image from "next/image";
 import {
@@ -52,7 +49,6 @@ interface SchoolData {
   eiin?: string;
   mapUrl: string;
 }
-const [category, setCategory] = useState("");
 
 const schools: SchoolData[] = [
   {
@@ -421,7 +417,6 @@ const schools: SchoolData[] = [
   },
 ];
 
-
 const typeLabels: Record<SchoolType, string> = {
   "Secondary School": "মাধ্যমিক বিদ্যালয়",
   "Primary School": "প্রাথমিক বিদ্যালয়",
@@ -441,14 +436,15 @@ export default function SchoolsPage() {
   const [type, setType] = React.useState<string>("all");
 
   const filteredSchools = React.useMemo(() => {
-    return schools.filter((school) => {
-      const searchTerm = search.toLowerCase().trim();
+    const searchTerm = search.toLowerCase().trim();
 
+    return schools.filter((school) => {
       const matchesSearch =
         !searchTerm ||
         school.name.toLowerCase().includes(searchTerm) ||
         school.address.toLowerCase().includes(searchTerm) ||
-        typeLabels[school.type].toLowerCase().includes(searchTerm);
+        typeLabels[school.type].toLowerCase().includes(searchTerm) ||
+        school.eiin?.includes(searchTerm);
 
       const matchesType = type === "all" || school.type === type;
 
@@ -456,11 +452,14 @@ export default function SchoolsPage() {
     });
   }, [search, type]);
 
+  const handleReset = () => {
+    setSearch("");
+    setType("all");
+  };
+
   return (
     <main className="min-h-screen bg-background">
-      {/* =====================================================
-          HERO SECTION
-      ====================================================== */}
+      {/* Hero */}
       <section className="relative overflow-hidden border-b bg-muted/30">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.12),transparent_35%)]" />
 
@@ -477,16 +476,14 @@ export default function SchoolsPage() {
 
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base md:text-lg">
               নালিতাবাড়ী উপজেলার স্কুল, কলেজ ও মাদ্রাসার তথ্য সহজেই খুঁজে
-              দেখুন। প্রতিষ্ঠান সম্পর্কে গুরুত্বপূর্ণ তথ্য, যোগাযোগ ও
-              লোকেশন একসাথে পান।
+              দেখুন। প্রতিষ্ঠান সম্পর্কে গুরুত্বপূর্ণ তথ্য, যোগাযোগ ও লোকেশন
+              একসাথে পান।
             </p>
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-          STATISTICS
-      ====================================================== */}
+      {/* Statistics */}
       <section className="container mx-auto -mt-8 px-4">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Card className="border bg-background/95 shadow-sm backdrop-blur">
@@ -496,7 +493,7 @@ export default function SchoolsPage() {
               </div>
 
               <div>
-                <p className="text-2xl font-bold">৪+</p>
+                <p className="text-2xl font-bold">{schools.length}</p>
                 <p className="text-sm text-muted-foreground">
                   শিক্ষা প্রতিষ্ঠান
                 </p>
@@ -511,7 +508,9 @@ export default function SchoolsPage() {
               </div>
 
               <div>
-                <p className="text-2xl font-bold">৪</p>
+                <p className="text-2xl font-bold">
+                  {new Set(schools.map((school) => school.type)).size}
+                </p>
                 <p className="text-sm text-muted-foreground">
                   প্রতিষ্ঠানের ধরন
                 </p>
@@ -536,33 +535,29 @@ export default function SchoolsPage() {
         </div>
       </section>
 
-      {/* =====================================================
-          SEARCH & FILTER
-      ====================================================== */}
+      {/* Search & Filter */}
       <section className="container mx-auto px-4 pt-10">
         <Card>
           <CardContent className="p-4 md:p-5">
             <div className="flex flex-col gap-3 md:flex-row">
-              {/* Search */}
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 
                 <Input
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
-                  placeholder="প্রতিষ্ঠানের নাম, ঠিকানা বা ধরন খুঁজুন..."
+                  placeholder="প্রতিষ্ঠানের নাম, ঠিকানা, EIIN বা ধরন খুঁজুন..."
                   className="h-11 pl-10"
                 />
               </div>
 
-              {/* Filter */}
               <div className="flex items-center gap-2">
                 <Filter className="hidden h-4 w-4 text-muted-foreground sm:block" />
 
                 <Select
-  value={category}
-  onValueChange={(value) => setCategory(value ?? "")}
->
+                  value={type}
+                  onValueChange={(value) => setType(value)}
+                >
                   <SelectTrigger className="h-11 w-full sm:w-[220px]">
                     <SelectValue placeholder="প্রতিষ্ঠানের ধরন" />
                   </SelectTrigger>
@@ -593,9 +588,7 @@ export default function SchoolsPage() {
         </Card>
       </section>
 
-      {/* =====================================================
-          RESULTS HEADER
-      ====================================================== */}
+      {/* Results Header */}
       <section className="container mx-auto px-4 pt-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -609,23 +602,14 @@ export default function SchoolsPage() {
           </div>
 
           {(search || type !== "all") && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setSearch("");
-                setType("all");
-              }}
-            >
+            <Button variant="outline" size="sm" onClick={handleReset}>
               ফিল্টার রিসেট
             </Button>
           )}
         </div>
       </section>
 
-      {/* =====================================================
-          SCHOOL CARDS
-      ====================================================== */}
+      {/* School Cards */}
       <section className="container mx-auto px-4 py-6 pb-16">
         {filteredSchools.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -644,17 +628,14 @@ export default function SchoolsPage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
 
-                  {/* Image overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
-                  {/* Type badge */}
                   <Badge
                     className={`absolute left-3 top-3 border-0 text-white ${typeColors[school.type]}`}
                   >
                     {typeLabels[school.type]}
                   </Badge>
 
-                  {/* School name over image */}
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <p className="line-clamp-2 text-base font-semibold leading-6 text-white">
                       {school.name}
@@ -675,7 +656,7 @@ export default function SchoolsPage() {
                       <MapPin className="h-4 w-4 text-muted-foreground" />
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-xs text-muted-foreground">
                         ঠিকানা
                       </p>
@@ -697,19 +678,25 @@ export default function SchoolsPage() {
                         যোগাযোগ
                       </p>
 
-                      <a
-                        href={`tel:${school.phone}`}
-                        className="mt-0.5 block text-sm transition-colors hover:text-primary"
-                      >
-                        {school.phone}
-                      </a>
+                      {school.phone ? (
+                        <a
+                          href={`tel:${school.phone}`}
+                          className="mt-0.5 block text-sm transition-colors hover:text-primary"
+                        >
+                          {school.phone}
+                        </a>
+                      ) : (
+                        <p className="mt-0.5 text-sm text-muted-foreground">
+                          তথ্য পাওয়া যায়নি
+                        </p>
+                      )}
                     </div>
                   </div>
 
-                  {/* School information */}
+                  {/* School Information */}
                   <div className="grid grid-cols-2 gap-3 border-y py-4">
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-muted-foreground" />
+                      <Users className="h-4 w-4 shrink-0 text-muted-foreground" />
 
                       <div>
                         <p className="text-xs text-muted-foreground">
@@ -717,13 +704,13 @@ export default function SchoolsPage() {
                         </p>
 
                         <p className="text-sm font-medium">
-                          {school.students}
+                          {school.students || "তথ্য নেই"}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <CalendarDays className="h-4 w-4 text-muted-foreground" />
+                      <CalendarDays className="h-4 w-4 shrink-0 text-muted-foreground" />
 
                       <div>
                         <p className="text-xs text-muted-foreground">
@@ -731,11 +718,26 @@ export default function SchoolsPage() {
                         </p>
 
                         <p className="text-sm font-medium">
-                          {school.established}
+                          {school.established || "তথ্য নেই"}
                         </p>
                       </div>
                     </div>
                   </div>
+
+                  {/* EIIN */}
+                  {school.eiin && (
+                    <div className="rounded-lg bg-muted/60 px-3 py-2">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-xs text-muted-foreground">
+                          EIIN
+                        </span>
+
+                        <span className="text-sm font-semibold">
+                          {school.eiin}
+                        </span>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Actions */}
                   <div className="grid grid-cols-[1fr_auto_auto] gap-2">
@@ -754,9 +756,13 @@ export default function SchoolsPage() {
                       variant="outline"
                       size="icon"
                       asChild
+                      disabled={!school.phone}
                       title="ফোন করুন"
                     >
-                      <a href={`tel:${school.phone}`}>
+                      <a
+                        href={school.phone ? `tel:${school.phone}` : undefined}
+                        aria-label="ফোন করুন"
+                      >
                         <Phone className="h-4 w-4" />
                       </a>
                     </Button>
@@ -777,9 +783,7 @@ export default function SchoolsPage() {
             ))}
           </div>
         ) : (
-          /* =================================================
-             EMPTY STATE
-          ================================================== */
+          /* Empty State */
           <div className="rounded-2xl border border-dashed p-10 text-center md:p-16">
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-muted">
               <SchoolIcon className="h-7 w-7 text-muted-foreground" />
@@ -796,10 +800,7 @@ export default function SchoolsPage() {
             <Button
               variant="outline"
               className="mt-5"
-              onClick={() => {
-                setSearch("");
-                setType("all");
-              }}
+              onClick={handleReset}
             >
               সব প্রতিষ্ঠান দেখুন
             </Button>
