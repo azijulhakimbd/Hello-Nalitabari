@@ -53,9 +53,9 @@ interface SchoolData {
 const schools: SchoolData[] = [
   {
     id: 1,
-    name: "তরাগঞ্জ সরকারি পাইলট উচ্চ বিদ্যালয়",
+    name: "তারাগঞ্জ সরকারি পাইলট উচ্চ বিদ্যালয়",
     type: "Secondary School",
-    address: "তরাগঞ্জ, নালিতাবাড়ী, শেরপুর",
+    address: "তারাগঞ্জ, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
     established: "",
@@ -66,7 +66,7 @@ const schools: SchoolData[] = [
   },
   {
     id: 2,
-    name: "তরাগঞ্জ পাইলট বালিকা উচ্চ বিদ্যালয়",
+    name: "তারাগঞ্জ পাইলট বালিকা উচ্চ বিদ্যালয়",
     type: "Secondary School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
@@ -554,10 +554,10 @@ export default function SchoolsPage() {
               <div className="flex items-center gap-2">
                 <Filter className="hidden h-4 w-4 text-muted-foreground sm:block" />
 
-                <Select
-                  value={type}
-                  onValueChange={(value) => setType(value)}
-                >
+               <Select
+  value={type}
+  onValueChange={(value) => setType(value ?? "all")}
+>
                   <SelectTrigger className="h-11 w-full sm:w-[220px]">
                     <SelectValue placeholder="প্রতিষ্ঠানের ধরন" />
                   </SelectTrigger>
