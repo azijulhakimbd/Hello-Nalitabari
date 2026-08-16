@@ -8,12 +8,12 @@ import {
   Globe,
   Building2,
   Store,
-  Utensils,
+  ExternalLink,
+  Filter,
   ShoppingBag,
+  Utensils,
   Wrench,
   BriefcaseBusiness,
-  Filter,
-  ExternalLink,
 } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -54,7 +54,7 @@ const businesses: Business[] = [
     description:
       "নালিতাবাড়ী উপজেলার অন্যতম প্রধান বাণিজ্যিক এলাকা। এখানে বিভিন্ন ধরনের দোকান ও ব্যবসা প্রতিষ্ঠান রয়েছে।",
     address: "নালিতাবাড়ী পৌরসভা, শেরপুর",
-    mapsUrl: "https://maps.google.com/",
+    mapsUrl: "https://maps.google.com/?q=Nalitabari+Bazar",
     icon: ShoppingBag,
   },
   {
@@ -62,10 +62,11 @@ const businesses: Business[] = [
     name: "নালিতাবাড়ী হোটেল অ্যান্ড রেস্টুরেন্ট",
     category: "রেস্টুরেন্ট",
     description:
-      "স্থানীয় ও দেশীয় খাবারের জন্য পরিচিত একটি খাবারের প্রতিষ্ঠান।",
+      "স্থানীয় ও দেশীয় খাবারের জন্য একটি খাবারের প্রতিষ্ঠান।",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "01700000000",
-    mapsUrl: "https://maps.google.com/",
+    mapsUrl:
+      "https://maps.google.com/?q=Nalitabari+Sherpur",
     icon: Utensils,
   },
   {
@@ -76,6 +77,8 @@ const businesses: Business[] = [
       "অনলাইন আবেদন, প্রিন্ট, ফটোকপি, কম্পিউটার ও বিভিন্ন ডিজিটাল সেবা প্রদান করা হয়।",
     address: "নালিতাবাড়ী বাজার, শেরপুর",
     phone: "01800000000",
+    mapsUrl:
+      "https://maps.google.com/?q=Nalitabari+Sherpur",
     icon: BriefcaseBusiness,
   },
   {
@@ -86,6 +89,8 @@ const businesses: Business[] = [
       "ইলেকট্রনিক পণ্য, মোবাইল অ্যাক্সেসরিজ এবং বিভিন্ন প্রযুক্তি পণ্য পাওয়া যায়।",
     address: "নালিতাবাড়ী বাজার, শেরপুর",
     phone: "01900000000",
+    mapsUrl:
+      "https://maps.google.com/?q=Nalitabari+Sherpur",
     icon: Store,
   },
   {
@@ -96,6 +101,8 @@ const businesses: Business[] = [
       "নির্মাণ সামগ্রী, হার্ডওয়্যার ও বিভিন্ন প্রয়োজনীয় সরঞ্জামের দোকান।",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "01600000000",
+    mapsUrl:
+      "https://maps.google.com/?q=Nalitabari+Sherpur",
     icon: Wrench,
   },
   {
@@ -106,13 +113,17 @@ const businesses: Business[] = [
       "স্থানীয়ভাবে ওষুধ ও স্বাস্থ্যসেবা সংক্রান্ত পণ্য সরবরাহকারী প্রতিষ্ঠান।",
     address: "নালিতাবাড়ী সদর, শেরপুর",
     phone: "01500000000",
+    mapsUrl:
+      "https://maps.google.com/?q=Nalitabari+Sherpur",
     icon: Building2,
   },
 ];
 
 const categories = [
   "সকল",
-  ...Array.from(new Set(businesses.map((business) => business.category))),
+  ...Array.from(
+    new Set(businesses.map((business) => business.category))
+  ),
 ];
 
 export default function BusinessesPage() {
@@ -120,16 +131,25 @@ export default function BusinessesPage() {
   const [category, setCategory] = React.useState("সকল");
 
   const filteredBusinesses = businesses.filter((business) => {
+    const searchText = search.toLowerCase().trim();
+
     const matchesSearch =
-      business.name.toLowerCase().includes(search.toLowerCase()) ||
-      business.category.toLowerCase().includes(search.toLowerCase()) ||
-      business.address.toLowerCase().includes(search.toLowerCase());
+      business.name.toLowerCase().includes(searchText) ||
+      business.category.toLowerCase().includes(searchText) ||
+      business.address.toLowerCase().includes(searchText) ||
+      business.description.toLowerCase().includes(searchText);
 
     const matchesCategory =
-      category === "সকল" || business.category === category;
+      category === "সকল" ||
+      business.category === category;
 
     return matchesSearch && matchesCategory;
   });
+
+  const resetFilters = () => {
+    setSearch("");
+    setCategory("সকল");
+  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -147,17 +167,23 @@ export default function BusinessesPage() {
               ব্যবসা প্রতিষ্ঠান
             </h1>
 
-            <p className="mt-4 text-base text-emerald-50 md:text-lg">
-              নালিতাবাড়ী উপজেলার বিভিন্ন ব্যবসা প্রতিষ্ঠান, দোকান,
-              রেস্টুরেন্ট ও সেবাদানকারী প্রতিষ্ঠানের তথ্য খুঁজে নিন।
+            <p className="mt-4 text-base leading-7 text-emerald-50 md:text-lg">
+              নালিতাবাড়ী উপজেলার বিভিন্ন ব্যবসা প্রতিষ্ঠান,
+              দোকান, রেস্টুরেন্ট ও সেবাদানকারী প্রতিষ্ঠানের
+              তথ্য খুঁজে নিন।
             </p>
+
+            <div className="mt-5 flex items-center justify-center gap-2 text-sm text-emerald-100">
+              <MapPin className="h-4 w-4" />
+              নালিতাবাড়ী, শেরপুর
+            </div>
           </div>
         </div>
       </section>
 
       {/* Search & Filter */}
       <section className="container mx-auto px-4 py-8">
-        <Card className="mx-auto max-w-5xl shadow-sm">
+        <Card className="mx-auto max-w-6xl shadow-sm">
           <CardContent className="p-4 md:p-6">
             <div className="grid gap-4 md:grid-cols-[1fr_240px_auto]">
               {/* Search */}
@@ -166,16 +192,26 @@ export default function BusinessesPage() {
 
                 <Input
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(event) =>
+                    setSearch(event.target.value)
+                  }
                   placeholder="ব্যবসা প্রতিষ্ঠানের নাম বা ঠিকানা খুঁজুন..."
-                  className="pl-10"
+                  className="h-11 pl-10"
                 />
               </div>
 
               {/* Category */}
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger>
+              <Select
+                value={category}
+                onValueChange={(value) => {
+                  if (value !== null) {
+                    setCategory(value);
+                  }
+                }}
+              >
+                <SelectTrigger className="h-11">
                   <Filter className="mr-2 h-4 w-4" />
+
                   <SelectValue placeholder="ক্যাটাগরি নির্বাচন করুন" />
                 </SelectTrigger>
 
@@ -191,10 +227,8 @@ export default function BusinessesPage() {
               {/* Reset */}
               <Button
                 variant="outline"
-                onClick={() => {
-                  setSearch("");
-                  setCategory("সকল");
-                }}
+                className="h-11"
+                onClick={resetFilters}
               >
                 রিসেট
               </Button>
@@ -203,24 +237,28 @@ export default function BusinessesPage() {
         </Card>
       </section>
 
-      {/* Results */}
+      {/* Business Results */}
       <section className="container mx-auto px-4 pb-16">
-        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-2xl font-bold">ব্যবসা প্রতিষ্ঠান</h2>
-            <p className="text-sm text-muted-foreground">
-              মোট {filteredBusinesses.length}টি প্রতিষ্ঠান পাওয়া গেছে
+            <h2 className="text-2xl font-bold">
+              ব্যবসা প্রতিষ্ঠান
+            </h2>
+
+            <p className="mt-1 text-sm text-muted-foreground">
+              মোট {filteredBusinesses.length}টি প্রতিষ্ঠান
+              পাওয়া গেছে
             </p>
           </div>
 
           <Badge variant="secondary" className="w-fit">
-            <Store className="mr-1 h-3.5 w-3.5" />
+            <Store className="mr-1.5 h-3.5 w-3.5" />
             ব্যবসা ডিরেক্টরি
           </Badge>
         </div>
 
         {filteredBusinesses.length > 0 ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredBusinesses.map((business) => {
               const Icon = business.icon;
 
@@ -229,6 +267,8 @@ export default function BusinessesPage() {
                   key={business.id}
                   className="group flex h-full flex-col overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
                 >
+                  <div className="h-1 bg-emerald-600" />
+
                   <CardHeader>
                     <div className="mb-3 flex items-start justify-between gap-3">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
@@ -240,24 +280,26 @@ export default function BusinessesPage() {
                       </Badge>
                     </div>
 
-                    <CardTitle className="text-xl">
+                    <CardTitle className="line-clamp-2 text-xl">
                       {business.name}
                     </CardTitle>
                   </CardHeader>
 
                   <CardContent className="flex-1 space-y-4">
-                    <p className="text-sm leading-6 text-muted-foreground">
+                    <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">
                       {business.description}
                     </p>
 
                     <div className="flex items-start gap-2 text-sm">
                       <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+
                       <span>{business.address}</span>
                     </div>
 
                     {business.phone && (
                       <div className="flex items-center gap-2 text-sm">
                         <Phone className="h-4 w-4 text-emerald-600" />
+
                         <a
                           href={`tel:${business.phone}`}
                           className="hover:text-emerald-600"
@@ -268,7 +310,7 @@ export default function BusinessesPage() {
                     )}
                   </CardContent>
 
-                  <CardFooter className="flex flex-wrap gap-2 border-t bg-muted/30 pt-4">
+                  <CardFooter className="flex flex-wrap gap-2 border-t bg-muted/30">
                     {business.phone && (
                       <Button asChild size="sm">
                         <a href={`tel:${business.phone}`}>
@@ -279,7 +321,11 @@ export default function BusinessesPage() {
                     )}
 
                     {business.mapsUrl && (
-                      <Button asChild size="sm" variant="outline">
+                      <Button
+                        asChild
+                        size="sm"
+                        variant="outline"
+                      >
                         <a
                           href={business.mapsUrl}
                           target="_blank"
@@ -292,7 +338,11 @@ export default function BusinessesPage() {
                     )}
 
                     {business.website && (
-                      <Button asChild size="sm" variant="outline">
+                      <Button
+                        asChild
+                        size="sm"
+                        variant="outline"
+                      >
                         <a
                           href={business.website}
                           target="_blank"
@@ -321,16 +371,14 @@ export default function BusinessesPage() {
               </h3>
 
               <p className="mt-2 text-sm text-muted-foreground">
-                আপনার সার্চ বা ক্যাটাগরি পরিবর্তন করে আবার চেষ্টা করুন।
+                আপনার সার্চ বা ক্যাটাগরি পরিবর্তন করে আবার
+                চেষ্টা করুন।
               </p>
 
               <Button
                 variant="outline"
                 className="mt-5"
-                onClick={() => {
-                  setSearch("");
-                  setCategory("সকল");
-                }}
+                onClick={resetFilters}
               >
                 সব প্রতিষ্ঠান দেখুন
               </Button>
@@ -350,8 +398,9 @@ export default function BusinessesPage() {
                 </h2>
 
                 <p className="mt-2 text-sm text-muted-foreground md:max-w-2xl">
-                  নালিতাবাড়ীর কোনো ব্যবসা প্রতিষ্ঠান বা সেবাদানকারী প্রতিষ্ঠানের
-                  তথ্য আমাদের ডিরেক্টরিতে যুক্ত করতে পারেন।
+                  নালিতাবাড়ীর কোনো ব্যবসা প্রতিষ্ঠান বা
+                  সেবাদানকারী প্রতিষ্ঠানের তথ্য আমাদের
+                  ডিরেক্টরিতে যুক্ত করতে পারেন।
                 </p>
               </div>
 
