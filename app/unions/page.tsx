@@ -44,9 +44,9 @@ export default function UnionsPage() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {/* =====================================================
+      {/*  ==
           HERO
-      ====================================================== */}
+       === */}
       <section className="relative isolate overflow-hidden border-b bg-gradient-to-br from-emerald-950 via-emerald-900 to-green-800 text-white dark:from-emerald-950 dark:via-green-950 dark:to-emerald-900">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-32 -top-32 h-[420px] w-[420px] rounded-full bg-emerald-400/10 blur-3xl" />
@@ -75,9 +75,9 @@ export default function UnionsPage() {
         </div>
       </section>
 
-      {/* =====================================================
+      {/*  ==
           STATS
-      ====================================================== */}
+       === */}
       <section className="relative z-10 container mx-auto -mt-6 px-4 sm:-mt-8">
         <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
           <StatCard
@@ -103,9 +103,9 @@ export default function UnionsPage() {
         </div>
       </section>
 
-      {/* =====================================================
+      {/*  ==
           DIRECTORY
-      ====================================================== */}
+       === */}
       <section className="container mx-auto px-4 py-12 sm:py-14 md:py-16">
         <div className="mb-8 flex flex-col gap-6 lg:mb-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
@@ -163,9 +163,9 @@ export default function UnionsPage() {
           টি ইউনিয়ন পাওয়া গেছে
         </div>
 
-        {/* =====================================================
+        {/*  ==
             UNION CARDS
-        ====================================================== */}
+         === */}
         {filteredUnions.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center sm:p-12">
             <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-muted sm:size-16">
@@ -204,9 +204,9 @@ export default function UnionsPage() {
   )
 }
 
-/* ===============================================================
+/* ======
    STAT CARD
-=============================================================== */
+ ====== */
 
 function StatCard({
   icon,
@@ -242,9 +242,9 @@ function StatCard({
   )
 }
 
-/* ===============================================================
+/* ======
    UNION CARD
-=============================================================== */
+ ====== */
 
 function UnionCard({
   union,
@@ -394,9 +394,9 @@ function UnionCard({
   )
 }
 
-/* ===============================================================
+/* ======
    BENGALI NUMBER
-=============================================================== */
+ ====== */
 
 function toBengaliNumber(value: string | number): string {
   const bengaliDigits = "০১২৩৪৫৬৭৮৯"

@@ -284,9 +284,9 @@ export default function NoticesPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* =========================================================
+      {/* 
           HERO
-      ========================================================= */}
+       */}
       <section className="relative overflow-hidden border-b">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-background to-green-500/5" />
 
@@ -345,9 +345,9 @@ export default function NoticesPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           CATEGORY FILTER
-      ========================================================= */}
+       */}
       <section className="border-b bg-muted/20">
         <div className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">
           <div
@@ -379,9 +379,9 @@ export default function NoticesPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           NOTICE DIRECTORY
-      ========================================================= */}
+       */}
       <section className="container mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         {/* Header */}
         <div className="mb-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
@@ -433,9 +433,9 @@ export default function NoticesPage() {
         )}
       </section>
 
-      {/* =========================================================
+      {/* 
           NOTICE INFORMATION
-      ========================================================= */}
+       */}
       <section className="border-t bg-muted/20">
         <div className="container mx-auto px-4 py-10 sm:px-6 lg:px-8">
           <div className="rounded-2xl border bg-background p-6">

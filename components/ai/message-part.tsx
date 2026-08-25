@@ -91,10 +91,10 @@ export function MessagePart({ part }: MessagePartProps) {
   return null;
 }
 
-/* =========================================================
+/* 
    STEP 7
    INPUT STREAMING
-   ========================================================= */
+    */
 
 function ToolInputStreaming() {
   return (
@@ -119,10 +119,10 @@ function ToolInputStreaming() {
   );
 }
 
-/* =========================================================
+/* 
    STEP 8
    INPUT AVAILABLE
-   ========================================================= */
+    */
 
 function ToolInputAvailable({
   input,
@@ -181,10 +181,10 @@ function ToolInputAvailable({
   );
 }
 
-/* =========================================================
+/* 
    STEP 9
    OUTPUT AVAILABLE
-   ========================================================= */
+    */
 
 function ToolOutputAvailable({
   output,
@@ -260,9 +260,9 @@ function ToolOutputAvailable({
   );
 }
 
-/* =========================================================
+/* 
    RESULT CARD
-   ========================================================= */
+    */
 
 function SearchResultCard({
   item,
@@ -299,10 +299,10 @@ function SearchResultCard({
   );
 }
 
-/* =========================================================
+/* 
    STEP 10
    OUTPUT ERROR
-   ========================================================= */
+    */
 
 function ToolOutputError({
   errorText,
@@ -338,9 +338,9 @@ function ToolOutputError({
   );
 }
 
-/* =========================================================
+/* 
    HELPERS
-   ========================================================= */
+    */
 
 function formatCategory(category: string) {
   const categories: Record<string, string> = {

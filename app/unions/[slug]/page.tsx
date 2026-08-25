@@ -90,9 +90,9 @@ export default async function UnionDetailsPage({
 
   return (
     <main className="min-h-screen bg-muted/20">
-      {/* =====================================================
+      {/*  ==
           HERO
-      ====================================================== */}
+       === */}
       <section className="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-emerald-900 to-green-800 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.15),transparent_35%)]" />
 
@@ -164,9 +164,9 @@ export default async function UnionDetailsPage({
         </div>
       </section>
 
-      {/* =====================================================
+      {/*  ==
           MAIN CONTENT
-      ====================================================== */}
+       === */}
       <div className="container mx-auto px-4 py-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
           {/* =================================================
@@ -873,9 +873,9 @@ export default async function UnionDetailsPage({
   )
 }
 
-/* =========================================================
+/* 
    INFO ITEM
-========================================================= */
+  */
 
 function InfoItem({
   icon,
@@ -902,9 +902,9 @@ function InfoItem({
   )
 }
 
-/* =========================================================
+/* 
    CONTACT ITEM
-========================================================= */
+  */
 
 function ContactItem({
   icon,
@@ -934,9 +934,9 @@ function ContactItem({
   )
 }
 
-/* =========================================================
+/* 
    BANGLA NUMBER
-========================================================= */
+  */
 
 function toBengaliNumber(value: string | number) {
   const bengaliDigits = "০১২৩৪৫৬৭৮৯"

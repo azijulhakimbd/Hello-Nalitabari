@@ -86,9 +86,9 @@ const technologies = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-background">
-      {/* =========================================================
+      {/* 
           HERO
-      ========================================================== */}
+      = */}
       <section className="relative isolate overflow-hidden border-b">
         {/* Green gradient background */}
         <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_15%_20%,rgba(34,197,94,0.18),transparent_32%),radial-gradient(circle_at_85%_10%,rgba(16,185,129,0.16),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(5,150,105,0.12),transparent_40%)]" />
@@ -147,9 +147,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           ABOUT
-      ========================================================== */}
+      = */}
       <section className="relative py-20 sm:py-24">
         <div className="absolute left-0 top-20 -z-10 size-72 rounded-full bg-green-500/5 blur-3xl" />
 
@@ -226,9 +226,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           MISSION & VISION
-      ========================================================== */}
+      = */}
       <section className="relative overflow-hidden border-y bg-linear-to-br from-green-50 via-background to-emerald-50/50 py-20 dark:from-green-950/20 dark:via-background dark:to-emerald-950/20 sm:py-24">
         <div className="absolute -left-32 top-20 size-80 rounded-full bg-green-500/10 blur-3xl" />
 
@@ -325,9 +325,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           FOUNDER
-      ========================================================== */}
+      = */}
       <section className="relative overflow-hidden py-20 sm:py-28">
         <div className="absolute left-1/2 top-1/2 -z-10 size-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-500/10 blur-[120px]" />
 
@@ -454,9 +454,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           WHY THIS PLATFORM
-      ========================================================== */}
+      = */}
       <section className="relative overflow-hidden border-y bg-linear-to-br from-green-50 via-background to-teal-50/50 py-20 dark:from-green-950/20 dark:via-background dark:to-teal-950/20 sm:py-24">
         <div className="absolute left-0 top-0 size-96 rounded-full bg-green-500/5 blur-3xl" />
 
@@ -504,9 +504,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           FUTURE PLANS
-      ========================================================== */}
+      = */}
       <section className="relative py-20 sm:py-28">
         <div className="absolute right-0 top-20 -z-10 size-96 rounded-full bg-emerald-500/5 blur-3xl" />
 
@@ -558,9 +558,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* =========================================================
+      {/* 
           FINAL CTA
-      ========================================================== */}
+      = */}
       <section className="container mx-auto px-4 pb-20 sm:pb-28">
         <Card className="relative overflow-hidden border-0 bg-linear-to-br from-green-600 via-emerald-600 to-teal-600 text-white shadow-2xl shadow-green-500/20">
           {/* Decorative gradients */}
