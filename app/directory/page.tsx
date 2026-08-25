@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import {
   Search,
   Building2,
@@ -23,12 +24,17 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
+/* =========================================================
+   TYPES
+========================================================= */
+
 type DirectoryCategory = {
   title: string;
   description: string;
   icon: React.ElementType;
   count: string;
   color: string;
+  href: string;
   items: string[];
 };
 
@@ -36,6 +42,7 @@ type EmergencyService = {
   title: string;
   number: string;
   icon: React.ElementType;
+  href?: string;
 };
 
 type PopularDirectory = {
@@ -43,7 +50,12 @@ type PopularDirectory = {
   category: string;
   location: string;
   icon: React.ElementType;
+  href: string;
 };
+
+/* =========================================================
+   DIRECTORY CATEGORIES
+========================================================= */
 
 const directoryData: DirectoryCategory[] = [
   {
@@ -52,7 +64,8 @@ const directoryData: DirectoryCategory[] = [
       "উপজেলার বিভিন্ন সরকারি দপ্তর ও গুরুত্বপূর্ণ কার্যালয়ের তথ্য",
     icon: Building2,
     count: "২৫+",
-    color: "bg-emerald-50 text-emerald-700",
+    color: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400",
+    href: "government",
     items: [
       "উপজেলা নির্বাহী অফিসারের কার্যালয়",
       "উপজেলা ভূমি অফিস",
@@ -67,7 +80,9 @@ const directoryData: DirectoryCategory[] = [
       "হাসপাতাল, ক্লিনিক, চিকিৎসক ও জরুরি স্বাস্থ্যসেবার তথ্য",
     icon: Hospital,
     count: "২০+",
-    color: "bg-red-50 text-red-600",
+    color:
+      "bg-red-50 text-red-600 dark:bg-red-950/40 dark:text-red-400",
+    href: "health",
     items: [
       "উপজেলা স্বাস্থ্য কমপ্লেক্স",
       "কমিউনিটি ক্লিনিক",
@@ -82,7 +97,9 @@ const directoryData: DirectoryCategory[] = [
       "স্কুল, কলেজ, মাদ্রাসা ও অন্যান্য শিক্ষাপ্রতিষ্ঠানের তথ্য",
     icon: GraduationCap,
     count: "১৫০+",
-    color: "bg-blue-50 text-blue-700",
+    color:
+      "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400",
+    href: "education",
     items: [
       "সরকারি উচ্চ বিদ্যালয়",
       "বেসরকারি বিদ্যালয়",
@@ -97,7 +114,9 @@ const directoryData: DirectoryCategory[] = [
       "ব্যাংক, এনজিও ও আর্থিক প্রতিষ্ঠানের প্রয়োজনীয় তথ্য",
     icon: Landmark,
     count: "৩০+",
-    color: "bg-purple-50 text-purple-700",
+    color:
+      "bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-400",
+    href: "banks",
     items: [
       "সরকারি ব্যাংক",
       "বেসরকারি ব্যাংক",
@@ -112,7 +131,9 @@ const directoryData: DirectoryCategory[] = [
       "পুলিশ, ফায়ার সার্ভিস ও আইন-শৃঙ্খলা সংক্রান্ত তথ্য",
     icon: ShieldCheck,
     count: "১০+",
-    color: "bg-orange-50 text-orange-700",
+    color:
+      "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400",
+    href: "law-enforcement",
     items: [
       "নালিতাবাড়ী থানা",
       "পুলিশ ফাঁড়ি",
@@ -127,7 +148,9 @@ const directoryData: DirectoryCategory[] = [
       "উপজেলা ও ইউনিয়ন পর্যায়ের জনপ্রতিনিধিদের তথ্য",
     icon: Users,
     count: "১২+",
-    color: "bg-teal-50 text-teal-700",
+    color:
+      "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-400",
+    href: "representatives",
     items: [
       "উপজেলা পরিষদ",
       "উপজেলা চেয়ারম্যান",
@@ -137,6 +160,10 @@ const directoryData: DirectoryCategory[] = [
     ],
   },
 ];
+
+/* =========================================================
+   EMERGENCY SERVICES
+========================================================= */
 
 const emergencyServices: EmergencyService[] = [
   {
@@ -161,48 +188,103 @@ const emergencyServices: EmergencyService[] = [
   },
 ];
 
+/* =========================================================
+   POPULAR DIRECTORY
+========================================================= */
+
 const popularDirectory: PopularDirectory[] = [
   {
     title: "নালিতাবাড়ী উপজেলা পরিষদ",
     category: "সরকারি অফিস",
     location: "নালিতাবাড়ী, শেরপুর",
     icon: Building2,
+    href: "government",
   },
   {
     title: "নালিতাবাড়ী উপজেলা স্বাস্থ্য কমপ্লেক্স",
     category: "স্বাস্থ্যসেবা",
     location: "নালিতাবাড়ী, শেরপুর",
     icon: Hospital,
+    href: "/hospitals",
   },
   {
     title: "নালিতাবাড়ী থানা",
     category: "আইন-শৃঙ্খলা",
     location: "নালিতাবাড়ী, শেরপুর",
     icon: ShieldCheck,
+    href: "law-enforcement",
   },
   {
     title: "নালিতাবাড়ী সরকারি উচ্চ বিদ্যালয়",
     category: "শিক্ষাপ্রতিষ্ঠান",
     location: "নালিতাবাড়ী, শেরপুর",
     icon: School,
+    href: "/schools",
   },
 ];
 
+/* =========================================================
+   STATS
+========================================================= */
+
+const directoryStats = [
+  {
+    label: "সরকারি অফিস",
+    value: "২৫+",
+  },
+  {
+    label: "শিক্ষাপ্রতিষ্ঠান",
+    value: "১৫০+",
+  },
+  {
+    label: "স্বাস্থ্যসেবা",
+    value: "২০+",
+  },
+  {
+    label: "গুরুত্বপূর্ণ সেবা",
+    value: "৫০+",
+  },
+];
+
+/* =========================================================
+   PAGE
+========================================================= */
+
 export default function DirectoryPage() {
-  const [search, setSearch] = React.useState<string>("");
+  const [search, setSearch] = React.useState("");
 
-  const filteredCategories = directoryData.filter((item) => {
-    const text =
-      `${item.title} ${item.description} ${item.items.join(" ")}`.toLowerCase();
+  const filteredCategories = React.useMemo(() => {
+    const query = search.trim().toLowerCase();
 
-    return text.includes(search.toLowerCase());
-  });
+    if (!query) {
+      return directoryData;
+    }
+
+    return directoryData.filter((item) => {
+      const text = [
+        item.title,
+        item.description,
+        ...item.items,
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return text.includes(query);
+    });
+  }, [search]);
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Hero */}
+      {/* =====================================================
+          HERO
+      ====================================================== */}
+
       <section className="relative overflow-hidden bg-gradient-to-br from-green-700 via-emerald-600 to-green-500">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_35%)]" />
+
+        <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
+
+        <div className="absolute -right-24 top-10 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
 
         <div className="container relative mx-auto px-4 py-16 md:py-24">
           <div className="mx-auto max-w-4xl text-center text-white">
@@ -229,35 +311,55 @@ export default function DirectoryPage() {
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   placeholder="প্রতিষ্ঠান, সেবা বা বিভাগের নাম লিখে খুঁজুন..."
-                  className="h-14 rounded-2xl border-0 bg-white pl-12 pr-4 text-base text-foreground shadow-xl placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-white"
+                  aria-label="ডিরেক্টরি অনুসন্ধান"
+                  className="h-14 rounded-2xl border-0 bg-white pl-12 pr-12 text-base text-foreground shadow-xl placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-white"
                 />
+
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch("")}
+                    aria-label="অনুসন্ধান মুছে ফেলুন"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-muted-foreground transition hover:text-foreground"
+                  >
+                    মুছুন
+                  </button>
+                )}
               </div>
+
+              {search && (
+                <p className="mt-3 text-sm text-green-50">
+                  "{search}" এর জন্য{" "}
+                  <span className="font-semibold">
+                    {filteredCategories.length}
+                  </span>{" "}
+                  টি বিভাগ পাওয়া গেছে
+                </p>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="-mt-8 relative z-10">
+      {/* =====================================================
+          STATS
+      ====================================================== */}
+
+      <section className="relative z-10 -mt-8">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {[
-              ["সরকারি অফিস", "২৫+"],
-              ["শিক্ষাপ্রতিষ্ঠান", "১৫০+"],
-              ["স্বাস্থ্যসেবা", "২০+"],
-              ["গুরুত্বপূর্ণ সেবা", "৫০+"],
-            ].map(([label, value]) => (
+            {directoryStats.map((stat) => (
               <Card
-                key={label}
+                key={stat.label}
                 className="border-green-100 bg-card/95 shadow-lg backdrop-blur"
               >
                 <CardContent className="p-5 text-center">
                   <p className="text-2xl font-bold text-green-700 md:text-3xl">
-                    {value}
+                    {stat.value}
                   </p>
 
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {label}
+                    {stat.label}
                   </p>
                 </CardContent>
               </Card>
@@ -266,7 +368,10 @@ export default function DirectoryPage() {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* =====================================================
+          CATEGORIES
+      ====================================================== */}
+
       <section className="container mx-auto px-4 py-16">
         <div className="mb-10 text-center">
           <Badge
@@ -298,6 +403,15 @@ export default function DirectoryPage() {
               <p className="mt-2 text-muted-foreground">
                 অন্য কোনো শব্দ দিয়ে আবার চেষ্টা করুন।
               </p>
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setSearch("")}
+                className="mt-5"
+              >
+                সব বিভাগ দেখুন
+              </Button>
             </CardContent>
           </Card>
         ) : (
@@ -306,70 +420,77 @@ export default function DirectoryPage() {
               const Icon = item.icon;
 
               return (
-                <Card
+                <Link
                   key={item.title}
-                  className="group overflow-hidden border-border/60 transition-all duration-300 hover:-translate-y-1 hover:border-green-200 hover:shadow-xl"
+                  href={item.href}
+                  className="group block h-full outline-none"
                 >
-                  <CardContent className="p-0">
-                    <div className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div
-                          className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.color}`}
-                        >
-                          <Icon className="h-6 w-6" />
+                  <Card className="h-full overflow-hidden border-border/60 transition-all duration-300 hover:-translate-y-1 hover:border-green-200 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
+                    <CardContent className="flex h-full flex-col p-0">
+                      <div className="flex-1 p-6">
+                        <div className="flex items-start justify-between">
+                          <div
+                            className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.color}`}
+                          >
+                            <Icon className="h-6 w-6" />
+                          </div>
+
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400"
+                          >
+                            {item.count}
+                          </Badge>
                         </div>
 
-                        <Badge
-                          variant="secondary"
-                          className="bg-green-50 text-green-700"
-                        >
-                          {item.count}
-                        </Badge>
+                        <h3 className="mt-5 text-xl font-bold">
+                          {item.title}
+                        </h3>
+
+                        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                          {item.description}
+                        </p>
+
+                        <div className="mt-5 space-y-2">
+                          {item.items.map((subItem) => (
+                            <div
+                              key={subItem}
+                              className="flex items-center gap-2 text-sm"
+                            >
+                              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-green-600" />
+
+                              <span>{subItem}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
-                      <h3 className="mt-5 text-xl font-bold">
-                        {item.title}
-                      </h3>
+                      <div className="border-t bg-muted/30 p-4">
+                        <div className="flex w-full items-center justify-between text-green-700">
+                          <span className="font-medium">
+                            বিস্তারিত দেখুন
+                          </span>
 
-                      <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                        {item.description}
-                      </p>
-
-                      <div className="mt-5 space-y-2">
-                        {item.items.map((subItem) => (
-                          <div
-                            key={subItem}
-                            className="flex items-center gap-2 text-sm"
-                          >
-                            <span className="h-1.5 w-1.5 rounded-full bg-green-600" />
-                            <span>{subItem}</span>
-                          </div>
-                        ))}
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        </div>
                       </div>
-                    </div>
-
-                    <div className="border-t bg-muted/30 p-4">
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-between text-green-700 hover:bg-green-50 hover:text-green-800"
-                      >
-                        বিস্তারিত দেখুন
-                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
               );
             })}
           </div>
         )}
       </section>
 
-      {/* Emergency */}
+      {/* =====================================================
+          EMERGENCY SERVICES
+      ====================================================== */}
+
       <section className="bg-green-50/70 py-16 dark:bg-green-950/20">
         <div className="container mx-auto px-4">
           <div className="mb-10 text-center">
-            <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-100">
+            <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-100 dark:bg-red-950/40 dark:text-red-400">
               জরুরি সেবা
             </Badge>
 
@@ -392,7 +513,7 @@ export default function DirectoryPage() {
                   className="border-red-100 bg-background transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <CardContent className="p-6 text-center">
-                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400">
                       <Icon className="h-6 w-6" />
                     </div>
 
@@ -408,7 +529,7 @@ export default function DirectoryPage() {
                       asChild
                       size="sm"
                       variant="outline"
-                      className="mt-4 w-full border-red-200 text-red-600 hover:bg-red-50"
+                      className="mt-4 w-full border-red-200 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
                     >
                       <a href={`tel:${service.number}`}>
                         <Phone className="mr-2 h-4 w-4" />
@@ -423,7 +544,10 @@ export default function DirectoryPage() {
         </div>
       </section>
 
-      {/* Popular Directory */}
+      {/* =====================================================
+          POPULAR DIRECTORY
+      ====================================================== */}
+
       <section className="container mx-auto px-4 py-16">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
@@ -444,11 +568,14 @@ export default function DirectoryPage() {
           </div>
 
           <Button
+            asChild
             variant="outline"
             className="border-green-200 text-green-700 hover:bg-green-50"
           >
-            সব দেখুন
-            <ArrowRight className="ml-2 h-4 w-4" />
+            <Link href="/directory">
+              সব দেখুন
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
         </div>
 
@@ -457,46 +584,50 @@ export default function DirectoryPage() {
             const Icon = item.icon;
 
             return (
-              <Card
+              <Link
                 key={item.title}
-                className="group transition hover:border-green-200 hover:shadow-lg"
+                href={item.href}
+                className="group block outline-none"
               >
-                <CardContent className="flex items-center gap-4 p-5">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-700 dark:bg-green-950/40">
-                    <Icon className="h-6 w-6" />
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <Badge
-                      variant="secondary"
-                      className="mb-2 bg-green-50 text-green-700"
-                    >
-                      {item.category}
-                    </Badge>
-
-                    <h3 className="font-semibold">{item.title}</h3>
-
-                    <div className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
-                      <MapPin className="h-3.5 w-3.5" />
-                      {item.location}
+                <Card className="transition-all duration-300 hover:border-green-200 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
+                  <CardContent className="flex items-center gap-4 p-5">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400">
+                      <Icon className="h-6 w-6" />
                     </div>
-                  </div>
 
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="shrink-0 text-green-700 hover:bg-green-50"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
+                    <div className="min-w-0 flex-1">
+                      <Badge
+                        variant="secondary"
+                        className="mb-2 bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400"
+                      >
+                        {item.category}
+                      </Badge>
+
+                      <h3 className="font-semibold">
+                        {item.title}
+                      </h3>
+
+                      <div className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
+                        <MapPin className="h-3.5 w-3.5 shrink-0" />
+                        <span>{item.location}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-green-700 transition group-hover:bg-green-50 dark:group-hover:bg-green-950/40">
+                      <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             );
           })}
         </div>
       </section>
 
-      {/* CTA */}
+      {/* =====================================================
+          CTA
+      ====================================================== */}
+
       <section className="container mx-auto px-4 pb-16">
         <Card className="overflow-hidden border-0 bg-gradient-to-r from-green-700 to-emerald-600 text-white shadow-xl">
           <CardContent className="relative p-8 md:p-12">
@@ -514,9 +645,14 @@ export default function DirectoryPage() {
                 ডিরেক্টরিতে যুক্ত করতে চাইলে তথ্য পাঠাতে পারেন।
               </p>
 
-              <Button className="mt-6 bg-white text-green-700 hover:bg-green-50">
-                তথ্য জমা দিন
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <Button
+                asChild
+                className="mt-6 bg-white text-green-700 hover:bg-green-50"
+              >
+                <Link href="/submit">
+                  তথ্য জমা দিন
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </CardContent>
