@@ -24,9 +24,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-/* =========================================================
+/* 
    TYPES
-========================================================= */
+ */
 
 type Pharmacy = {
   id: string;
@@ -41,10 +41,10 @@ type Pharmacy = {
   mapUrl: string;
 };
 
-/* =========================================================
+/* 
    PHARMACY DATA
-   Source: current local business/web listings
-========================================================= */
+   
+*/
 
 const pharmacies: Pharmacy[] = [
   {
@@ -277,17 +277,17 @@ const pharmacies: Pharmacy[] = [
   },
 ];
 
-/* =========================================================
+/*
    HELPERS
-========================================================= */
+ */
 
 function formatPhoneForTel(phone: string) {
   return phone.replace(/[\s-]/g, "");
 }
 
-/* =========================================================
+/* 
    PAGE
-========================================================= */
+ */
 
 export default function PharmaciesPage() {
   const [search, setSearch] = React.useState("");
@@ -317,9 +317,9 @@ export default function PharmaciesPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* =====================================================
+      {/* 
           HERO
-      ====================================================== */}
+       */}
 
       <section className="relative overflow-hidden border-b bg-gradient-to-br from-emerald-50 via-background to-green-50 dark:from-emerald-950/20 dark:via-background dark:to-green-950/20">
         <div className="absolute -right-32 -top-32 h-80 w-80 rounded-full bg-emerald-200/30 blur-3xl dark:bg-emerald-900/20" />
@@ -358,9 +358,9 @@ export default function PharmaciesPage() {
         </div>
       </section>
 
-      {/* =====================================================
+      {/* 
           SEARCH
-      ====================================================== */}
+       */}
 
       <section className="border-b bg-background">
         <div className="container mx-auto px-4 py-8">
@@ -417,9 +417,9 @@ export default function PharmaciesPage() {
         </div>
       </section>
 
-      {/* =====================================================
+      {/* 
           PHARMACY LIST
-      ====================================================== */}
+       */}
 
       <section className="container mx-auto px-4 py-12 md:py-16">
         {filteredPharmacies.length === 0 ? (
@@ -569,9 +569,9 @@ export default function PharmaciesPage() {
         )}
       </section>
 
-      {/* =====================================================
+      {/* 
           INFORMATION NOTICE
-      ====================================================== */}
+       */}
 
       <section className="border-t bg-muted/30">
         <div className="container mx-auto px-4 py-10">
