@@ -1,126 +1,74 @@
+
 import { NextResponse } from "next/server"
 import { getGoogleNews } from "@/lib/google-news"
 
 export const runtime = "nodejs"
-
 export const dynamic = "force-dynamic"
 
-/*  
-   GOOGLE NEWS RSS
-  */
 
-const GOOGLE_NEWS_QUERY =
-  "Nalitabari OR নালিতাবাড়ী OR নালিতাবাড়ী OR Sherpur"
-
-const GOOGLE_NEWS_FEED =
-  `https://news.google.com/rss/search?q=${encodeURIComponent(
-    GOOGLE_NEWS_QUERY,
-  )}&hl=bn&gl=BD&ceid=BD:bn`
-
-const FALLBACK_IMAGE =
-  "/images/news-placeholder.jpg"
-
-/*  
-   GET
-  */
 
 export async function GET() {
   try {
-    const items = await getGoogleNews(
-      GOOGLE_NEWS_FEED,
-      {
-        limit: 30,
-        fallbackImage: FALLBACK_IMAGE,
-      },
-    )
+    const items = await getGoogleNews({
+      limit: 30,
+      fallbackImage: "/images/news-placeholder.jpg",
+    })
 
-    /*
-     * Normalize Google News data
-     * for the NewsPage component.
-     */
-    const news = items.map(
-      (item, index) => ({
-        id: item.id,
+    const news = items.map((item, index) => ({
+      id: item.id,
 
-        title: item.title,
+      title: item.title,
 
-        excerpt:
-          item.description || "",
+      excerpt: "",
 
-        date:
-          item.publishedAt || "",
+     
+      date: item.publishedAt,
 
-        category:
-          detectCategory(
-            item.title,
-            item.description,
-          ),
+      publishedAt: item.publishedAt,
 
-        source:
-          item.source ||
-          "Google News",
+      category: detectCategory(
+        item.title,
+        "",
+      ),
 
-        sourceUrl:
-          item.sourceUrl || "",
+      source: item.source || "Google News",
 
-        location:
-          detectLocation(
-            item.title,
-            item.description,
-          ),
+      
+      sourceUrl: "",
 
-        image:
-          item.image ||
-          FALLBACK_IMAGE,
+      location: detectLocation(
+        item.title,
+        "",
+      ),
 
-        /*
-         * The first article is highlighted.
-         */
-        featured:
-          index === 0,
+      image:
+        item.image ||
+        "/images/news-placeholder.jpg",
 
-        /*
-         * IMPORTANT:
-         * This should be the actual
-         * publisher/article URL.
-         */
-        link:
-          item.link ||
-          item.originalLink ||
-          "",
+    
+      featured: index === 0,
 
-        /*
-         * Keep the original Google
-         * News RSS URL as a backup.
-         */
-        originalLink:
-          item.originalLink || "",
+     
+      link: item.link,
 
-        publishedAt:
-          item.publishedAt || "",
+     
+      originalLink: item.link,
 
-        guid:
-          item.guid || item.id,
-      }),
-    )
+      
+      guid: item.id,
+    }))
 
     return NextResponse.json(
       {
         success: true,
         news,
         count: news.length,
-        updatedAt:
-          new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       },
       {
         status: 200,
+
         headers: {
-          /*
-           * CDN/browser caching:
-           * 15 minutes fresh,
-           * then stale content can be served
-           * while a new response is generated.
-           */
           "Cache-Control":
             "public, s-maxage=900, stale-while-revalidate=1800",
         },
@@ -142,6 +90,7 @@ export async function GET() {
       },
       {
         status: 500,
+
         headers: {
           "Cache-Control":
             "public, s-maxage=300, stale-while-revalidate=600",
@@ -151,9 +100,9 @@ export async function GET() {
   }
 }
 
-/*  
-   CATEGORY DETECTION
-  */
+/*
+ * CATEGORY DETECTION
+ */
 
 function detectCategory(
   title: string,
@@ -165,14 +114,13 @@ function detectCategory(
   | "যোগাযোগ"
   | "সড়ক দুর্ঘটনা"
   | "অন্যান্য" {
-  const text =
-    normalizeText(
-      `${title} ${description}`,
-    )
+  const text = normalizeText(
+    `${title} ${description}`,
+  )
 
-  /* -------------------------------------------------------
-     FLOOD
-  ------------------------------------------------------- */
+  /*
+   * FLOOD
+   */
 
   if (
     containsAny(text, [
@@ -194,9 +142,9 @@ function detectCategory(
     return "বন্যা"
   }
 
-  /* -------------------------------------------------------
-     DISASTER / WEATHER
-  ------------------------------------------------------- */
+  /*
+   * DISASTER / WEATHER
+   */
 
   if (
     containsAny(text, [
@@ -212,15 +160,14 @@ function detectCategory(
       "বজ্রপাত",
       "বজ্রপাতে",
       "শিলাবৃষ্টি",
-      "জলোচ্ছ্বাস",
     ])
   ) {
     return "দুর্যোগ"
   }
 
-  /* -------------------------------------------------------
-     ROAD ACCIDENT
-  ------------------------------------------------------- */
+  /*
+   * ROAD ACCIDENT
+   */
 
   if (
     containsAny(text, [
@@ -242,9 +189,9 @@ function detectCategory(
     return "সড়ক দুর্ঘটনা"
   }
 
-  /* -------------------------------------------------------
-     TRANSPORT / ROAD
-  ------------------------------------------------------- */
+  /*
+   * TRANSPORT / ROAD
+   */
 
   if (
     containsAny(text, [
@@ -270,9 +217,9 @@ function detectCategory(
     return "যোগাযোগ"
   }
 
-  /* -------------------------------------------------------
-     LOCAL
-  ------------------------------------------------------- */
+  /*
+   * LOCAL
+   */
 
   if (
     containsAny(text, [
@@ -284,6 +231,7 @@ function detectCategory(
       "নালিতাবাড়ির",
       "নালিতাবাড়ীতে",
       "নালিতাবাড়ী উপজেলা",
+      "নালিতাবাড়ি",
       "শেরপুর",
       "শেরপুরের",
       "শেরপুরে",
@@ -295,18 +243,17 @@ function detectCategory(
   return "অন্যান্য"
 }
 
-/*  
-   LOCATION DETECTION
-  */
+/*
+ * LOCATION DETECTION
+ */
 
 function detectLocation(
   title: string,
   description: string,
 ): string {
-  const text =
-    normalizeText(
-      `${title} ${description}`,
-    )
+  const text = normalizeText(
+    `${title} ${description}`,
+  )
 
   if (
     containsAny(text, [
@@ -318,6 +265,7 @@ function detectLocation(
       "নালিতাবাড়ির",
       "নালিতাবাড়ীতে",
       "নালিতাবাড়ী উপজেলা",
+      "নালিতাবাড়ি",
     ])
   ) {
     return "নালিতাবাড়ী"
@@ -337,35 +285,30 @@ function detectLocation(
   return "নালিতাবাড়ী"
 }
 
-/*  
-   TEXT NORMALIZATION
-  */
+/*
+ * TEXT NORMALIZATION
+ */
 
 function normalizeText(
   text: string,
 ): string {
   return text
     .trim()
-    .toLocaleLowerCase(
-      "bn-BD",
-    )
+    .toLocaleLowerCase("bn-BD")
     .replace(/\s+/g, " ")
 }
 
-/*  
-   STRING HELPER
-  */
+/*
+ * STRING HELPER
+ */
 
 function containsAny(
   text: string,
   keywords: string[],
 ): boolean {
-  return keywords.some(
-    (keyword) =>
-      text.includes(
-        keyword.toLocaleLowerCase(
-          "bn-BD",
-        ),
-      ),
+  return keywords.some((keyword) =>
+    text.includes(
+      keyword.toLocaleLowerCase("bn-BD"),
+    ),
   )
 }
