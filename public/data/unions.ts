@@ -762,7 +762,7 @@ export const unions: UnionData[] = [
     mobile: "০১৭২১৩৫৯৭০৩",
     email: "sukanta_shimul@yahoo.com",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/zDh33kys/Ramchandrakura-Mondaliapara-Union.jpg",
 
     healthFacilities: [
       healthCenter(
@@ -831,7 +831,7 @@ export const unions: UnionData[] = [
     address:
       "কাকরকান্দি ইউনিয়ন পরিষদ, নালিতাবাড়ী, শেরপুর",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/Cx2VjWt6/Kakorkandi-Union.png",
 
     healthFacilities: [
       healthCenter(
@@ -902,7 +902,7 @@ export const unions: UnionData[] = [
     address:
       "৭ নং নালিতাবাড়ী ইউনিয়ন পরিষদ, নালিতাবাড়ী, শেরপুর",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/bNF5M1Tp/Nalitabari-Union.png",
 
     healthFacilities: [
       healthCenter(
