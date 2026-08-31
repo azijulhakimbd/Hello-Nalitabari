@@ -538,7 +538,7 @@ export const unions: UnionData[] = [
     administrator: "ডা. সাকিব হোসেন সাগর",
     administratorPhone: undefined,
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/qvMq7HfP/nonni.png",
 
     healthFacilities: [
       subHealthCenter(
@@ -612,7 +612,7 @@ export const unions: UnionData[] = [
     address:
       "রাজনগর ইউনিয়ন পরিষদ, নালিতাবাড়ী, শেরপুর",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/3Jj9Tm7s/Rajnagar.png",
 
     healthFacilities: [
       healthCenter(
@@ -683,7 +683,7 @@ export const unions: UnionData[] = [
     address:
       "নয়াবিল ইউনিয়ন পরিষদ, নালিতাবাড়ী, শেরপুর",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/90b4xm5n/Noyabil.png",
 
     healthFacilities: [
       healthCenter(
