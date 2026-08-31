@@ -129,17 +129,7 @@ export type UnionData = {
   sources: UnionSource[]
 }
 
-/**
- * ---------------------------------------------------------
- * COMMON GOVERNMENT SERVICES
- * ---------------------------------------------------------
- *
- * These are based on services/sections exposed by the Union
- * Parishad portals and Bangladesh government service portals.
- *
- * Do not treat every item as proof that every service is
- * currently active at the physical Union Parishad office.
- */
+
 
 const commonServices: UnionService[] = [
   {
@@ -474,7 +464,7 @@ export const unions: UnionData[] = [
     population: "১৬,৯৪০ জন",
     villages: 13,
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/nrF8fFBb/puragaon.png",
 
     healthFacilities: [
       healthCenter(
