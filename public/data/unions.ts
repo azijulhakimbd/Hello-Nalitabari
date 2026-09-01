@@ -1005,7 +1005,7 @@ export const unions: UnionData[] = [
     address:
       "০৮ নং রূপনারায়ণকুড়া ইউনিয়ন পরিষদ কার্যালয়, নালিতাবাড়ী, শেরপুর",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/7Y1JTHQm/rupnarayankura.jpg",
 
     healthFacilities: [],
 
@@ -1329,7 +1329,7 @@ export const unions: UnionData[] = [
     mobile: "০১৭২৯-৮৮৪২৭৮",
     email: "uisc.kalapar.halim@gmail.com",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/WbmqJNfw/kaloshpar.jpg",
 
     healthFacilities: [
       healthCenter(
