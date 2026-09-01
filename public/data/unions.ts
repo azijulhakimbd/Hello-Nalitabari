@@ -1153,7 +1153,7 @@ export const unions: UnionData[] = [
     address:
       "১০ নং যোগানিয়া ইউনিয়ন পরিষদ, নালিতাবাড়ী, শেরপুর",
 
-    image: "/unions/",
+    image: "https://i.postimg.cc/KvcxJm8k/Zogania-union-parishad.jpg",
 
     healthFacilities: [
       healthCenter(
