@@ -55,7 +55,7 @@ const hospitals = [
     type: "এনজিও হাসপাতাল/ক্লিনিক",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
-    image: "",
+    image: "https://i.postimg.cc/wxWn8bKy/ba-ra-ya-ka-(BHP)-na-la-ta-ba-da.png",
     mapsLink:
       "https://www.google.com/maps/search/?api=1&query=BRAC+BHP+Nalitabari+Sherpur",
     emergency: false,
