@@ -41,7 +41,7 @@ const hospitals = [
     type: "বেসরকারি হাসপাতাল/ক্লিনিক",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
-    image: "",
+    image: "https://i.postimg.cc/KYHmYcwD/a'oya-ra-la-da-apha-la-ra-dasa-ka-la-na-ka.png",
     mapsLink:
       "https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lords+Clinic+Nalitabari+Sherpur",
     emergency: false,
