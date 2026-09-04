@@ -65,13 +65,13 @@ const hospitals = [
   },
   {
     id: "4",
-    name: "নালিতাবাড়ী ডায়াগনস্টিক সেন্টার (প্যাথলজি)",
-    type: "ডায়াগনস্টিক সেন্টার",
+    name: "নালিতাবাড়ী ডায়বেটিক হাসপাতাল",
+    type: "হাসপাতাল",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     image: "https://i.postimg.cc/Hn7wNxD7/na-la-ta-ba-da-da-ya-ganasa-ta-ka-sa-na-ta-ra-(pa-ya-thalaja-).png",
     mapsLink:
-      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Diagnostic+Center+Sherpur",
+      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Diabetic+Hospital+Sherpur",
     emergency: false,
     open: "সময় যাচাই করুন",
     description:
