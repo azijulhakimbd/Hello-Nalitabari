@@ -82,7 +82,7 @@ const hospitals = [
     name: "ডক্টরস চেম্বার এন্ড ডায়াগনস্টিক",
     type: "ডায়াগনস্টিক সেন্টার",
     address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
+    phone: "01742432828",
     image: "https://i.postimg.cc/ydMqHdxy/Doctors-Chamber-and-Diagnostic.png",
     mapsLink:
       "https://www.google.com/maps/search/?api=1&query=Doctors+Chamber+Diagnostic+Nalitabari+Sherpur",
