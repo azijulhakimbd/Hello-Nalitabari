@@ -75,10 +75,24 @@ const hospitals = [
     emergency: false,
     open: "সময় যাচাই করুন",
     description:
-      "নালিতাবাড়ী উপজেলার একটি ডায়াগনস্টিক ও প্যাথলজি সেবা প্রতিষ্ঠান। DGHS Facility Registry-তে তালিকাভুক্ত।",
+      "নালিতাবাড়ী উপজেলার একটি সেবা প্রতিষ্ঠান। ।",
   },
   {
-    id: "5",
+  id: "5",
+  name: "সেবা ডায়াগনস্টিক সেন্টার",
+  type: "ডায়াগনস্টিক সেন্টার",
+  address: "নালিতাবাড়ী, শেরপুর",
+  phone: "01919576322, 01711519935, 01712621061",
+  image: "https://i.postimg.cc/FzHTwXgF/Sheba-Diagnostic-Center.png",
+  mapsLink:
+    "https://www.google.com/maps/place/Sheba+Diagnostic+Center/@25.0925994,90.1894505,3a,15y,247.34h,91.54t/data=!3m7!1e1!3m5!1sfqWsA2qr0X9wmQu1ews3bA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.5417850707174239%26panoid%3DfqWsA2qr0X9wmQu1ews3bA%26yaw%3D247.34140330595602!7i16384!8i8192!4m10!1m2!2m1!1sDiagnostic+center!3m6!1s0x3757cf78894a97c3:0xb8ac665200bbe7ae!8m2!3d25.0924721!4d90.1894294!15sChFEaWFnbm9zdGljIGNlbnRlcpIBEWRpYWdub3N0aWNfY2VudGVy4AEA!16s%2Fg%2F11fnqcm7pt?entry=ttu",
+  emergency: false,
+  open: "২৪ ঘণ্টা",
+  description:
+    "নালিতাবাড়ী এলাকায় অবস্থিত একটি বেসরকারি ডায়াগনস্টিক সেন্টার। বিভিন্ন ধরনের রোগ নির্ণয় ও ডায়াগনস্টিক পরীক্ষা-নিরীক্ষার সেবা প্রদান করা হয়।",
+},
+  {
+    id: "6",
     name: "ডক্টরস চেম্বার এন্ড ডায়াগনস্টিক",
     type: "ডায়াগনস্টিক সেন্টার",
     address: "নালিতাবাড়ী, শেরপুর",
@@ -87,12 +101,12 @@ const hospitals = [
     mapsLink:
       "https://www.google.com/maps/search/?api=1&query=Doctors+Chamber+Diagnostic+Nalitabari+Sherpur",
     emergency: false,
-    open: "সময় যাচাই করুন",
+    open: "২৪ ঘণ্টা",
     description:
       "নালিতাবাড়ী উপজেলার একটি Consultancy & Diagnostic Center হিসেবে DGHS Facility Registry-তে তালিকাভুক্ত।",
   },
   {
-    id: "6",
+    id: "7",
     name: "নালিতাবাড়ী ইউনিয়ন স্বাস্থ্য কেন্দ্র",
     type: "সরকারি স্বাস্থ্য কেন্দ্র",
     address: "নালিতাবাড়ী, শেরপুর",
