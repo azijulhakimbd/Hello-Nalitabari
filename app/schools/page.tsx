@@ -60,7 +60,7 @@ const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113773",
-    image: "/images/schools/taragonj-govt-pilot.jpg",
+    image: "https://i.postimg.cc/J4KphBF6/তারাগঞ্জ_সরকারি_পাইলট_উচ্চ_বিদ্যালয়.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Taragonj+Govt+Pilot+High+School+Nalitabari",
   },
@@ -73,7 +73,7 @@ const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113772",
-    image: "/images/schools/taragonj-pilot-girls.jpg",
+    image: "https://i.postimg.cc/m2VmrFnd/তারাগঞ্জ_পাইলট_বালিকা_উচ্চ_বিদ্যালয়.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Taragonj+Pilot+Girls+High+School+Nalitabari",
   },
@@ -86,7 +86,7 @@ const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113774",
-    image: "/images/schools/hiranmoyee.jpg",
+    image: "https://i.postimg.cc/yYnLNSGt/হিরণময়ী_উচ্চ_বিদ্যালয়.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Hiranmoyee+High+School+Nalitabari",
   },
