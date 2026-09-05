@@ -58,7 +58,7 @@ const schools: SchoolData[] = [
     address: "তারাগঞ্জ, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1941",
     eiin: "113773",
     image: "https://i.postimg.cc/J4KphBF6/তারাগঞ্জ_সরকারি_পাইলট_উচ্চ_বিদ্যালয়.png",
     mapUrl:
@@ -71,7 +71,7 @@ const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1959",
     eiin: "113772",
     image: "https://i.postimg.cc/m2VmrFnd/তারাগঞ্জ_পাইলট_বালিকা_উচ্চ_বিদ্যালয়.png",
     mapUrl:
@@ -84,7 +84,7 @@ const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1919",
     eiin: "113774",
     image: "https://i.postimg.cc/yYnLNSGt/হিরণময়ী_উচ্চ_বিদ্যালয়.png",
     mapUrl:
