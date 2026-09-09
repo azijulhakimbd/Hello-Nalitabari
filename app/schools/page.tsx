@@ -240,9 +240,9 @@ const schools: SchoolData[] = [
     address: "বনকুড়া, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1991",
     eiin: "113788",
-    image: "/images/schools/bonkura.jpg",
+    image: "https://i.postimg.cc/3wPYT9hM/Bonkura-High-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bonkura+High+School+Nalitabari",
   },
