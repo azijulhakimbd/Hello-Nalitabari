@@ -229,7 +229,7 @@ const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113786",
-    image: "/images/schools/ramchandra-kura.jpg",
+    image: "https://i.postimg.cc/Hs3z1r1P/রামচন্দ্রকুড়া_উচ্চ_বিদ্যালয়.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Ramchandra+Kura+High+School+Nalitabari",
   },
