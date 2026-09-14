@@ -253,7 +253,7 @@ const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1991",
     eiin: "113789",
     image: "/images/schools/abdul-hakim-smriti.jpg",
     mapUrl:
@@ -274,12 +274,12 @@ const schools: SchoolData[] = [
   },
   {
     id: 18,
-    name: "পরাগাঁও আদর্শ উচ্চ বিদ্যালয়",
+    name: "পোড়াগাঁও আদর্শ উচ্চ বিদ্যালয়",
     type: "Secondary School",
-    address: "পরাগাঁও, নালিতাবাড়ী, শেরপুর",
+    address: "পোড়াগাঁও, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1993",
     eiin: "113791",
     image: "/images/schools/poragaon-adarsha.jpg",
     mapUrl:
