@@ -266,9 +266,9 @@ const schools: SchoolData[] = [
     address: "ফকিরপাড়া, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1995",
     eiin: "113790",
-    image: "/images/schools/fakir-para.jpg",
+    image: "https://i.postimg.cc/5jds6sM0/phaka-ra-pa-da-uca-ca-ba-da-ya-laya.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Fakir+Para+High+School+Nalitabari",
   },
