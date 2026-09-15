@@ -281,7 +281,7 @@ const schools: SchoolData[] = [
     students: "",
     established: "1993",
     eiin: "113791",
-    image: "/images/schools/poragaon-adarsha.jpg",
+    image: "https://i.postimg.cc/0rRVbVqj/পোড়াগাঁও_আদর্শ_উচ্চ_বিদ্যালয়.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Poragaon+Adarsha+High+School+Nalitabari",
   },
