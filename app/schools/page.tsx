@@ -255,7 +255,7 @@ const schools: SchoolData[] = [
     students: "",
     established: "1991",
     eiin: "113789",
-    image: "/images/schools/abdul-hakim-smriti.jpg",
+    image: "https://i.postimg.cc/qBh06gdC/আবদুল_হাকিম_স্মৃতি_মডেল_উচ্চ_বিদ্যালয়.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Abdul+Hakim+Smriti+Model+High+School+Nalitabari",
   },
