@@ -300,9 +300,9 @@ const schools: SchoolData[] = [
   },
   {
     id: 20,
-    name: "বাগবেড় উচ্চ বিদ্যালয়",
+    name: "বাঘবেড় উচ্চ বিদ্যালয়",
     type: "Secondary School",
-    address: "বাগবেড়, নালিতাবাড়ী, শেরপুর",
+    address: "বাঘবেড়, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
     established: "1994",
@@ -333,7 +333,7 @@ const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113795",
-    image: "/images/schools/nayabil-girls.jpg",
+    image: "https://i.postimg.cc/c1VghFHR/naya-ba-la-ba-la-ka-uca-ca-ba-da-ya-laya.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nayabil+Girls+High+School+Nalitabari",
   },
