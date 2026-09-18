@@ -305,9 +305,9 @@ const schools: SchoolData[] = [
     address: "বাগবেড়, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1994",
     eiin: "113793",
-    image: "/images/schools/bagber.jpg",
+    image: "https://i.postimg.cc/brdXW0wF/ba-gaba-da-uca-ca-ba-da-ya-laya.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bagber+High+School+Nalitabari",
   },
