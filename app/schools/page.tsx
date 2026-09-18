@@ -344,7 +344,7 @@ const schools: SchoolData[] = [
     address: "খালাভাঙ্গা, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1996",
     eiin: "113796",
     image: "/images/schools/khalabanga.jpg",
     mapUrl:
@@ -357,9 +357,9 @@ const schools: SchoolData[] = [
     address: "উত্তর নাকশী, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1996",
     eiin: "113797",
-    image: "/images/schools/uttar-nakshi.jpg",
+    image: "https://i.postimg.cc/d0Tg2Qxs/uta-tara-na-kasa-uca-ca-ba-da-ya-laya.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Uttar+Nakshi+High+School+Nalitabari",
   },
