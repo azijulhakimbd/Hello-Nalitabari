@@ -53,8 +53,8 @@ function SchoolCard({
       {/* Image */}
       <div className="relative aspect-[16/9] overflow-hidden bg-muted">
         <Image
-          src={school.image}
-          alt={school.name}
+          src={school.image || "https://i.postimg.cc/tCysdkb7/images.jpg"}
+          alt={school.name ?? ""}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"

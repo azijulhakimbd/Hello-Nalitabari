@@ -97,7 +97,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113778",
-    image: "/images/schools/ghailara.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Ghailara+Shamsul+Haq+Smrity+High+School",
   },
@@ -124,7 +124,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "1971",
     eiin: "113780",
-    image: "/images/schools/sanasivita.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Sanasivita+High+School+Nalitabari",
   },
@@ -193,7 +193,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113785",
-    image: "/images/schools/adarsha.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Adarsha+High+School+Nalitabari",
   },
@@ -276,7 +276,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113792",
-    image: "/images/schools/hossain-ali-girls.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Hossain+Ali+Girls+High+School+Nalitabari",
   },
@@ -303,7 +303,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113794",
-    image: "/images/schools/muktijuddha.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Muktijuddha+High+School+Nalitabari",
   },
@@ -330,7 +330,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "1996",
     eiin: "113796",
-    image: "/images/schools/khalabanga.jpg",
+    image: "https://i.postimg.cc/nrrvn1LJ/kha-la-bha-na-ga-makaba-la-ha-sa-na-uca-ca-ba-da-ya-laya.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Khalabanga+Makbul+Hossain+High+School",
   },
@@ -357,7 +357,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "2011",
     eiin: "134795",
-    image: "/images/schools/nizpara-sesdp.jpg",
+    image: "https://i.postimg.cc/D00q7cz2/na-japa-da-SESDP-mada-la-uca-ca-ba-da-ya-laya.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nizpara+SESDP+Model+High+School+Nalitabari",
   },
@@ -370,7 +370,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113802",
-    image: "/images/schools/poura-sava-model.jpg",
+    image: "https://i.postimg.cc/rssSq9pV/paurosova.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Poura+Sava+Model+Junior+High+School+Nalitabari",
   },
@@ -383,7 +383,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "2003",
     eiin: "113803",
-    image: "/images/schools/bhadikura.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bhadikura+Junior+High+School+Nalitabari",
   },
@@ -396,7 +396,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "2005",
     eiin: "113804",
-    image: "/images/schools/bathuar-kanda.jpg",
+    image: "https://i.postimg.cc/NFF1Qx0Y/ba-tha-ya-raka-na-da-adara-sa-ja-na-ya-ra-ma-dha-yama-ka-ba-da-ya-laya.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bathuar+Kanda+Adarsha+Junior+Secondary+School",
   },
