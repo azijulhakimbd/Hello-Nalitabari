@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "postimg.cc",
       },
+      {
+        protocol: "https",
+        hostname: "objectstorage.ap-dcc-gazipur-1.oraclecloud15.com",
+      },
     ],
   },
 };
