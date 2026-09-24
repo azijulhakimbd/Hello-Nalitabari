@@ -15,7 +15,6 @@ import {
   ShieldAlert,
   ShieldCheck,
   Siren,
-  TrainFront,
   Waves,
 } from "lucide-react";
 
@@ -206,13 +205,13 @@ const emergencyServices = [
   },
 
   {
-    title: "বাংলাদেশ রেলওয়ে",
+    title: "বাংলাদেশ মুক্তিযোদ্ধা কল্যাণ ট্রাস্ট",
     description:
-      "রেলওয়ে সংক্রান্ত তথ্য ও সেবা জানতে সরকারি হটলাইনে যোগাযোগ করুন।",
-    number: "131",
-    icon: TrainFront,
-    href: "tel:131",
-    category: "রেলওয়ে",
+      "মুক্তিযোদ্ধা সংক্রান্ত তথ্য ও সেবা জানতে সরকারি হটলাইনে যোগাযোগ করুন।",
+    number: "16171",
+    icon: ShieldCheck,
+    href: "tel:16171",
+    category: "মুক্তিযোদ্ধা সেবা",
     image:
       "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/5cfdc4e5-93da-4f39-a9a8-5c047bb06160.png",
   },
@@ -335,8 +334,7 @@ export default function EmergencyPage() {
             </div>
 
             <p className="mt-5 text-xs text-muted-foreground">
-              তথ্যসূত্র: বাংলাদেশ জাতীয় তথ্য বাতায়ন • সর্বশেষ
-              হালনাগাদ: ২৮ জুলাই ২০২৬
+              তথ্যসূত্র: বাংলাদেশ জাতীয় তথ্য বাতায়ন 
             </p>
           </div>
         </div>
