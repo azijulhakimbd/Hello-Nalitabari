@@ -30,6 +30,7 @@ const typeLabels: Record<SchoolType, string> = {
   "Primary School": "প্রাথমিক বিদ্যালয়",
   Madrasa: "মাদ্রাসা",
   Academy: "একাডেমি",
+  "Private School": "প্রাইভেট স্কুল",
 };
 
 const typeColors: Record<SchoolType, string> = {
@@ -37,6 +38,7 @@ const typeColors: Record<SchoolType, string> = {
   "Primary School": "bg-green-500/90 hover:bg-green-500",
   Madrasa: "bg-purple-500/90 hover:bg-purple-500",
   Academy: "bg-green-500/90 hover:bg-green-500",
+  "Private School": "bg-yellow-500/90 hover:bg-yellow-500",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -194,6 +196,9 @@ export default function SchoolsPage() {
     const academy = schools.filter(
       (school) => school.type === "Academy"
     ).length;
+    const privateSchool = schools.filter(
+      (school) => school.type === "Private School"
+    ).length;
 
     return {
       total,
@@ -201,6 +206,7 @@ export default function SchoolsPage() {
       primary,
       madrasa,
       academy,
+      privateSchool,
     };
   }, []);
 
@@ -314,13 +320,13 @@ export default function SchoolsPage() {
               </div>
             </div>
 
-            {/* Madrasa + Academy */}
+            {/* Madrasa + Academy + Private School */}
             <div className="rounded-2xl border bg-background/70 p-4 text-center shadow-sm backdrop-blur">
               <div className="text-2xl font-bold text-purple-600">
-                {stats.madrasa + stats.academy}
+                {stats.madrasa + stats.academy + stats.privateSchool}
               </div>
               <div className="mt-1 text-xs text-muted-foreground">
-                মাদ্রাসা / একাডেমি
+                মাদ্রাসা / একাডেমি / প্রাইভেট স্কুল 
               </div>
             </div>
           </div>

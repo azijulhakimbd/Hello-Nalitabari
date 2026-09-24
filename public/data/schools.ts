@@ -2,7 +2,8 @@ export type SchoolType =
   | "Secondary School"
   | "Primary School"
   | "Madrasa"
-  | "Academy";
+  | "Academy"
+  | "Private School";
 
 export interface SchoolData {
   id: number;
@@ -811,7 +812,7 @@ export const schools: SchoolData[] = [
     phone: "01737774409",
     students: "",
     established: "2012",
-    image: "",
+    image: "https://i.postimg.cc/KzPGpKhG/nabojagoron.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nabojagoron+Academy+Nanni+Nalitabari",
   },
@@ -866,7 +867,7 @@ export const schools: SchoolData[] = [
   {
     id: 65,
     name: "অরণী প্রগ্রেসিভ স্কুল",
-    type: "Academy",
+    type: "Private School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
@@ -878,7 +879,7 @@ export const schools: SchoolData[] = [
   {
     id: 66,
     name: "লাইসিয়াম প্রিপারেটরি স্কুল",
-    type: "Academy",
+    type: "Private School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
@@ -890,7 +891,7 @@ export const schools: SchoolData[] = [
   {
     id: 67,
     name: "আইডিয়াল স্কুল",
-    type: "Academy",
+    type: "Private School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
