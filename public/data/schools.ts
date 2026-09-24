@@ -411,7 +411,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/nalitabari-govt-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nalitabari+Government+Primary+School",
   },
@@ -423,7 +423,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/tangabari-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Tangabari+Government+Primary+School+Nalitabari",
   },
@@ -435,7 +435,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/nanni-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nanni+Government+Primary+School+Nalitabari",
   },
@@ -447,7 +447,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/jangaliakanda-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Jangaliakanda+Government+Primary+School+Nalitabari",
   },
@@ -459,7 +459,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/balughata-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Balughata+Government+Primary+School+Nalitabari",
   },
@@ -471,7 +471,7 @@ export const schools: SchoolData[] = [
     phone: "01857-246159",
     students: "",
     established: "",
-    image: "/images/schools/namapara-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Namapara+Government+Primary+School+Nalitabari",
   },
@@ -483,7 +483,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/golap-para-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Golap+Para+Community+Primary+School+Nalitabari",
   },
@@ -495,7 +495,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/nizpara-community-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nizpara+Community+Primary+School+Nalitabari",
   },
@@ -507,7 +507,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/daodhara-katabari-primary.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Daodhara+Katabari+Community+Primary+School+Nalitabari",
   },
@@ -524,7 +524,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113805",
-    image: "/images/schools/rupnarayan-kura-alim.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Rupnarayan+Kura+Alim+Madrasha+Nalitabari",
   },
@@ -537,7 +537,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113806",
-    image: "/images/schools/rajnagar-rahmania-fazil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Rajnagar+Rahmania+Fazil+Madrasah+Nalitabari",
   },
@@ -550,7 +550,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113807",
-    image: "/images/schools/panchgaon-dakhil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Panchgaon+Dakhil+Madrasa+Nalitabari",
   },
@@ -563,7 +563,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "1950",
     eiin: "113808",
-    image: "/images/schools/taragonj-fazil-madrasa.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Taragonj+Fazil+Madrasha+Nalitabari",
   },
@@ -576,7 +576,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113809",
-    image: "/images/schools/nischintapur-alim.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nischintapur+Alim+Madrasha+Nalitabari",
   },
@@ -589,7 +589,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113810",
-    image: "/images/schools/gojakura-dakhil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Gojakura+Dakhil+Madrasa+Nalitabari",
   },
@@ -602,7 +602,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113811",
-    image: "/images/schools/nanni-islamia-alima.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nanni+Islamia+Alima+Madrasha+Nalitabari",
   },
@@ -615,7 +615,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113812",
-    image: "/images/schools/dakkhin-ranigaon-madrasa.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Dakkhin+Ranigaon+Sirumiah+Azimuddin+Madrasa+Nalitabari",
   },
@@ -628,7 +628,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113813",
-    image: "/images/schools/surjanagar-boradubi-alim.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Surjanagar+Boradubi+Alim+Madrasa+Nalitabari",
   },
@@ -641,7 +641,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113814",
-    image: "/images/schools/marichpuran-dakhil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Marich+Puran+Dakhil+Madrasa+Nalitabari",
   },
@@ -654,7 +654,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113815",
-    image: "/images/schools/kalashpar-dakhil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Kalashpar+Noyme+Dakhil+Madrasa+Nalitabari",
   },
@@ -667,7 +667,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113816",
-    image: "/images/schools/kalakura-nesaria.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Kalakura+Nesaria+Dakhil+Madrasa+Nalitabari",
   },
@@ -680,7 +680,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113817",
-    image: "/images/schools/poragaon-dakhil-madrasa.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Poragaon+Dakhil+Madrasa+Nalitabari",
   },
@@ -693,7 +693,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113818",
-    image: "/images/schools/dohalia-islamia.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Dohalia+Islamia+Dakhil+Madrasa+Nalitabari",
   },
@@ -706,7 +706,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113820",
-    image: "/images/schools/surjanagar-gagla-jani.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Surjanagar+Gaglajani+Dakhil+Madrasa+Nalitabari",
   },
@@ -719,7 +719,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113821",
-    image: "/images/schools/badlakura-dakhil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Badlakura+Dakhil+Madrasa+Nalitabari",
   },
@@ -732,7 +732,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113822",
-    image: "/images/schools/ghakpara-dakhil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Ghak+Para+Dakhil+Madrasa+Nalitabari",
   },
@@ -745,7 +745,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "1994",
     eiin: "113823",
-    image: "/images/schools/garkanda-womens-alim.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nalitabari+Garkanda+Womens+Alim+Madrasa",
   },
@@ -758,7 +758,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113824",
-    image: "/images/schools/saluatala-dakhil.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Saluatala+Dakhil+Madrasa+Nalitabari",
   },
@@ -771,7 +771,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "131624",
-    image: "/images/schools/chinamara-islamia.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Chinamara+Islamia+Dakhil+Madrasa+Nalitabari",
   },
@@ -783,7 +783,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/rahmania-hafizia.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Rahmania+Hafizia+Madrasha+Nalitabari",
   },
@@ -799,19 +799,19 @@ export const schools: SchoolData[] = [
     phone: "01755-486064",
     students: "",
     established: "2019 (নালিতাবাড়ী শাখা)",
-    image: "/images/schools/konika-cadet-academy.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Konika+Cadet+Academy+Nalitabari",
   },
   {
     id: 60,
-    name: "নব জাগরণ একাডেমি",
+    name: "নবজাগরণ একাডেমি",
     type: "Academy",
     address: "নন্নী বাজার, নালিতাবাড়ী, শেরপুর",
     phone: "01737774409",
     students: "",
     established: "2012",
-    image: "/images/schools/nabojagoron-academy.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nabojagoron+Academy+Nanni+Nalitabari",
   },
@@ -823,7 +823,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/mohammad-ali-model-academy.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Mohammad+Ali+Model+Academy+Nalitabari",
   },
@@ -835,7 +835,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/shomoy-academy.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Shomoy+Academy+Nalitabari",
   },
@@ -847,7 +847,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/begum-roushan-ara-academy.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Begum+Roushan+Ara+Academy+Nalitabari",
   },
@@ -859,7 +859,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/meherunnesa-kindergarten-academy.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Meherunnesa+Kindergarten+Academy+Nalitabari",
   },
@@ -871,7 +871,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/aroni-progressive-school.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Aroni+Progressive+School+Nalitabari",
   },
@@ -883,7 +883,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/lyceum-preparatory-school.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Lyceum+Preparatory+School+Nalitabari",
   },
@@ -895,7 +895,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/ideal-school.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Ideal+School+Nalitabari",
   },
@@ -907,7 +907,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "/images/schools/anowara-hashem-model-academy.jpg",
+    image: "",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Anoyara+Hasem+Model+Academy+Nalitabari",
   },
