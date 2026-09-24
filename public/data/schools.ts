@@ -355,7 +355,7 @@ export const schools: SchoolData[] = [
     address: "নিজপাড়া, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "2011",
     eiin: "134795",
     image: "/images/schools/nizpara-sesdp.jpg",
     mapUrl:
@@ -381,7 +381,7 @@ export const schools: SchoolData[] = [
     address: "ভাদিকুড়া, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "2003",
     eiin: "113803",
     image: "/images/schools/bhadikura.jpg",
     mapUrl:
@@ -394,7 +394,7 @@ export const schools: SchoolData[] = [
     address: "বাথুয়ারকান্দা, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "2005",
     eiin: "113804",
     image: "/images/schools/bathuar-kanda.jpg",
     mapUrl:
