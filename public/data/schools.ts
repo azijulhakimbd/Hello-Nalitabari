@@ -824,7 +824,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "1993",
-    image: "https://i.postimg.cc/G2s20vGD/ma-ha-ma-mada-ala-mada-la-eka-da-ma.png",
+    image: "https://i.postimg.cc/8CdNgDz0/mohammad-ali-model-academy.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Mohammad+Ali+Model+Academy+Nalitabari",
   },
