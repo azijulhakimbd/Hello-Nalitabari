@@ -848,7 +848,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "2013",
-    image: "https://i.postimg.cc/Gm0x6jDY/ba-gama-ra-sana-ara-eka-da-ma.png",
+    image: "https://i.postimg.cc/1tTqw9cq/ba-gama-ra-sana-ara-eka-da-ma.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Begum+Roushan+Ara+Academy+Nalitabari",
   },
@@ -871,8 +871,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "2003",
+    image: "https://i.postimg.cc/brcxDxhx/Aaroni-progressive-school.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Aroni+Progressive+School+Nalitabari",
   },
