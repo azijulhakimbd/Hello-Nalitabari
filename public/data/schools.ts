@@ -823,8 +823,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1993",
+    image: "https://i.postimg.cc/G2s20vGD/ma-ha-ma-mada-ala-mada-la-eka-da-ma.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Mohammad+Ali+Model+Academy+Nalitabari",
   },
