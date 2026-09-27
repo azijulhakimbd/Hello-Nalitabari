@@ -800,7 +800,7 @@ export const schools: SchoolData[] = [
     phone: "01755-486064",
     students: "",
     established: "2019 (নালিতাবাড়ী শাখা)",
-    image: "",
+    image: "https://i.postimg.cc/65ZQbVwc/kana-ka-ka-ya-da-ta-eka-da-ma.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Konika+Cadet+Academy+Nalitabari",
   },
