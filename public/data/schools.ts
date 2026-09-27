@@ -434,8 +434,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1938",
+    image: "https://i.postimg.cc/bwpWKn4D/Nonni-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=নন্নী+Government+Primary+School+Nalitabari",
   },
@@ -1852,7 +1852,7 @@ export const schools: SchoolData[] = [
     address: "নন্নী, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1959",
     eiin: "113775",
     image: "",
     mapUrl:
@@ -1865,7 +1865,7 @@ export const schools: SchoolData[] = [
     address: "পোড়াগাঁও, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1990",
     eiin: "113787",
     image: "https://i.postimg.cc/yxGtMr41/Shomoshchura-High-School.png",
     mapUrl:
