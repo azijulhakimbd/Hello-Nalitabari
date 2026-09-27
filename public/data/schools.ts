@@ -1997,7 +1997,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113810",
-    image: "",
+    image: "https://i.postimg.cc/hPkPx2zD/Gujakura-Dakhil-madrasa.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Gojakura+Dakhil+Madrasa+Nalitabari",
   },
