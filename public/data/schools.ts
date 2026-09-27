@@ -2008,9 +2008,9 @@ export const schools: SchoolData[] = [
     address: "নন্নী, নালিতাবাড়ী, শেরপুর",
     phone: "01714636315",
     students: "",
-    established: "",
+    established: "1962",
     eiin: "113811",
-    image: "",
+    image: "https://i.postimg.cc/XvJj6mtF/Nonni-Islamia-Alim-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nanni+Islamia+Alima+Madrasha+Nalitabari",
   },
