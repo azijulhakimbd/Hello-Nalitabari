@@ -26,8 +26,8 @@ import { Input } from "@/components/ui/input";
 /* -------------------------------------------------------------------------- */
 
 const typeLabels: Record<SchoolType, string> = {
-  "Secondary School": "মাধ্যমিক বিদ্যালয়",
   "Primary School": "প্রাথমিক বিদ্যালয়",
+  "Secondary School": "মাধ্যমিক বিদ্যালয়",
   Madrasa: "মাদ্রাসা",
   Academy: "একাডেমি",
   "Private School": "প্রাইভেট স্কুল",
