@@ -847,8 +847,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "2013",
+    image: "https://i.postimg.cc/Gm0x6jDY/ba-gama-ra-sana-ara-eka-da-ma.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Begum+Roushan+Ara+Academy+Nalitabari",
   },
