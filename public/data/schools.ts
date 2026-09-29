@@ -39,7 +39,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/gk0YCQh2/Bagber-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=বাঘবেড়+Government+Primary+School+Nalitabari",
   },
