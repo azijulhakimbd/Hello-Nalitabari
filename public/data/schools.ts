@@ -590,8 +590,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1998",
+    image: "https://i.postimg.cc/xjvw6RFQ/Kutubakura-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কুতুবাকুড়া+Government+Primary+School+Nalitabari",
   },
