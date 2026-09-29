@@ -2086,9 +2086,9 @@ export const schools: SchoolData[] = [
     address: "পোড়াগাঁও, নালিতাবাড়ী, শেরপুর",
     phone: "01739294498",
     students: "",
-    established: "",
+    established: "1975",
     eiin: "113817",
-    image: "",
+    image: "https://i.postimg.cc/zDWMVBFg/Poragaw-Dakhil-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Poragaon+Dakhil+Madrasa+Nalitabari",
   },
