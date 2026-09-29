@@ -51,7 +51,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/900QYnPv/Ranigaw-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=রানীগাঁও+Government+Primary+School+Nalitabari",
   },
