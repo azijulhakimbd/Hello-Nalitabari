@@ -2153,7 +2153,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "1994",
     eiin: "113823",
-    image: "",
+    image: "https://i.postimg.cc/Y9SWTh2Z/Gorkanda-mohila-aliim-madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nalitabari+Garkanda+Womens+Alim+Madrasa",
   },
