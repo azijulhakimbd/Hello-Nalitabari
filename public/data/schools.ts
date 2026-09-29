@@ -2125,9 +2125,9 @@ export const schools: SchoolData[] = [
     address: "বদলাকুড়া, নালিতাবাড়ী, শেরপুর",
     phone: "01916989286",
     students: "",
-    established: "",
+    established: "1990",
     eiin: "113821",
-    image: "",
+    image: "https://i.postimg.cc/fWjKG0v9/Badlakura-Dakhil-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Badlakura+Dakhil+Madrasa+Nalitabari",
   },
