@@ -182,8 +182,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1938",
+    image: "https://i.postimg.cc/YCTfP931/Duhaliya-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=দোহালিয়া+Government+Primary+School+Nalitabari",
   },
@@ -219,7 +219,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/gcRJy0wM/Koloshpar-Shauratoli-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কলসপাড়+শেওরাতলী+Government+Primary+School+Nalitabari",
   },
@@ -951,7 +951,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/zfBZxxxz/Nijpara-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=নিজপাড়া+Government+Primary+School+Nalitabari",
   },
