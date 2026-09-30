@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { Footer } from "@/components/layout/footer";
 import { AuthSessionProvider } from "@/providers/session-provider";
 import { Navbar } from "@/components/layout/navbar";
+import DisableInspect from "@/components/DisableInspect";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -115,7 +116,7 @@ export default async function RootLayout({
             gtag('config', 'G-XTJHCF0JX3');
           `}
         </Script>
-
+            <DisableInspect />
         <AuthSessionProvider>
           <ThemeProvider>
             <Navbar session={session} />
