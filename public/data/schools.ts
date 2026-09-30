@@ -99,7 +99,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/TPShRLSn/Balughata-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=বালুঘাটা+Government+Primary+School+Nalitabari",
   },
@@ -111,7 +111,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/PrrHRf31/Pachgaw-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=পাঁচগাঁও+Government+Primary+School+Nalitabari",
   },
