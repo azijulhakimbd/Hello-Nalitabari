@@ -123,7 +123,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/NLh1LCzt/Kalospar-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কলসপাড়+Government+Primary+School+Nalitabari",
   },
@@ -159,7 +159,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/JhmCj1kT/Borodubi-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=বড়ডুবী+Government+Primary+School+Nalitabari",
   },
