@@ -315,7 +315,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/Px9WxGdx/Gollarpar-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গোল্লারপাড়+Government+Primary+School+Nalitabari",
   },
@@ -363,7 +363,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/KzMK01yS/Manupara-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=মানুপাড়া+Government+Primary+School+Nalitabari",
   },
