@@ -242,8 +242,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1977",
+    image: "https://i.postimg.cc/0yJPvWY9/Purbo-Kolospar-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=পূর্ব+কলসপাড়+Government+Primary+School+Nalitabari",
   },
