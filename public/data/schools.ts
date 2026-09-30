@@ -86,8 +86,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1937",
+    image: "https://i.postimg.cc/hGMhNZ8f/Nakshi-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=নাকশী+Government+Primary+School+Nalitabari",
   },
