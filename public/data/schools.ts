@@ -609,15 +609,15 @@ export const schools: SchoolData[] = [
   },
   {
     id: 50,
-    name: "নিসধূলী সরকারি প্রাথমিক বিদ্যালয়",
+    name: "সিধূলী সরকারি প্রাথমিক বিদ্যালয়",
     type: "Primary School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1998",
+    image: "https://i.postimg.cc/SRZs9sdk/Sidhuli-Govt-Primary-School.png",
     mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=নিসধূলী+Government+Primary+School+Nalitabari",
+      "https://www.google.com/maps/search/?api=1&query=সিধূলী+Government+Primary+School+Nalitabari",
   },
   {
     id: 51,
@@ -633,15 +633,15 @@ export const schools: SchoolData[] = [
   },
   {
     id: 52,
-    name: "আমরাতলী সরকারি প্রাথমিক বিদ্যালয়",
+    name: "আমলাতলী সরকারি প্রাথমিক বিদ্যালয়",
     type: "Primary School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1994",
+    image: "https://i.postimg.cc/1RLRLLTy/amolatoli-Govt-Primary-Schoool.png",
     mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=আমরাতলী+Government+Primary+School+Nalitabari",
+      "https://www.google.com/maps/search/?api=1&query=আমলাতলী+Government+Primary+School+Nalitabari",
   },
   {
     id: 53,
