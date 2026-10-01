@@ -410,8 +410,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1938",
+    image: "https://i.postimg.cc/0jP78bWc/Bondhodara-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=বন্ধধারা+Government+Primary+School+Nalitabari",
   },
