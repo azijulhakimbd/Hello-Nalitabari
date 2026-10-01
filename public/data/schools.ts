@@ -1311,7 +1311,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/fbJm8Gpy/Gorkanda-Model-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গড়কান্দা+মডেল+Government+Primary+School+Nalitabari",
   },
@@ -1359,7 +1359,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/1zfwvk2t/Taragong-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=তারাগঞ্জ+Government+Primary+School+Nalitabari",
   },
@@ -1371,7 +1371,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/FK73TM81/Gobindonogor-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গোবিন্দনগর+Government+Primary+School+Nalitabari",
   },
