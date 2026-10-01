@@ -542,22 +542,22 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1990",
+    image: "https://i.postimg.cc/Qdz8swYd/Mowyakura-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=মৌয়াকুড়া+Government+Primary+School+Nalitabari",
   },
   {
     id: 45,
-    name: "বাতকুনচি সরকারি প্রাথমিক বিদ্যালয়",
+    name: "বাতকুচি সরকারি প্রাথমিক বিদ্যালয়",
     type: "Primary School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1998",
+    image: "https://i.postimg.cc/d3fHD2bC/Batkuci-Govt-Primary-School.png",
     mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=বাতকুনচি+Government+Primary+School+Nalitabari",
+      "https://www.google.com/maps/search/?api=1&query=বাতকুচি+Government+Primary+School+Nalitabari",
   },
   {
     id: 46,
