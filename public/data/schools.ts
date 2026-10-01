@@ -698,8 +698,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1973",
+    image: "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-rupnarayankuraup-sherpur/2024/12/7fb0de036f6d4060938f2bef05086c25.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গাছগড়া+Government+Primary+School+Nalitabari",
   },
@@ -723,7 +723,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/zX8DznJg/Moricpuran-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=মরিচপুরান+Government+Primary+School+Nalitabari",
   },
@@ -747,7 +747,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/QCNzPx3p/Gujakura-Hatemia-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গোজাকুড়া+হাজতনিয়া+Government+Primary+School+Nalitabari",
   },
@@ -759,7 +759,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/Ssgdn6B6/Fokirpara-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ফকিরপাড়া+Government+Primary+School+Nalitabari",
   },
