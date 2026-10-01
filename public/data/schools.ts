@@ -674,8 +674,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1969",
+    image: "https://i.postimg.cc/7ZS5sxZk/Kawyakuru-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কাউয়াকুড়ি+Government+Primary+School+Nalitabari",
   },
@@ -770,8 +770,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1952",
+    image: "https://i.postimg.cc/yYYnCbSM/Vugaiorpar-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ভোগাইরপাড়+Government+Primary+School+Nalitabari",
   },
