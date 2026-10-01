@@ -446,8 +446,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1969",
+    image: "https://i.postimg.cc/mDtg7Rct/Krisnopotti-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কৃষ্ণপট্টি+Government+Primary+School+Nalitabari",
   },
@@ -530,8 +530,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1987",
+    image: "https://i.postimg.cc/2SZd7RZx/Purbo-Chadgaw-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=পূর্ব+চান্দগাঁও+Government+Primary+School+Nalitabari",
   },
