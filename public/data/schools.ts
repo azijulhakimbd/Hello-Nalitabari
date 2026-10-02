@@ -855,7 +855,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/15tYYZY8/KD-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কোন্নগর+দুগাংগারপাড়+Government+Primary+School+Nalitabari",
   },
@@ -890,8 +890,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1988",
+    image: "https://i.postimg.cc/gj6Lnj2W/Kodomtoli-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কদমতলী+Government+Primary+School+Nalitabari",
   },
