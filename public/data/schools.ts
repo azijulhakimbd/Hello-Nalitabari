@@ -1426,7 +1426,14 @@ export const schools: SchoolData[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=খড়খড়িয়াকান্দা+Government+Primary+School+Nalitabari",
   },
-  
+
+
+
+  //=============================== Secondary Schools =========================================================
+  //===========================================================================================================
+
+
+
   {
     id: 122,
     name: "তারাগঞ্জ সরকারি পাইলট উচ্চ বিদ্যালয়",
@@ -1523,14 +1530,14 @@ export const schools: SchoolData[] = [
   },
   {
     id: 129,
-    name: "সানাসিভিটা উচ্চ বিদ্যালয়",
+    name: "সন্যাসীভিটা উচ্চ বিদ্যালয়",
     type: "Secondary School",
-    address: "সানাসিভিটা, নালিতাবাড়ী, শেরপুর",
+    address: "সন্যাসীভিটা, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
     established: "1971",
     eiin: "113780",
-    image: "",
+    image: "https://i.postimg.cc/dVc7c9v8/Sonnashivita-High-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Sanasivita+High+School+Nalitabari",
   },
