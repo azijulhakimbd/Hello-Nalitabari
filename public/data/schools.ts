@@ -1938,9 +1938,9 @@ export const schools: SchoolData[] = [
     address: "নিশ্চিন্তপুর, নালিতাবাড়ী, শেরপুর",
     phone: "01727538623",
     students: "",
-    established: "",
+    established: "1961",
     eiin: "113809",
-    image: "",
+    image: "https://i.postimg.cc/MTmM9Mh8/Nishintapur-Alim-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nischintapur+Alim+Madrasha+Nalitabari",
   },
