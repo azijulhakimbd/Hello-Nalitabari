@@ -1508,9 +1508,9 @@ export const schools: SchoolData[] = [
     address: "ঘাইলারা, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1970",
     eiin: "113778",
-    image: "",
+    image: "https://i.postimg.cc/N09fy9g8/Gailara-Samsul-Haq-High-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Ghailara+Shamsul+Haq+Smrity+High+School",
   },
