@@ -782,8 +782,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1938",
+    image: "https://i.postimg.cc/13MXRwrW/Geramara-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গেড়ামারা+Government+Primary+School+Nalitabari",
   },
