@@ -1783,14 +1783,14 @@ export const schools: SchoolData[] = [
   },
   {
     id: 148,
-    name: "ভাদিকুড়া জুনিয়র উচ্চ বিদ্যালয়",
+    name: "ভেদীকুড়া জুনিয়র উচ্চ বিদ্যালয়",
     type: "Secondary School",
-    address: "ভাদিকুড়া, নালিতাবাড়ী, শেরপুর",
+    address: "ভেদীকুড়া, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
     established: "2003",
     eiin: "113803",
-    image: "",
+    image: "https://i.postimg.cc/130rkXxF/Vedikura-High-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Bhadikura+Junior+High+School+Nalitabari",
   },
