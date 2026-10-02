@@ -2274,15 +2274,15 @@ export const schools: SchoolData[] = [
   },
   {
     id: 187,
-    name: "আইডিয়াল স্কুল",
+    name: "আইডিয়াল কিন্ডার গার্টেন এন্ড স্কুল",
     type: "Private School",
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "2001",
+    image: "https://i.postimg.cc/g2Nhtnrk/Ideal-Kindergarten-And-School.png",
     mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Ideal+School+Nalitabari",
+      "https://www.google.com/maps/search/?api=1&query=Ideal+Kindergarten+and+School+Nalitabari",
   },
 ];
 
