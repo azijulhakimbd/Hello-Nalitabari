@@ -1869,7 +1869,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113800",
-    image: "",
+    image: "https://i.postimg.cc/Kzhkxrng/Gujarura-Junior-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Guzarura+Junior+School+Nalitabari",
   },
@@ -1886,6 +1886,10 @@ export const schools: SchoolData[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Kapashia+Shoheed+Smrity+Junior+School+Nalitabari",
   },
+
+
+  // =========================================== Madrasas =========================================================
+  // ==============================================================================================================
   {
     id: 156,
     name: "রূপনারায়ণকুড়া আলিম মাদ্রাসা",
