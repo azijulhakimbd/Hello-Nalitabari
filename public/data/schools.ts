@@ -902,8 +902,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1988",
+    image: "https://i.postimg.cc/GtkYX9ws/Krisnopur-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=কৃষ্ণপুর+Government+Primary+School+Nalitabari",
   },
