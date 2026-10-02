@@ -927,7 +927,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/02y2Wbsd/Gopalpur-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গোপালপুর+Government+Primary+School+Nalitabari",
   },
@@ -1011,7 +1011,7 @@ export const schools: SchoolData[] = [
     phone: "",
     students: "",
     established: "",
-    image: "",
+    image: "https://i.postimg.cc/WpFPhgTK/Boruajani-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=বরুয়াজানি+Government+Primary+School+Nalitabari",
   },
@@ -1022,8 +1022,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1938",
+    image: "https://i.postimg.cc/m2s6BHDW/Ramchondrokura-Govt.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=রামচন্দ্রকুড়া+Government+Primary+School+Nalitabari",
   },
