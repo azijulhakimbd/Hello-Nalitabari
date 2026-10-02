@@ -931,18 +931,7 @@ export const schools: SchoolData[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=গোপালপুর+Government+Primary+School+Nalitabari",
   },
-  {
-    id: 77,
-    name: "যোগানিয়া সরকারি প্রাথমিক বিদ্যালয়",
-    type: "Primary School",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    students: "",
-    established: "",
-    image: "",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=যোগানিয়া+Government+Primary+School+Nalitabari",
-  },
+  
   {
     id: 78,
     name: "নিজপাড়া সরকারি প্রাথমিক বিদ্যালয়",
@@ -1063,18 +1052,7 @@ export const schools: SchoolData[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ফুলপুর+Government+Primary+School+Nalitabari",
   },
-  {
-    id: 88,
-    name: "রামচন্দ্রকুড়া সরকারি প্রাথমিক বিদ্যালয়",
-    type: "Primary School",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    students: "",
-    established: "",
-    image: "",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=রামচন্দ্রকুড়া+Government+Primary+School+Nalitabari",
-  },
+  
   {
     id: 89,
     name: "তন্তর সরকারি প্রাথমিক বিদ্যালয়",
@@ -1291,18 +1269,7 @@ export const schools: SchoolData[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=চিনামারা+Government+Primary+School+Nalitabari",
   },
-  {
-    id: 107,
-    name: "খালভাঙ্গা সরকারি প্রাথমিক বিদ্যালয়",
-    type: "Primary School",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    students: "",
-    established: "",
-    image: "",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=খালভাঙ্গা+Government+Primary+School+Nalitabari",
-  },
+  
   {
     id: 108,
     name: "গড়কান্দা মডেল সরকারি প্রাথমিক বিদ্যালয়",
@@ -1459,18 +1426,7 @@ export const schools: SchoolData[] = [
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=খড়খড়িয়াকান্দা+Government+Primary+School+Nalitabari",
   },
-  {
-    id: 121,
-    name: "নিজপাড়া সরকারি প্রাথমিক বিদ্যালয়",
-    type: "Primary School",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    students: "",
-    established: "",
-    image: "",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=নিজপাড়া+Government+Primary+School+Nalitabari",
-  },
+  
   {
     id: 122,
     name: "তারাগঞ্জ সরকারি পাইলট উচ্চ বিদ্যালয়",
