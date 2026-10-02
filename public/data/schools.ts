@@ -2016,9 +2016,9 @@ export const schools: SchoolData[] = [
     address: "কালাশপাড়, নালিতাবাড়ী, শেরপুর",
     phone: "01721314074",
     students: "",
-    established: "",
+    established: "1995",
     eiin: "113815",
-    image: "",
+    image: "https://i.postimg.cc/QxQ81ZGF/Kalaspar-nayemi-Dakhil-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Kalashpar+Noyme+Dakhil+Madrasa+Nalitabari",
   },
