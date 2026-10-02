@@ -1556,9 +1556,9 @@ export const schools: SchoolData[] = [
   },
   {
     id: 131,
-    name: "নালজুরা ইনতাজ আলী উচ্চ বিদ্যালয়",
+    name: "নলজোড়া ইন্তাজ আলী উচ্চ বিদ্যালয়",
     type: "Secondary School",
-    address: "নালজুরা, নালিতাবাড়ী, শেরপুর",
+    address: "নলজোড়া, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
     established: "1972",
