@@ -1927,7 +1927,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "1950",
     eiin: "113808",
-    image: "",
+    image: "https://i.postimg.cc/jj9ZR9j1/Taragoncj-Fazil-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Taragonj+Fazil+Madrasha+Nalitabari",
   },
