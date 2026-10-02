@@ -1817,7 +1817,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "1959",
     eiin: "113775",
-    image: "",
+    image: "https://i.postimg.cc/Z5YLhZJw/Nonni-High-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Nanni+High+School+Nalitabari",
   },
