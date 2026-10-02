@@ -1058,8 +1058,8 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
-    image: "",
+    established: "1938",
+    image: "https://i.postimg.cc/TwQh1mx2/Phulpur-Govt-Primary-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=ফুলপুর+Government+Primary+School+Nalitabari",
   },
