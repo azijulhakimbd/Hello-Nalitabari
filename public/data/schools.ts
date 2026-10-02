@@ -1600,7 +1600,7 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1985",
     eiin: "113785",
     image: "",
     mapUrl:
@@ -1680,9 +1680,9 @@ export const schools: SchoolData[] = [
     address: "নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1993",
     eiin: "113792",
-    image: "",
+    image: "https://i.postimg.cc/Pr97XPFg/Hosen-Ali-Balika-High-School.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Hossain+Ali+Girls+High+School+Nalitabari",
   },
@@ -1708,7 +1708,7 @@ export const schools: SchoolData[] = [
     students: "",
     established: "",
     eiin: "113794",
-    image: "",
+    image: "https://i.postimg.cc/nhfsf1ZB/Muktijudda-High-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Muktijuddha+High+School+Nalitabari",
   },
