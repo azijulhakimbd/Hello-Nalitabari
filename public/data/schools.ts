@@ -1854,9 +1854,9 @@ export const schools: SchoolData[] = [
     address: "কদমতলী, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1999",
     eiin: "113799",
-    image: "",
+    image: "https://i.postimg.cc/d0krqVpN/Kodomtoli-High-School.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Kadomtoly+Junior+High+School+Nalitabari",
   },
