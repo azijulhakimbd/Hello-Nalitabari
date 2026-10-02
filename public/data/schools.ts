@@ -1899,9 +1899,9 @@ export const schools: SchoolData[] = [
     address: "রাজনগর, নালিতাবাড়ী, শেরপুর",
     phone: "",
     students: "",
-    established: "",
+    established: "1946",
     eiin: "113806",
-    image: "",
+    image: "https://i.postimg.cc/0QBZ242W/Rajnogor-Rahmania-Fazil-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Rajnagar+Rahmania+Fazil+Madrasah+Nalitabari",
   },
