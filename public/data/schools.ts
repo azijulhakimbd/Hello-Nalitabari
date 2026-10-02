@@ -1886,9 +1886,9 @@ export const schools: SchoolData[] = [
     address: "নিজপাড়া, নালিতাবাড়ী, শেরপুর",
     phone: "01712614092",
     students: "",
-    established: "",
+    established: "1942",
     eiin: "113805",
-    image: "",
+    image: "https://i.postimg.cc/sxx8TSvg/Rupnarayonkura-Alim-Madrasa.png",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Rupnarayan+Kura+Alim+Madrasha+Nalitabari",
   },
