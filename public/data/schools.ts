@@ -1977,9 +1977,9 @@ export const schools: SchoolData[] = [
     address: "দক্ষিণ রানীগাঁও, নালিতাবাড়ী, শেরপুর",
     phone: "01820575675",
     students: "",
-    established: "",
+    established: "1965",
     eiin: "113812",
-    image: "",
+    image: "https://i.postimg.cc/B6SQQhwp/RANIGAON-SIRUMIA-AZIMUDDIN-DAKHIL-MADRASAH.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=Dakkhin+Ranigaon+Sirumiah+Azimuddin+Madrasa+Nalitabari",
   },
