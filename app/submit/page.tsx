@@ -44,7 +44,7 @@ type SocialLink = {
 export default function SubmitPage() {
   const router = useRouter();
   const [category, setCategory] = React.useState("");
-  const [imageData, setImageData] = React.useState("");
+  const [imageFile, setImageFile] = React.useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [submitMessage, setSubmitMessage] = React.useState("");
   const [submitError, setSubmitError] = React.useState("");
@@ -115,7 +115,6 @@ export default function SubmitPage() {
       email: form.get("email"),
       website: form.get("website"),
       socialLinks: socialLinks.filter((social) => social.url.trim()),
-      imageData,
       openingHours: form.get("openingHours"),
       weeklyClosing: form.get("weeklyClosing"),
       additionalInfo: form.get("additionalInfo"),
@@ -124,10 +123,13 @@ export default function SubmitPage() {
     };
 
     try {
+      const requestBody = new FormData();
+      requestBody.set("data", JSON.stringify(payload));
+      if (imageFile) requestBody.set("image", imageFile);
+
       const response = await fetch("/api/submissions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: requestBody,
       });
       const result = await response.json();
 
@@ -143,7 +145,7 @@ export default function SubmitPage() {
       setSubmitMessage("তথ্যটি পর্যালোচনার জন্য জমা হয়েছে।");
       formElement.reset();
       setCategory("");
-      setImageData("");
+      setImageFile(null);
       setPhones([""]);
       setSocialLinks([{ platform: "Facebook", url: "" }]);
     } catch (error) {
@@ -605,6 +607,12 @@ export default function SubmitPage() {
                   JPG, PNG বা WEBP · সর্বোচ্চ ৫MB
                 </p>
 
+                {imageFile && (
+                  <p className="mt-2 text-sm text-emerald-700">
+                    {imageFile.name}
+                  </p>
+                )}
+
                 <input
                   id="image"
                   type="file"
@@ -615,12 +623,12 @@ export default function SubmitPage() {
                     if (!file) return;
                     if (file.size > 5 * 1024 * 1024) {
                       setSubmitError("ছবির আকার ৫MB-এর বেশি হতে পারবে না।");
+                      setImageFile(null);
                       event.currentTarget.value = "";
                       return;
                     }
-                    const reader = new FileReader();
-                    reader.onload = () => setImageData(String(reader.result));
-                    reader.readAsDataURL(file);
+                    setSubmitError("");
+                    setImageFile(file);
                   }}
                 />
               </label>

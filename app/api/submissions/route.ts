@@ -1,5 +1,6 @@
 import { auth } from "@/auth"
 import clientPromise, { getMongoDatabase } from "@/lib/mongodb"
+import { v2 as cloudinary } from "cloudinary"
 import { NextResponse } from "next/server"
 import { z } from "zod"
 
@@ -28,10 +29,6 @@ const submissionSchema = z.object({
     platform: z.string().trim().min(1).max(40),
     url: z.url(),
   })).max(8).default([]),
-  imageData: z.union([
-    z.literal(""),
-    z.string().max(7_000_000).regex(/^data:image\/(png|jpeg|webp);base64,/),
-  ]).default(""),
   openingHours: z.string().trim().max(100).default(""),
   weeklyClosing: z.string().trim().max(100).default(""),
   additionalInfo: z.string().trim().max(1000).default(""),
@@ -74,7 +71,27 @@ export async function POST(request: Request) {
   }
 
   try {
-    const body = await request.json()
+    const formData = await request.formData()
+    const submissionData = formData.get("data")
+    const image = formData.get("image")
+
+    if (typeof submissionData !== "string") {
+      return NextResponse.json(
+        { message: "Please check the required fields and try again." },
+        { status: 400 }
+      )
+    }
+
+    let body: unknown
+    try {
+      body = JSON.parse(submissionData)
+    } catch {
+      return NextResponse.json(
+        { message: "Please check the required fields and try again." },
+        { status: 400 }
+      )
+    }
+
     const result = submissionSchema.safeParse(body)
 
     if (!result.success) {
@@ -84,10 +101,48 @@ export async function POST(request: Request) {
       )
     }
 
+    let imageUrl = ""
+    if (image !== null) {
+      if (!(image instanceof File)
+        || !["image/png", "image/jpeg", "image/webp"].includes(image.type)
+        || image.size > 5 * 1024 * 1024) {
+        return NextResponse.json(
+          { message: "Please upload a PNG, JPG, or WEBP image up to 5MB." },
+          { status: 400 }
+        )
+      }
+
+      const cloudName = process.env.CLOUDINARY_CLOUD_NAME
+      const apiKey = process.env.CLOUDINARY_API_KEY
+      const apiSecret = process.env.CLOUDINARY_API_SECRET
+      if (!cloudName || !apiKey || !apiSecret) {
+        return NextResponse.json(
+          { message: "Image uploads are not configured." },
+          { status: 503 }
+        )
+      }
+
+      cloudinary.config({ cloud_name: cloudName, api_key: apiKey, api_secret: apiSecret })
+      const buffer = Buffer.from(await image.arrayBuffer())
+      imageUrl = await new Promise<string>((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: "nalitabari/submissions", resource_type: "image" },
+          (error, uploadedImage) => {
+            if (error || !uploadedImage) {
+              reject(error ?? new Error("Cloudinary upload returned no image."))
+              return
+            }
+            resolve(uploadedImage.secure_url)
+          }
+        ).end(buffer)
+      })
+    }
+
     const client = await clientPromise
     const now = new Date()
     const submission = {
       ...result.data,
+      imageUrl,
       userId: session.user.id,
       submitterEmail: session.user.email ?? "",
       status: "pending",

@@ -58,6 +58,9 @@ AUTH_SECRET="your-auth-secret"
 AUTH_URL="http://localhost:3000"
 RESEND_API_KEY="re_..."
 OPENAI_API_KEY="sk-..."
+CLOUDINARY_CLOUD_NAME="your-cloud-name"
+CLOUDINARY_API_KEY="your-api-key"
+CLOUDINARY_API_SECRET="your-api-secret"
 ```
 
 Notes:
@@ -67,6 +70,7 @@ Notes:
 - `AUTH_URL` or `NEXTAUTH_URL` can be used for local auth callback URLs.
 - `RESEND_API_KEY` is needed for password reset and contact email flows.
 - `OPENAI_API_KEY` is needed for the AI chat API route.
+- The `CLOUDINARY_*` values enable server-side image uploads for submissions. Uploaded images are stored in Cloudinary, and MongoDB stores their secure URLs.
 
 ## Getting Started
 
