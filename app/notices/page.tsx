@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { useRouteData } from "@/components/data/use-route-data"
 
 type NoticeItem = {
   id: number
@@ -30,105 +31,9 @@ type NoticeItem = {
   deadline?: string
 }
 
-const notices: NoticeItem[] = [
-  {
-    id: 1,
-    title: "নালিতাবাড়ী উপজেলার সকল শিক্ষা প্রতিষ্ঠানের জন্য জরুরি বিজ্ঞপ্তি",
-    description:
-      "সাম্প্রতিক পরিস্থিতি বিবেচনায় উপজেলার শিক্ষা প্রতিষ্ঠানসমূহকে প্রয়োজনীয় প্রস্তুতি গ্রহণ এবং সংশ্লিষ্ট নির্দেশনা অনুসরণের জন্য অনুরোধ করা হয়েছে।",
-    date: "২০ জুলাই ২০২৬",
-    category: "জরুরি বিজ্ঞপ্তি",
-    authority: "উপজেলা প্রশাসন, নালিতাবাড়ী",
-    noticeNo: "০৫.০০.০০০০.০০১.২০২৬",
-    featured: true,
-    deadline: "২৫ জুলাই ২০২৬",
-  },
-  {
-    id: 2,
-    title: "বন্যা পরিস্থিতিতে জনসাধারণের করণীয় সংক্রান্ত বিজ্ঞপ্তি",
-    description:
-      "উপজেলার নিম্নাঞ্চলে বন্যা পরিস্থিতির কারণে জনসাধারণকে নিরাপদ স্থানে অবস্থান এবং প্রয়োজনীয় সতর্কতা অবলম্বনের জন্য নির্দেশনা প্রদান করা হয়েছে।",
-    date: "১৯ জুলাই ২০২৬",
-    category: "দুর্যোগ",
-    authority: "উপজেলা প্রশাসন, নালিতাবাড়ী",
-    noticeNo: "০৫.৪১.৮৯০০.০০২.২০২৬",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "সরকারি কর্মকর্তা-কর্মচারীদের উপস্থিতি সংক্রান্ত নোটিশ",
-    description:
-      "উপজেলা পর্যায়ের সকল সরকারি দপ্তরের কর্মকর্তা-কর্মচারীদের নির্ধারিত সময়ে কর্মস্থলে উপস্থিত থাকার বিষয়ে বিজ্ঞপ্তি।",
-    date: "১৫ জুলাই ২০২৬",
-    category: "প্রশাসন",
-    authority: "উপজেলা নির্বাহী অফিসারের কার্যালয়",
-    noticeNo: "০৫.৪১.৮৯০০.০০৩.২০২৬",
-  },
-  {
-    id: 4,
-    title: "উপজেলার বিভিন্ন ইউনিয়নে বৃক্ষরোপণ কর্মসূচি সংক্রান্ত বিজ্ঞপ্তি",
-    description:
-      "পরিবেশ সংরক্ষণ ও সবুজায়ন কার্যক্রমের অংশ হিসেবে উপজেলার বিভিন্ন ইউনিয়নে বৃক্ষরোপণ কর্মসূচি বাস্তবায়নের বিষয়ে বিজ্ঞপ্তি।",
-    date: "১০ জুলাই ২০২৬",
-    category: "পরিবেশ",
-    authority: "উপজেলা প্রশাসন, নালিতাবাড়ী",
-    noticeNo: "০৫.৪১.৮৯০০.০০৪.২০২৬",
-    deadline: "৩০ জুলাই ২০২৬",
-  },
-  {
-    id: 5,
-    title: "সামাজিক নিরাপত্তা কর্মসূচির উপকারভোগীদের জন্য বিজ্ঞপ্তি",
-    description:
-      "সামাজিক নিরাপত্তা কর্মসূচির আওতায় বিভিন্ন ভাতা ও সুবিধার উপকারভোগীদের প্রয়োজনীয় তথ্য ও কাগজপত্র হালনাগাদ করার জন্য অনুরোধ করা হয়েছে।",
-    date: "৫ জুলাই ২০২৬",
-    category: "সামাজিক সেবা",
-    authority: "উপজেলা সমাজসেবা কার্যালয়",
-    noticeNo: "০৫.৪১.৮৯০০.০০৫.২০২৬",
-  },
-  {
-    id: 6,
-    title: "কৃষকদের জন্য সার ও কৃষি উপকরণ বিতরণ সংক্রান্ত বিজ্ঞপ্তি",
-    description:
-      "উপজেলার কৃষকদের মধ্যে নির্ধারিত কৃষি উপকরণ বিতরণ কার্যক্রমের সময়সূচি ও প্রয়োজনীয় নির্দেশনা জানানো হয়েছে।",
-    date: "২ জুলাই ২০২৬",
-    category: "কৃষি",
-    authority: "উপজেলা কৃষি অফিস",
-    noticeNo: "০৫.৪১.৮৯০০.০০৬.২০২৬",
-    deadline: "২০ জুলাই ২০২৬",
-  },
-  {
-    id: 7,
-    title: "জাতীয় পরিচয়পত্র সংক্রান্ত সেবা গ্রহণের সময়সূচি",
-    description:
-      "জাতীয় পরিচয়পত্র সংক্রান্ত বিভিন্ন সেবা গ্রহণের জন্য নির্ধারিত সময় ও প্রয়োজনীয় কাগজপত্র সম্পর্কে বিজ্ঞপ্তি।",
-    date: "২৮ জুন ২০২৬",
-    category: "নাগরিক সেবা",
-    authority: "উপজেলা নির্বাচন অফিস",
-    noticeNo: "০৫.৪১.৮৯০০.০০৭.২০২৬",
-  },
-  {
-    id: 8,
-    title: "ভূমি সেবা সংক্রান্ত গণশুনানি আয়োজনের বিজ্ঞপ্তি",
-    description:
-      "উপজেলার ভূমি সংক্রান্ত বিভিন্ন সমস্যা ও অভিযোগ শুনানির জন্য নির্ধারিত তারিখে গণশুনানি অনুষ্ঠিত হবে।",
-    date: "২৫ জুন ২০২৬",
-    category: "ভূমি সেবা",
-    authority: "সহকারী কমিশনার (ভূমি), নালিতাবাড়ী",
-    noticeNo: "০৫.৪১.৮৯০০.০০৮.২০২৬",
-  },
-]
 
-const categories = [
-  "সব",
-  "জরুরি বিজ্ঞপ্তি",
-  "প্রশাসন",
-  "দুর্যোগ",
-  "নাগরিক সেবা",
-  "সামাজিক সেবা",
-  "কৃষি",
-  "ভূমি সেবা",
-  "পরিবেশ",
-]
+
+type NoticeRecord = NoticeItem
 
 function NoticeCard({ notice }: { notice: NoticeItem }) {
   return (
@@ -255,8 +160,10 @@ function NoticeCard({ notice }: { notice: NoticeItem }) {
 }
 
 export default function NoticesPage() {
+  const { data: notices } = useRouteData<NoticeRecord>("notices")
   const [search, setSearch] = React.useState("")
   const [category, setCategory] = React.useState("সব")
+  const categories = ["সব", ...new Set(notices.map((notice) => notice.category))]
 
   const filteredNotices = React.useMemo(() => {
     const query = search.trim().toLowerCase()
@@ -275,7 +182,7 @@ export default function NoticesPage() {
 
       return matchesCategory && matchesSearch
     })
-  }, [search, category])
+  }, [notices, search, category])
 
   const clearFilters = () => {
     setSearch("")

@@ -12,6 +12,7 @@ import {
   Filter,
   CalendarCheck,
 } from "lucide-react"
+import { useRouteData } from "@/components/data/use-route-data"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -39,108 +40,9 @@ type Event = {
   attendees?: string
 }
 
-const events: Event[] = [
-  {
-    id: 1,
-    title: "জাতীয় শোক দিবস পালন",
-    description:
-      "জাতীয় শোক দিবস উপলক্ষে নালিতাবাড়ী উপজেলা প্রশাসনের উদ্যোগে আলোচনা সভা ও বিভিন্ন কর্মসূচির আয়োজন করা হয়েছে।",
-    date: "১৫ আগস্ট ২০২৬",
-    time: "সকাল ১০:০০টা",
-    location: "উপজেলা পরিষদ মিলনায়তন, নালিতাবাড়ী",
-    category: "সরকারি অনুষ্ঠান",
-    organizer: "নালিতাবাড়ী উপজেলা প্রশাসন",
-    status: "সমাপ্ত",
-    image:
-      "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80",
-    attendees: "৫০০+",
-  },
-  {
-    id: 2,
-    title: "বৃক্ষরোপণ ও পরিবেশ সচেতনতা কর্মসূচি",
-    description:
-      "পরিবেশ রক্ষা ও সবুজ নালিতাবাড়ী গড়ে তোলার লক্ষ্যে বৃক্ষরোপণ এবং জনসচেতনতামূলক কর্মসূচি।",
-    date: "২০ আগস্ট ২০২৬",
-    time: "সকাল ৯:০০টা",
-    location: "নালিতাবাড়ী উপজেলা পরিষদ প্রাঙ্গণ",
-    category: "পরিবেশ",
-    organizer: "উপজেলা প্রশাসন",
-    status: "আসন্ন",
-    image:
-      "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=80",
-    attendees: "২০০+",
-  },
-  {
-    id: 3,
-    title: "কৃষক প্রশিক্ষণ ও মতবিনিময় সভা",
-    description:
-      "আধুনিক কৃষি প্রযুক্তি, উন্নত জাতের ফসল এবং কৃষি ব্যবস্থাপনা বিষয়ে স্থানীয় কৃষকদের জন্য প্রশিক্ষণ।",
-    date: "২৫ আগস্ট ২০২৬",
-    time: "সকাল ১০:৩০টা",
-    location: "উপজেলা কৃষি অফিস, নালিতাবাড়ী",
-    category: "কৃষি",
-    organizer: "উপজেলা কৃষি অফিস",
-    status: "আসন্ন",
-    image:
-      "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80",
-    attendees: "১৫০+",
-  },
-  {
-    id: 4,
-    title: "স্বাস্থ্য সচেতনতা ও ফ্রি মেডিকেল ক্যাম্প",
-    description:
-      "সাধারণ মানুষের স্বাস্থ্যসেবা নিশ্চিত করতে বিনামূল্যে চিকিৎসা পরামর্শ, স্বাস্থ্য পরীক্ষা ও সচেতনতামূলক কার্যক্রম।",
-    date: "২৮ আগস্ট ২০২৬",
-    time: "সকাল ৮:৩০টা",
-    location: "নালিতাবাড়ী উপজেলা স্বাস্থ্য কমপ্লেক্স",
-    category: "স্বাস্থ্য",
-    organizer: "উপজেলা স্বাস্থ্য কমপ্লেক্স",
-    status: "আসন্ন",
-    image:
-      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80",
-    attendees: "৩০০+",
-  },
-  {
-    id: 5,
-    title: "শিক্ষার্থী মেধা যাচাই ও পুরস্কার বিতরণ",
-    description:
-      "উপজেলার বিভিন্ন শিক্ষা প্রতিষ্ঠানের মেধাবী শিক্ষার্থীদের উৎসাহিত করতে মেধা যাচাই ও পুরস্কার বিতরণ অনুষ্ঠান।",
-    date: "০৫ সেপ্টেম্বর ২০২৬",
-    time: "সকাল ১১:০০টা",
-    location: "নালিতাবাড়ী সরকারি কলেজ মাঠ",
-    category: "শিক্ষা",
-    organizer: "উপজেলা শিক্ষা অফিস",
-    status: "আসন্ন",
-    image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
-    attendees: "৪০০+",
-  },
-  {
-    id: 6,
-    title: "ডিজিটাল বাংলাদেশ বিষয়ক সেমিনার",
-    description:
-      "ডিজিটাল সেবা, প্রযুক্তির ব্যবহার এবং নাগরিক জীবনে ডিজিটাল সুবিধা নিয়ে সচেতনতামূলক সেমিনার।",
-    date: "১০ জুলাই ২০২৬",
-    time: "সকাল ১০:০০টা",
-    location: "উপজেলা পরিষদ সভাকক্ষ",
-    category: "প্রযুক্তি",
-    organizer: "উপজেলা প্রশাসন",
-    status: "সমাপ্ত",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-    attendees: "২৫০+",
-  },
-]
 
-const categories = [
-  "সব",
-  "সরকারি অনুষ্ঠান",
-  "পরিবেশ",
-  "কৃষি",
-  "স্বাস্থ্য",
-  "শিক্ষা",
-  "প্রযুক্তি",
-]
+
+type EventRecord = Event
 
 function getStatusClass(status: EventStatus) {
   switch (status) {
@@ -237,9 +139,11 @@ function EventCard({ event }: { event: Event }) {
 }
 
 export default function EventsPage() {
+  const { data: events, loading } = useRouteData<EventRecord>("events")
   const [search, setSearch] = React.useState("")
   const [category, setCategory] = React.useState("সব")
   const [status, setStatus] = React.useState<"সব" | EventStatus>("সব")
+  const categories = ["সব", ...new Set(events.map((event) => event.category))]
 
   const filteredEvents = React.useMemo(() => {
     const query = search.toLowerCase().trim()
@@ -259,7 +163,7 @@ export default function EventsPage() {
 
       return matchesSearch && matchesCategory && matchesStatus
     })
-  }, [search, category, status])
+  }, [events, search, category, status])
 
   const upcomingCount = events.filter(
     (event) => event.status === "আসন্ন"
@@ -384,7 +288,9 @@ export default function EventsPage() {
           </p>
         </div>
 
-        {filteredEvents.length > 0 ? (
+        {loading ? (
+          <p className="py-12 text-center text-sm text-muted-foreground">তথ্য লোড হচ্ছে...</p>
+        ) : filteredEvents.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredEvents.map((event) => (
               <EventCard key={event.id} event={event} />

@@ -14,7 +14,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { doctors } from "@/components/doctors/doctor-data"
+import type { Doctor } from "@/types/doctor"
+import { getRouteData } from "@/lib/route-data"
 
 type Props = {
   params: Promise<{
@@ -24,6 +25,7 @@ type Props = {
 
 export default async function DoctorDetailsPage({ params }: Props) {
   const { id } = await params
+  const doctors = await getRouteData<Doctor>("doctors")
 
   const doctor = doctors.find(
     (item) => item.id === Number(id)

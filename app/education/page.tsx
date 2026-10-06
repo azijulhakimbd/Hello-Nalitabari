@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { getRouteData } from "@/lib/route-data";
 
 const categories = [
   {
@@ -37,25 +38,16 @@ const categories = [
   },
 ];
 
-const institutions = [
-  {
-    name: "নালিতাবাড়ী সরকারি কলেজ",
-    type: "কলেজ",
-    location: "নালিতাবাড়ী, শেরপুর",
-  },
-  {
-    name: "স্থানীয় মাধ্যমিক বিদ্যালয়সমূহ",
-    type: "মাধ্যমিক",
-    location: "নালিতাবাড়ী উপজেলা",
-  },
-  {
-    name: "স্থানীয় প্রাথমিক বিদ্যালয়সমূহ",
-    type: "প্রাথমিক",
-    location: "নালিতাবাড়ী উপজেলা",
-  },
-];
 
-export default function EducationPage() {
+
+type EducationInstitution = {
+  name: string;
+  type: string;
+  location: string;
+};
+
+export default async function EducationPage() {
+  const institutions = await getRouteData<EducationInstitution>("education-institutions");
   return (
     <main>
       {/* Hero */}

@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nalitabari.sherpur.gov.bd"),
+  metadataBase: new URL("https://hello-nalitabari.vercel.app"),
 
   title: {
     default: "নালিতাবাড়ী উপজেলা তথ্য পোর্টাল",

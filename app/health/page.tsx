@@ -1,18 +1,17 @@
 import Link from "next/link";
 import {
-  Ambulance,
   ArrowRight,
   Building2,
   Clock,
   HeartPulse,
   MapPin,
-  Pill,
-  Stethoscope,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { RouteIcon } from "@/components/data/route-icon";
+import { getRouteData } from "@/lib/route-data";
 
 /* =========================================================
    TYPES
@@ -21,7 +20,7 @@ import { Card, CardContent } from "@/components/ui/card";
 type HealthCategory = {
   title: string;
   description: string;
-  icon: React.ElementType;
+  icon: React.ElementType | string;
   href: string;
 };
 
@@ -37,59 +36,26 @@ type HealthFacility = {
    HEALTH CATEGORIES
 ========================================================= */
 
-const healthCategories: HealthCategory[] = [
-  {
-    title: "হাসপাতাল",
-    description: "সরকারি ও বেসরকারি হাসপাতালের তথ্য খুঁজুন।",
-    icon: Building2,
-    href: "/hospitals",
-  },
-  {
-    title: "ডাক্তার",
-    description: "বিভিন্ন বিশেষজ্ঞ চিকিৎসকের তথ্য দেখুন।",
-    icon: Stethoscope,
-    href: "/doctors",
-  },
-  {
-    title: "ফার্মেসি",
-    description: "স্থানীয় ফার্মেসি ও ওষুধের দোকান খুঁজুন।",
-    icon: Pill,
-    href: "/pharmacies",
-  },
-  {
-    title: "অ্যাম্বুলেন্স",
-    description: "জরুরি রোগী পরিবহনের তথ্য খুঁজুন।",
-    icon: Ambulance,
-    href: "/ambulance",
-  },
-];
+
 
 /* =========================================================
    HEALTH FACILITIES
 ========================================================= */
 
-const healthFacilities: HealthFacility[] = [
-  {
-    name: "নালিতাবাড়ী উপজেলা স্বাস্থ্য কমপ্লেক্স",
-    type: "সরকারি স্বাস্থ্যসেবা",
-    location: "নালিতাবাড়ী, শেরপুর",
-    status: "তথ্য শীঘ্রই যুক্ত হবে",
-    href: "/hospitals",
-  },
-  {
-    name: "স্থানীয় ক্লিনিক ও ডায়াগনস্টিক সেন্টার",
-    type: "ক্লিনিক / ডায়াগনস্টিক",
-    location: "নালিতাবাড়ী",
-    status: "তথ্য শীঘ্রই যুক্ত হবে",
-    href: "/directory/health/clinics",
-  },
-];
+
+
+type MongoHealthCategory = Omit<HealthCategory, "icon"> & { icon: string };
+type MongoHealthFacility = HealthFacility;
 
 /* =========================================================
    PAGE
 ========================================================= */
 
-export default function HealthPage() {
+export default async function HealthPage() {
+  const [healthCategories, healthFacilities] = await Promise.all([
+    getRouteData<MongoHealthCategory>("health-categories"),
+    getRouteData<MongoHealthFacility>("health-facilities"),
+  ]);
   return (
     <main className="min-h-screen">
       {/* =====================================================
@@ -143,8 +109,6 @@ export default function HealthPage() {
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {healthCategories.map((item) => {
-            const Icon = item.icon;
-
             return (
               <Link
                 key={item.title}
@@ -154,7 +118,7 @@ export default function HealthPage() {
                 <Card className="h-full border-border/60 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2">
                   <CardContent className="flex h-full flex-col p-6">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white dark:bg-emerald-950/50 dark:text-emerald-400 dark:group-hover:bg-emerald-600 dark:group-hover:text-white">
-                      <Icon className="h-6 w-6" />
+                      <RouteIcon name={item.icon} className="h-6 w-6" />
                     </div>
 
                     <h3 className="mt-5 text-lg font-semibold">

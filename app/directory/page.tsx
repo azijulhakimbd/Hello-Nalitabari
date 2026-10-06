@@ -4,17 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import {
   Search,
-  Building2,
-  Hospital,
-  GraduationCap,
-  Landmark,
-  ShieldCheck,
   Phone,
   MapPin,
-  Users,
-  School,
-  Ambulance,
-  Flame,
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
@@ -23,6 +14,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { RouteIcon } from "@/components/data/route-icon";
+import { useRouteData } from "@/components/data/use-route-data";
 
 /* =========================================================
    TYPES
@@ -31,7 +24,7 @@ import { Button } from "@/components/ui/button";
 type DirectoryCategory = {
   title: string;
   description: string;
-  icon: React.ElementType;
+  icon: React.ElementType | string;
   count: string;
   color: string;
   href: string;
@@ -41,7 +34,7 @@ type DirectoryCategory = {
 type EmergencyService = {
   title: string;
   number: string;
-  icon: React.ElementType;
+  icon: React.ElementType | string;
   href?: string;
 };
 
@@ -49,7 +42,7 @@ type PopularDirectory = {
   title: string;
   category: string;
   location: string;
-  icon: React.ElementType;
+  icon: React.ElementType | string;
   href: string;
 };
 
@@ -57,171 +50,23 @@ type PopularDirectory = {
    DIRECTORY CATEGORIES
 ========================================================= */
 
-const directoryData: DirectoryCategory[] = [
-  {
-    title: "সরকারি অফিস",
-    description:
-      "উপজেলার বিভিন্ন সরকারি দপ্তর ও গুরুত্বপূর্ণ কার্যালয়ের তথ্য",
-    icon: Building2,
-    count: "২৫+",
-    color: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400",
-    href: "government",
-    items: [
-      "উপজেলা নির্বাহী অফিসারের কার্যালয়",
-      "উপজেলা ভূমি অফিস",
-      "উপজেলা সমাজসেবা কার্যালয়",
-      "উপজেলা কৃষি অফিস",
-      "উপজেলা প্রাণিসম্পদ অফিস",
-    ],
-  },
-  {
-    title: "স্বাস্থ্যসেবা",
-    description:
-      "হাসপাতাল, ক্লিনিক, চিকিৎসক ও জরুরি স্বাস্থ্যসেবার তথ্য",
-    icon: Hospital,
-    count: "২০+",
-    color:
-      "bg-red-50 text-red-600 dark:bg-red-950/40 dark:text-red-400",
-    href: "health",
-    items: [
-      "উপজেলা স্বাস্থ্য কমপ্লেক্স",
-      "কমিউনিটি ক্লিনিক",
-      "সরকারি চিকিৎসক",
-      "বেসরকারি হাসপাতাল",
-      "অ্যাম্বুলেন্স সেবা",
-    ],
-  },
-  {
-    title: "শিক্ষাপ্রতিষ্ঠান",
-    description:
-      "স্কুল, কলেজ, মাদ্রাসা ও অন্যান্য শিক্ষাপ্রতিষ্ঠানের তথ্য",
-    icon: GraduationCap,
-    count: "১৫০+",
-    color:
-      "bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400",
-    href: "education",
-    items: [
-      "সরকারি উচ্চ বিদ্যালয়",
-      "বেসরকারি বিদ্যালয়",
-      "কলেজ",
-      "মাদ্রাসা",
-      "প্রাথমিক বিদ্যালয়",
-    ],
-  },
-  {
-    title: "ব্যাংক ও আর্থিক প্রতিষ্ঠান",
-    description:
-      "ব্যাংক, এনজিও ও আর্থিক প্রতিষ্ঠানের প্রয়োজনীয় তথ্য",
-    icon: Landmark,
-    count: "৩০+",
-    color:
-      "bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-400",
-    href: "banks",
-    items: [
-      "সরকারি ব্যাংক",
-      "বেসরকারি ব্যাংক",
-      "এজেন্ট ব্যাংকিং",
-      "এনজিও",
-      "মোবাইল ব্যাংকিং",
-    ],
-  },
-  {
-    title: "আইন-শৃঙ্খলা",
-    description:
-      "পুলিশ, ফায়ার সার্ভিস ও আইন-শৃঙ্খলা সংক্রান্ত তথ্য",
-    icon: ShieldCheck,
-    count: "১০+",
-    color:
-      "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400",
-    href: "law-enforcement",
-    items: [
-      "নালিতাবাড়ী থানা",
-      "পুলিশ ফাঁড়ি",
-      "ফায়ার সার্ভিস",
-      "আনসার ও ভিডিপি",
-      "জরুরি আইন-শৃঙ্খলা সেবা",
-    ],
-  },
-  {
-    title: "জনপ্রতিনিধি",
-    description:
-      "উপজেলা ও ইউনিয়ন পর্যায়ের জনপ্রতিনিধিদের তথ্য",
-    icon: Users,
-    count: "১২+",
-    color:
-      "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-400",
-    href: "representatives",
-    items: [
-      "উপজেলা পরিষদ",
-      "উপজেলা চেয়ারম্যান",
-      "ভাইস চেয়ারম্যান",
-      "ইউনিয়ন পরিষদ",
-      "ইউপি চেয়ারম্যান",
-    ],
-  },
-];
+
 
 /* =========================================================
    EMERGENCY SERVICES
 ========================================================= */
 
-const emergencyServices: EmergencyService[] = [
-  {
-    title: "জাতীয় জরুরি সেবা",
-    number: "৯৯৯",
-    icon: Phone,
-  },
-  {
-    title: "অ্যাম্বুলেন্স",
-    number: "৯৯৯",
-    icon: Ambulance,
-  },
-  {
-    title: "ফায়ার সার্ভিস",
-    number: "৯৯৯",
-    icon: Flame,
-  },
-  {
-    title: "পুলিশ",
-    number: "৯৯৯",
-    icon: ShieldCheck,
-  },
-];
+
 
 /* =========================================================
    POPULAR DIRECTORY
 ========================================================= */
 
-const popularDirectory: PopularDirectory[] = [
-  {
-    title: "নালিতাবাড়ী উপজেলা পরিষদ",
-    category: "সরকারি অফিস",
-    location: "নালিতাবাড়ী, শেরপুর",
-    icon: Building2,
-    href: "government",
-  },
-  {
-    title: "নালিতাবাড়ী উপজেলা স্বাস্থ্য কমপ্লেক্স",
-    category: "স্বাস্থ্যসেবা",
-    location: "নালিতাবাড়ী, শেরপুর",
-    icon: Hospital,
-    href: "/hospitals",
-  },
-  {
-    title: "নালিতাবাড়ী থানা",
-    category: "আইন-শৃঙ্খলা",
-    location: "নালিতাবাড়ী, শেরপুর",
-    icon: ShieldCheck,
-    href: "law-enforcement",
-  },
-  {
-    title: "নালিতাবাড়ী সরকারি উচ্চ বিদ্যালয়",
-    category: "শিক্ষাপ্রতিষ্ঠান",
-    location: "নালিতাবাড়ী, শেরপুর",
-    icon: School,
-    href: "/schools",
-  },
-];
+
+
+type MongoDirectoryCategory = Omit<DirectoryCategory, "icon"> & { icon: string };
+type MongoEmergencyService = Omit<EmergencyService, "icon"> & { icon: string };
+type MongoPopularDirectory = Omit<PopularDirectory, "icon"> & { icon: string };
 
 /* =========================================================
    STATS
@@ -252,6 +97,9 @@ const directoryStats = [
 
 export default function DirectoryPage() {
   const [search, setSearch] = React.useState("");
+  const { data: directoryData } = useRouteData<MongoDirectoryCategory>("directory-categories");
+  const { data: emergencyServices } = useRouteData<MongoEmergencyService>("directory-emergency-services");
+  const { data: popularDirectory } = useRouteData<MongoPopularDirectory>("directory-popular");
 
   const filteredCategories = React.useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -271,7 +119,7 @@ export default function DirectoryPage() {
 
       return text.includes(query);
     });
-  }, [search]);
+  }, [directoryData, search]);
 
   return (
     <main className="min-h-screen bg-background">
@@ -329,7 +177,7 @@ export default function DirectoryPage() {
 
               {search && (
                 <p className="mt-3 text-sm text-green-50">
-                  "{search}" এর জন্য{" "}
+                  &quot;{search}&quot; এর জন্য{" "}
                   <span className="font-semibold">
                     {filteredCategories.length}
                   </span>{" "}
@@ -417,8 +265,6 @@ export default function DirectoryPage() {
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredCategories.map((item) => {
-              const Icon = item.icon;
-
               return (
                 <Link
                   key={item.title}
@@ -432,7 +278,7 @@ export default function DirectoryPage() {
                           <div
                             className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.color}`}
                           >
-                            <Icon className="h-6 w-6" />
+                            <RouteIcon name={item.icon} className="h-6 w-6" />
                           </div>
 
                           <Badge
@@ -505,8 +351,6 @@ export default function DirectoryPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {emergencyServices.map((service) => {
-              const Icon = service.icon;
-
               return (
                 <Card
                   key={service.title}
@@ -514,7 +358,7 @@ export default function DirectoryPage() {
                 >
                   <CardContent className="p-6 text-center">
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-950/40 dark:text-red-400">
-                      <Icon className="h-6 w-6" />
+                      <RouteIcon name={service.icon} className="h-6 w-6" />
                     </div>
 
                     <h3 className="mt-4 font-semibold">
@@ -581,8 +425,6 @@ export default function DirectoryPage() {
 
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {popularDirectory.map((item) => {
-            const Icon = item.icon;
-
             return (
               <Link
                 key={item.title}
@@ -592,7 +434,7 @@ export default function DirectoryPage() {
                 <Card className="transition-all duration-300 hover:border-green-200 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2">
                   <CardContent className="flex items-center gap-4 p-5">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400">
-                      <Icon className="h-6 w-6" />
+                      <RouteIcon name={item.icon} className="h-6 w-6" />
                     </div>
 
                     <div className="min-w-0 flex-1">

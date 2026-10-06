@@ -19,10 +19,8 @@ import {
   Users,
 } from "lucide-react"
 
-import {
-  unions,
-  getUnionBySlug,
-} from "@/public/data/unions"
+import type { UnionData } from "@/types/union"
+import { getRouteData } from "@/lib/route-data"
 
 import {
   Card,
@@ -40,16 +38,15 @@ type PageProps = {
   }>
 }
 
-export function generateStaticParams() {
-  return unions.map((union) => ({
-    slug: union.slug,
-  }))
+async function findUnionBySlug(slug: string) {
+  const unions = await getRouteData<UnionData>("unions")
+  return unions.find((union) => union.slug === slug)
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params
 
-  const union = getUnionBySlug(slug)
+  const union = await findUnionBySlug(slug)
 
   if (!union) {
     return {
@@ -69,7 +66,7 @@ export default async function UnionDetailsPage({
 }: PageProps) {
   const { slug } = await params
 
-  const union = getUnionBySlug(slug)
+  const union = await findUnionBySlug(slug)
 
   if (!union) {
     notFound()

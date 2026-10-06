@@ -28,6 +28,14 @@ Install dependencies:
 npm install
 ```
 
+Configure `MONGODB_URI` in `.env.local`. Route listings are stored in the `routeData` collection in the `Nalitabari-portal` database. To initialize them from the checked-in snapshot, run:
+
+```bash
+npm run seed:route-data
+```
+
+The seed command inserts missing records and leaves existing MongoDB records unchanged. Use `npm run seed:route-data -- --dry-run` to inspect the import without writing to the database.
+
 Run the development server:
 
 ```bash
@@ -43,6 +51,7 @@ npm run dev
 npm run build
 npm run start
 npm run lint
+npm run seed:route-data
 ```
 
 ## Project Structure
@@ -63,7 +72,7 @@ lib/
 
 ## Notes
 
-This project is a landing page prototype for a local information portal and is ready for expansion into dedicated directory, emergency, education, healthcare, and government service pages.
+Public listing pages load their records from MongoDB. The JSON seed snapshot is retained for initializing a new database; images and static page copy remain in the repository.
 
 ## License
 

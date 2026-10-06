@@ -19,109 +19,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getRouteData } from "@/lib/route-data";
 
-const hospitals = [
-  {
-    id: "1",
-    name: "নালিতাবাড়ী উপজেলা স্বাস্থ্য কমপ্লেক্স",
-    type: "সরকারি হাসপাতাল",
-    address: "গড়কান্দা, নালিতাবাড়ী, শেরপুর",
-    phone: "01716426892",
-    image: "/hospitals/NHC.png",
-    mapsLink:
-      "https://maps.google.com/?q=25.1413667,90.1869644",
-    emergency: true,
-    open: "২৪ ঘণ্টা",
-    description:
-      "নালিতাবাড়ী উপজেলার প্রধান সরকারি স্বাস্থ্যসেবা প্রতিষ্ঠান। উপজেলা পর্যায়ে বহির্বিভাগ, জরুরি স্বাস্থ্যসেবা ও বিভিন্ন চিকিৎসা সেবা প্রদান করা হয়।",
-  },
-  {
-    id: "2",
-    name: "আওয়ার লেডি অফ লুর্ডস ক্লিনিক",
-    type: "বেসরকারি হাসপাতাল/ক্লিনিক",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    image: "https://i.postimg.cc/KYHmYcwD/a'oya-ra-la-da-apha-la-ra-dasa-ka-la-na-ka.png",
-    mapsLink:
-      "https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Lords+Clinic+Nalitabari+Sherpur",
-    emergency: false,
-    open: "সময় যাচাই করুন",
-    description:
-      "DGHS Facility Registry-তে নালিতাবাড়ী উপজেলার একটি বেসরকারি হাসপাতাল/ক্লিনিক হিসেবে তালিকাভুক্ত স্বাস্থ্যসেবা প্রতিষ্ঠান।",
-  },
-  {
-    id: "3",
-    name: "ব্র্যাক (BHP) - নালিতাবাড়ী",
-    type: "এনজিও হাসপাতাল/ক্লিনিক",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    image: "https://i.postimg.cc/wxWn8bKy/ba-ra-ya-ka-(BHP)-na-la-ta-ba-da.png",
-    mapsLink:
-      "https://www.google.com/maps/search/?api=1&query=BRAC+BHP+Nalitabari+Sherpur",
-    emergency: false,
-    open: "সময় যাচাই করুন",
-    description:
-      "DGHS Facility Registry-তে নালিতাবাড়ী উপজেলার NGO Hospital/Clinic হিসেবে তালিকাভুক্ত স্বাস্থ্যসেবা প্রতিষ্ঠান।",
-  },
-  {
-    id: "4",
-    name: "নালিতাবাড়ী ডায়বেটিক হাসপাতাল",
-    type: "হাসপাতাল",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    image: "https://i.postimg.cc/Hn7wNxD7/na-la-ta-ba-da-da-ya-ganasa-ta-ka-sa-na-ta-ra-(pa-ya-thalaja-).png",
-    mapsLink:
-      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Diabetic+Hospital+Sherpur",
-    emergency: false,
-    open: "সময় যাচাই করুন",
-    description:
-      "নালিতাবাড়ী উপজেলার একটি সেবা প্রতিষ্ঠান। ।",
-  },
-  {
-  id: "5",
-  name: "সেবা ডায়াগনস্টিক সেন্টার",
-  type: "ডায়াগনস্টিক সেন্টার",
-  address: "নালিতাবাড়ী, শেরপুর",
-  phone: "01919576322, 01711519935, 01712621061",
-  image: "https://i.postimg.cc/FzHTwXgF/Sheba-Diagnostic-Center.png",
-  mapsLink:
-    "https://www.google.com/maps/place/Sheba+Diagnostic+Center/@25.0925994,90.1894505,3a,15y,247.34h,91.54t/data=!3m7!1e1!3m5!1sfqWsA2qr0X9wmQu1ews3bA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.5417850707174239%26panoid%3DfqWsA2qr0X9wmQu1ews3bA%26yaw%3D247.34140330595602!7i16384!8i8192!4m10!1m2!2m1!1sDiagnostic+center!3m6!1s0x3757cf78894a97c3:0xb8ac665200bbe7ae!8m2!3d25.0924721!4d90.1894294!15sChFEaWFnbm9zdGljIGNlbnRlcpIBEWRpYWdub3N0aWNfY2VudGVy4AEA!16s%2Fg%2F11fnqcm7pt?entry=ttu",
-  emergency: false,
-  open: "২৪ ঘণ্টা",
-  description:
-    "নালিতাবাড়ী এলাকায় অবস্থিত একটি বেসরকারি ডায়াগনস্টিক সেন্টার। বিভিন্ন ধরনের রোগ নির্ণয় ও ডায়াগনস্টিক পরীক্ষা-নিরীক্ষার সেবা প্রদান করা হয়।",
-},
-  {
-    id: "6",
-    name: "ডক্টরস চেম্বার এন্ড ডায়াগনস্টিক",
-    type: "ডায়াগনস্টিক সেন্টার",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "01742432828",
-    image: "https://i.postimg.cc/ydMqHdxy/Doctors-Chamber-and-Diagnostic.png",
-    mapsLink:
-      "https://www.google.com/maps/search/?api=1&query=Doctors+Chamber+Diagnostic+Nalitabari+Sherpur",
-    emergency: false,
-    open: "২৪ ঘণ্টা",
-    description:
-      "নালিতাবাড়ী উপজেলার একটি Consultancy & Diagnostic Center হিসেবে DGHS Facility Registry-তে তালিকাভুক্ত।",
-  },
-  {
-    id: "7",
-    name: "নালিতাবাড়ী ইউনিয়ন স্বাস্থ্য কেন্দ্র",
-    type: "সরকারি স্বাস্থ্য কেন্দ্র",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "01759222059",
-    image: "",
-    mapsLink:
-      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Union+Health+Center+Sherpur",
-    emergency: false,
-    open: "সরকারি সেবা সময়",
-    description:
-      "নালিতাবাড়ী উপজেলার ইউনিয়ন পর্যায়ের সরকারি স্বাস্থ্যসেবা কেন্দ্র।",
-  },
-];
 
-export default function HospitalsPage() {
+
+type HospitalRecord = {
+  id: string;
+  name: string;
+  type: string;
+  address: string;
+  phone: string;
+  image: string;
+  mapsLink: string;
+  emergency: boolean;
+  open: string;
+  description: string;
+};
+
+export default async function HospitalsPage() {
+  const hospitals = await getRouteData<HospitalRecord>("hospitals");
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
       {/* Background */}

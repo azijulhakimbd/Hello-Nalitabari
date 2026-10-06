@@ -19,9 +19,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { unions } from "@/public/data/unions"
+import type { UnionData } from "@/types/union"
+import { useRouteData } from "@/components/data/use-route-data"
 
 export default function UnionsPage() {
+  const { data: unions } = useRouteData<UnionData>("unions")
   const [search, setSearch] = React.useState("")
 
   const filteredUnions = React.useMemo(() => {
@@ -40,7 +42,7 @@ export default function UnionsPage() {
         slug.includes(query)
       )
     })
-  }, [search])
+  }, [search, unions])
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -249,7 +251,7 @@ function StatCard({
 function UnionCard({
   union,
 }: {
-  union: (typeof unions)[number]
+  union: UnionData
 }) {
   const image =
     union.image && union.image.trim() !== ""

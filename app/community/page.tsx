@@ -22,6 +22,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { RouteIcon } from "@/components/data/route-icon"
+import { useRouteData } from "@/components/data/use-route-data"
 
 type CommunityCategory =
   | "সামাজিক সংগঠন"
@@ -39,7 +41,7 @@ type CommunityItem = {
   location: string
   members?: string
   established?: string
-  icon: React.ElementType
+  icon: React.ElementType | string
   featured?: boolean
 }
 
@@ -69,69 +71,11 @@ const categories: {
   },
 ]
 
-const communities: CommunityItem[] = [
-  {
-    id: 1,
-    name: "নালিতাবাড়ী সামাজিক সংগঠনসমূহ",
-    category: "সামাজিক সংগঠন",
-    description:
-      "স্থানীয় মানুষের সামাজিক উন্নয়ন, সহযোগিতা ও জনকল্যাণমূলক কার্যক্রমে কাজ করা সংগঠনগুলোর তথ্য।",
-    location: "নালিতাবাড়ী উপজেলা",
-    members: "স্থানীয় সদস্য",
-    icon: HeartHandshake,
-    featured: true,
-  },
-  {
-    id: 2,
-    name: "নালিতাবাড়ী যুব সমাজ",
-    category: "যুব সংগঠন",
-    description:
-      "যুবকদের অংশগ্রহণে শিক্ষা, সচেতনতা, ক্রীড়া ও সামাজিক উন্নয়নমূলক কার্যক্রম।",
-    location: "নালিতাবাড়ী",
-    members: "যুব সদস্য",
-    icon: Users,
-  },
-  {
-    id: 3,
-    name: "স্থানীয় ক্রীড়া ও যুব ক্লাব",
-    category: "ক্রীড়া সংগঠন",
-    description:
-      "ফুটবল, ক্রিকেটসহ বিভিন্ন খেলাধুলা ও স্থানীয় ক্রীড়া কার্যক্রমে অংশগ্রহণের প্ল্যাটফর্ম।",
-    location: "নালিতাবাড়ী উপজেলা",
-    icon: Sparkles,
-  },
-  {
-    id: 4,
-    name: "স্বেচ্ছাসেবী কার্যক্রম",
-    category: "স্বেচ্ছাসেবী সংগঠন",
-    description:
-      "দুর্যোগ, জনসচেতনতা, রক্তদান ও বিভিন্ন সামাজিক কাজে স্বেচ্ছাসেবীদের অংশগ্রহণ।",
-    location: "নালিতাবাড়ী উপজেলা",
-    icon: ShieldCheck,
-  },
-  {
-    id: 5,
-    name: "স্থানীয় সাংস্কৃতিক সংগঠন",
-    category: "সাংস্কৃতিক সংগঠন",
-    description:
-      "স্থানীয় সংস্কৃতি, সাহিত্য, সংগীত, নাটক ও সাংস্কৃতিক ঐতিহ্য সংরক্ষণে কাজ করা সংগঠন।",
-    location: "নালিতাবাড়ী",
-    icon: CalendarDays,
-  },
-  {
-    id: 6,
-    name: "ধর্মীয় ও সামাজিক প্রতিষ্ঠান",
-    category: "ধর্মীয় ও সামাজিক প্রতিষ্ঠান",
-    description:
-      "স্থানীয় ধর্মীয় ও সামাজিক প্রতিষ্ঠানগুলোর মাধ্যমে পরিচালিত বিভিন্ন জনকল্যাণমূলক কার্যক্রম।",
-    location: "নালিতাবাড়ী উপজেলা",
-    icon: Building2,
-  },
-]
 
-function CommunityCard({ community }: { community: CommunityItem }) {
-  const Icon = community.icon
 
+type CommunityData = Omit<CommunityItem, "icon"> & { icon: string }
+
+function CommunityCard({ community }: { community: CommunityData }) {
   return (
     <Card className="group h-full overflow-hidden rounded-2xl border-border/60 bg-background shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <CardContent className="flex h-full flex-col p-0">
@@ -140,7 +84,7 @@ function CommunityCard({ community }: { community: CommunityItem }) {
 
           <div className="relative flex items-start justify-between gap-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/20">
-              <Icon className="h-7 w-7" />
+              <RouteIcon name={community.icon} className="h-7 w-7" />
             </div>
 
             {community.featured && (
@@ -201,6 +145,7 @@ function CommunityCard({ community }: { community: CommunityItem }) {
 }
 
 export default function CommunityPage() {
+  const { data: communities } = useRouteData<CommunityData>("communities")
   const [search, setSearch] = React.useState("")
   const [selectedCategory, setSelectedCategory] = React.useState<
     CommunityCategory | "সব"
@@ -223,7 +168,7 @@ export default function CommunityPage() {
 
       return matchesCategory && matchesSearch
     })
-  }, [search, selectedCategory])
+  }, [communities, search, selectedCategory])
 
   const clearFilters = () => {
     setSearch("")

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { getRouteData } from "@/lib/route-data";
+import type { RouteDataKey } from "@/lib/route-data-keys";
 
 export const searchNalitabariDataSchema = z.object({
   category: z.enum([
@@ -21,6 +23,15 @@ export type SearchNalitabariDataInput = z.infer<
   typeof searchNalitabariDataSchema
 >;
 
+const routeKeys: Record<SearchNalitabariDataInput["category"], RouteDataKey> = {
+  hospitals: "hospitals",
+  schools: "schools",
+  colleges: "colleges",
+  businesses: "businesses",
+  places: "places",
+  notices: "notices",
+};
+
 export interface NalitabariSearchResult {
   id: string;
   title: string;
@@ -33,35 +44,27 @@ export async function executeSearchNalitabariData(
   input: SearchNalitabariDataInput,
 ): Promise<NalitabariSearchResult[]> {
   const { category, query } = input;
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  const records = await getRouteData<Record<string, unknown>>(routeKeys[category]);
 
-  // Replace this with Prisma/database queries later.
-  const demoData: NalitabariSearchResult[] = [
-    {
-      id: "1",
-      title: "Nalitabari Upazila Health Complex",
-      description: "A healthcare facility serving the Nalitabari area.",
-      category: "hospitals",
-      location: "Nalitabari, Sherpur",
-    },
-    {
-      id: "2",
-      title: "Nalitabari Model High School",
-      description: "An educational institution in Nalitabari.",
-      category: "schools",
-      location: "Nalitabari, Sherpur",
-    },
-  ];
+  return records.flatMap((record): NalitabariSearchResult[] => {
+    const title = textValue(record.name ?? record.title ?? record.englishName);
+    const description = textValue(record.description ?? record.details ?? record.address);
+    const location = textValue(record.location ?? record.address);
+    const searchableText = `${title} ${description} ${location}`.toLocaleLowerCase();
 
-  const normalizedQuery = query.toLowerCase();
+    if (!searchableText.includes(normalizedQuery)) return [];
 
-  return demoData.filter((item) => {
-    const matchesCategory = item.category === category;
-
-    const matchesQuery =
-      item.title.toLowerCase().includes(normalizedQuery) ||
-      item.description.toLowerCase().includes(normalizedQuery) ||
-      item.location?.toLowerCase().includes(normalizedQuery);
-
-    return matchesCategory && matchesQuery;
+    return [{
+      id: textValue(record.id ?? record.slug ?? title),
+      title,
+      description,
+      category,
+      location: location || undefined,
+    }];
   });
+}
+
+function textValue(value: unknown): string {
+  return typeof value === "string" || typeof value === "number" ? String(value) : "";
 }

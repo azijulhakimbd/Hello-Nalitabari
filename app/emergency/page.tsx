@@ -1,21 +1,13 @@
 import Link from "next/link";
 import {
-  Ambulance,
   ArrowRight,
-  Baby,
-  BadgeAlert,
   Building2,
   Flame,
-  Gavel,
   HeartPulse,
-  Landmark,
-  LandPlot,
-  LifeBuoy,
   Phone,
   ShieldAlert,
   ShieldCheck,
   Siren,
-  Waves,
 } from "lucide-react";
 
 import Image from "next/image";
@@ -23,6 +15,8 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { RouteIcon } from "@/components/data/route-icon";
+import { getRouteData } from "@/lib/route-data";
 
 /* =========================================================
    Official Bangladesh National Portal Emergency Hotlines
@@ -33,247 +27,36 @@ import { Card, CardContent } from "@/components/ui/card";
    28 July 2026
 ========================================================= */
 
-const emergencyServices = [
-  {
-    title: "সরকারি তথ্য ও সেবা",
-    description:
-      "সরকারি সেবা, জনপ্রতিনিধি ও সরকারি কর্মকর্তাদের যোগাযোগ তথ্য, পর্যটন এবং বিভিন্ন সরকারি তথ্য জানতে।",
-    number: "333",
-    icon: Phone,
-    href: "tel:333",
-    website: "https://333.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2024/12/aa16a0efc4514300a4b0169f5a60e385.png",
-    category: "সরকারি সেবা",
-  },
 
-  {
-    title: "জাতীয় জরুরি সেবা",
-    description:
-      "পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্সসহ জাতীয় জরুরি সহায়তার জন্য।",
-    number: "999",
-    icon: Siren,
-    href: "tel:999",
-    website: "https://www.999.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2024/12/cdf265e667e54f089292fcc54a5b4b2e.png",
-    category: "জাতীয় জরুরি সেবা",
-  },
-
-  {
-    title: "ফায়ার সার্ভিস",
-    description:
-      "আগুন, দুর্ঘটনা, উদ্ধার কার্যক্রম ও অন্যান্য জরুরি ফায়ার সার্ভিস সহায়তার জন্য।",
-    number: "102",
-    icon: Flame,
-    href: "tel:102",
-    website: "https://fireservice.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2024/12/02d990a5e606481e93e560b0c1276473.jpeg",
-    category: "অগ্নি ও উদ্ধার",
-  },
-
-  {
-    title: "সুপ্রিম কোর্ট হেল্পলাইন",
-    description:
-      "আইনি সেবা, পরামর্শ এবং আদালত সংক্রান্ত তথ্যের জন্য সুপ্রিম কোর্ট হেল্পলাইন।",
-    number: "103",
-    icon: Gavel,
-    href: "tel:103",
-    website: "https://www.supremecourt.gov.bd/web/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/d929275a-1d14-4bbd-813b-79bd6034cde8.jpeg",
-    category: "আইনি সহায়তা",
-  },
-
-  {
-    title: "নারী ও শিশু নির্যাতন প্রতিরোধ",
-    description:
-      "নারী ও শিশুর প্রয়োজনীয় সহায়তা, আইনি দিকনির্দেশনা এবং অন্যান্য সেবা পাওয়ার জন্য।",
-    number: "109",
-    icon: ShieldAlert,
-    href: "tel:109",
-    website: "https://mowca.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/23aef587-b1b7-4821-b630-adf68d15c44f.png",
-    category: "নারী ও শিশু",
-  },
-
-  {
-    title: "দুদক হটলাইন",
-    description:
-      "দুর্নীতি ও অনিয়মের তথ্য বা অভিযোগ দুর্নীতি দমন কমিশনে জানাতে।",
-    number: "106",
-    icon: BadgeAlert,
-    href: "tel:106",
-    website: "https://acc.org.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/629d5db4-3ab7-4507-8995-13406eb80a07.png",
-    category: "দুর্নীতি প্রতিরোধ",
-  },
-
-  {
-    title: "দুর্যোগের আগাম বার্তা",
-    description:
-      "আবহাওয়া, নদীবন্দর, ঘূর্ণিঝড় এবং বন্যা সংক্রান্ত আগাম তথ্য ও সতর্কবার্তা জানতে।",
-    number: "1090",
-    icon: Waves,
-    href: "tel:1090",
-    website:
-      "https://ddm.gov.bd/pages/static-pages/6922dc30933eb65569e0edd0",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/a1a15041-f479-4054-96e7-ecd1fa0b2e18.png",
-    category: "দুর্যোগ ও আবহাওয়া",
-  },
-
-  {
-    title: "ভূমি সেবা",
-    description:
-      "ই-নামজারি, ভূমি উন্নয়ন কর, খতিয়ান ও অন্যান্য ভূমিসেবা সংক্রান্ত তথ্য ও সহায়তার জন্য।",
-    number: "16122",
-    icon: LandPlot,
-    href: "tel:16122",
-    website: "https://land.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/3ff67b0c-ca0e-488f-aee6-e6ebffbc9e35.png",
-    category: "ভূমি সেবা",
-  },
-
-  {
-    title: "শিশু সহায়তা",
-    description:
-      "শিশু সহিংসতা, নির্যাতন ও শোষণের শিকার হলে বিনামূল্যে সহায়তা পাওয়ার জন্য।",
-    number: "1098",
-    icon: Baby,
-    href: "tel:1098",
-    website:
-      "https://msw.gov.bd/pages/static-pages/694032e235ce18e1c0563e15",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/94c90450-afd8-4903-a478-66ac2762ed77.png",
-    category: "শিশু সুরক্ষা",
-  },
-
-  {
-    title: "বাংলাদেশ কর্মচারী কল্যাণ বোর্ড",
-    description:
-      "বাংলাদেশ কর্মচারী কল্যাণ বোর্ডের বিভিন্ন সেবা ও তথ্যের জন্য হেল্পলাইন।",
-    number: "16109",
-    icon: Building2,
-    href: "tel:16109",
-    website: "https://bkkb.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/f128dd27-3628-442b-9c38-df89007803f3.png",
-    category: "কল্যাণ সেবা",
-  },
-
-  {
-    title: "মাদকদ্রব্য নিয়ন্ত্রণ",
-    description:
-      "মাদক সংক্রান্ত তথ্য প্রদান, অভিযোগ এবং মাদকদ্রব্য নিয়ন্ত্রণ অধিদপ্তরের সেবা সম্পর্কে জানতে।",
-    number: "01908888888",
-    icon: ShieldCheck,
-    href: "tel:+8801908888888",
-    website: "https://dnc.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/2ff63988-7f68-4eba-8399-64ba0a5e8b32.png",
-    category: "মাদক নিয়ন্ত্রণ",
-  },
-
-  {
-    title: "নৌ পরিবহন হটলাইন",
-    description:
-      "নৌযাত্রীদের সেবা সংক্রান্ত প্রশ্ন এবং অন্যান্য জরুরি তথ্যের জন্য।",
-    number: "16113",
-    icon: Waves,
-    href: "tel:16113",
-    website: "https://biwta.gov.bd/",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/e417ffa6-4b0a-4140-96a2-e0653fb172b4.png",
-    category: "নৌ পরিবহন",
-  },
-
-  {
-    title: "পাসপোর্ট বাতায়ন",
-    description:
-      "পাসপোর্ট সংক্রান্ত তথ্য ও সেবা পেতে সরকারি হেল্পলাইন নম্বরে যোগাযোগ করুন।",
-    number: "16445",
-    icon: Landmark,
-    href: "tel:16445",
-    category: "পাসপোর্ট ও ইমিগ্রেশন",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/f323da2c-c766-45d4-9360-45ccd157603c.png",
-  },
-
-  {
-    title: "বাংলাদেশ মুক্তিযোদ্ধা কল্যাণ ট্রাস্ট",
-    description:
-      "মুক্তিযোদ্ধা সংক্রান্ত তথ্য ও সেবা জানতে সরকারি হটলাইনে যোগাযোগ করুন।",
-    number: "16171",
-    icon: ShieldCheck,
-    href: "tel:16171",
-    category: "মুক্তিযোদ্ধা সেবা",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/5cfdc4e5-93da-4f39-a9a8-5c047bb06160.png",
-  },
-
-  {
-    title: "প্রবাসী কল্যাণ সেবা",
-    description:
-      "প্রবাসী কর্মী ও বাংলাদেশি প্রবাসীদের প্রয়োজনীয় তথ্য ও সহায়তার জন্য।",
-    number: "16135",
-    icon: LifeBuoy,
-    href: "tel:16135",
-    category: "প্রবাসী সেবা",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/0985de05-801c-4672-a047-821ece9361ad.jpeg",
-  },
-
-  {
-    title: "বিদ্যুৎ সেবা",
-    description:
-      "বিদ্যুৎ সংক্রান্ত অভিযোগ ও সেবা সম্পর্কিত তথ্যের জন্য সরকারি হটলাইন।",
-    number: "16999",
-    icon: Building2,
-    href: "tel:16999",
-    website: "https://powerdivision.gov.bd/",
-    category: "বিদ্যুৎ সেবা",
-    image:
-      "https://objectstorage.ap-dcc-gazipur-1.oraclecloud15.com/n/axvjbnqprylg/b/V2Ministry/o/office-bangladesh/2026/2/698d4db5-0025-48ef-ae0a-a5f9205a4e6a.png",
-  },
-];
 
 /* =========================================================
    Quick Emergency Numbers
 ========================================================= */
 
-const quickEmergencyNumbers = [
-  {
-    title: "জাতীয় জরুরি সেবা",
-    number: "999",
-    icon: Siren,
-    href: "tel:999",
-  },
-  {
-    title: "ফায়ার সার্ভিস",
-    number: "102",
-    icon: Flame,
-    href: "tel:102",
-  },
-  {
-    title: "সরকারি তথ্য ও সেবা",
-    number: "333",
-    icon: Phone,
-    href: "tel:333",
-  },
-  {
-    title: "শিশু সহায়তা",
-    number: "1098",
-    icon: Baby,
-    href: "tel:1098",
-  },
-];
 
-export default function EmergencyPage() {
+
+type EmergencyServiceRecord = {
+  title: string;
+  description: string;
+  number: string;
+  icon: string;
+  href?: string;
+  website?: string;
+  image?: string;
+  category?: string;
+};
+type QuickEmergencyNumber = {
+  title: string;
+  number: string;
+  icon: string;
+  href: string;
+};
+
+export default async function EmergencyPage() {
+  const [emergencyServices, quickEmergencyNumbers] = await Promise.all([
+    getRouteData<EmergencyServiceRecord>("emergency-services"),
+    getRouteData<QuickEmergencyNumber>("emergency-quick-numbers"),
+  ]);
   return (
     <main className="min-h-screen">
       {/* =====================================================
@@ -347,8 +130,6 @@ export default function EmergencyPage() {
         <div className="container mx-auto px-4 py-10">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {quickEmergencyNumbers.map((item) => {
-              const Icon = item.icon;
-
               return (
                 <a
                   key={item.number}
@@ -357,7 +138,7 @@ export default function EmergencyPage() {
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/50">
-                      <Icon className="h-6 w-6" />
+                      <RouteIcon name={item.icon} className="h-6 w-6" />
                     </div>
 
                     <div>
@@ -400,8 +181,6 @@ export default function EmergencyPage() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {emergencyServices.map((service) => {
-            const Icon = service.icon;
-
             return (
               <Card
                 key={`${service.title}-${service.number}`}
@@ -410,7 +189,7 @@ export default function EmergencyPage() {
                 {/* Official Image */}
                 <div className="relative flex h-40 items-center justify-center overflow-hidden bg-muted/40 p-6">
                   <Image
-                    src={service.image}
+                    src={service.image ?? "/logo.png"}
                     alt={`${service.title} - ${service.number}`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -421,7 +200,7 @@ export default function EmergencyPage() {
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/50">
-                      <Icon className="h-5 w-5" />
+                      <RouteIcon name={service.icon} className="h-5 w-5" />
                     </div>
 
                     <Badge variant="secondary" className="rounded-full">

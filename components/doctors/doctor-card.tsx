@@ -11,7 +11,7 @@ import {
   Stethoscope,
 } from "lucide-react"
 
-import { Doctor } from "./doctor-data"
+import type { Doctor } from "@/types/doctor"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"

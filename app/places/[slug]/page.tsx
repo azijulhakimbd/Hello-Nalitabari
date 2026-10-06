@@ -4,15 +4,11 @@ import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
-  Camera,
   Car,
   Clock,
   MapPin,
   Mountain,
   Navigation,
-  Trees,
-  Waves,
-  Landmark,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -22,144 +18,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { RouteIcon } from "@/components/data/route-icon";
+import { getRouteData } from "@/lib/route-data";
 
-const places = [
-  {
-    id: "madhutila-eco-park",
-    name: "মধুটিলা ইকোপার্ক",
-    englishName: "Madhutila Eco Park",
-    location: "পোড়াগাঁও ইউনিয়ন, নালিতাবাড়ী, শেরপুর",
-    category: "প্রকৃতি",
-    icon: Trees,
-    image:
-      "/places/Modhutila.png",
-    description:
-      "মধুটিলা ইকোপার্ক নালিতাবাড়ী উপজেলার পোড়াগাঁও ইউনিয়নে অবস্থিত একটি উল্লেখযোগ্য প্রাকৃতিক পর্যটন কেন্দ্র। পাহাড়ি ঢাল, বনভূমি ও সবুজ পরিবেশ এই স্থানটিকে নালিতাবাড়ীর অন্যতম আকর্ষণীয় ভ্রমণ গন্তব্যে পরিণত করেছে।",
-    details:
-      "পার্কে প্রবেশের পর উঁচু গাছের সারি, খোলা প্রান্তর এবং পাহাড়ি ঢালের আঁকাবাঁকা রাস্তা দেখা যায়। পর্যটকদের জন্য পিকনিক স্পট, শিশুদের বিনোদন ব্যবস্থা, তথ্যকেন্দ্র, পার্কিং, ক্যানটিন, মিনি চিড়িয়াখানা এবং বিভিন্ন প্রজাতির গাছপালার ব্যবস্থা রয়েছে। পাহাড়ের চূড়ায় মহুয়া রেস্টহাউসও রয়েছে।",
-    highlights: [
-      "পাহাড় ও বনাঞ্চল",
-      "পিকনিক স্পট",
-      "শিশুদের বিনোদন",
-      "মহুয়া রেস্টহাউস",
-      "মিনি চিড়িয়াখানা",
-      "বিভিন্ন প্রজাতির বৃক্ষ ও ফুল",
-    ],
-    travel:
-      "নালিতাবাড়ী সদর থেকে অটোরিকশা বা মোটরসাইকেলে মধুটিলা ইকোপার্কে যাওয়া যায়। শেরপুর জেলা প্রশাসনের তথ্য অনুযায়ী নালিতাবাড়ী থেকে প্রায় ২০–২৫ মিনিটে মধুটিলায় পৌঁছানো যায়।",
-    mapQuery: "Madhutila Eco Park, Nalitabari, Sherpur, Bangladesh",
-  },
-  {
-  id: "nalitabari-model-mosque",
-  name: "নালিতাবাড়ী উপজেলা মডেল মসজিদ এবং ইসলামিক ঐতিহ্য কেন্দ্র",
-  englishName:
-    "Nalitabari Upazila Model Mosque and Islamic Cultural Centre (NMM-ICC)",
-  location: "নালিতাবাড়ী, শেরপুর",
-  category: "ধর্মীয় ও সাংস্কৃতিক",
-  icon: Landmark,
-  image:
-    "/places/NMMF.png",
-  description:
-    "নালিতাবাড়ী উপজেলা মডেল মসজিদ এবং ইসলামিক ঐতিহ্য কেন্দ্র (NMM-ICC) নালিতাবাড়ী উপজেলার একটি গুরুত্বপূর্ণ ধর্মীয় ও সাংস্কৃতিক স্থাপনা। আধুনিক স্থাপত্যশৈলী, ইসলামিক ঐতিহ্য এবং ধর্মীয় পরিবেশের সমন্বয়ে গড়ে ওঠা এই মসজিদটি স্থানীয় মুসল্লি ও দর্শনার্থীদের কাছে একটি উল্লেখযোগ্য স্থান।",
-  details:
-    "মডেল মসজিদ ও ইসলামিক ঐতিহ্য কেন্দ্রটি আধুনিক ইসলামিক স্থাপত্যের বৈশিষ্ট্য ধারণ করে নির্মিত। এখানে মুসল্লিদের নামাজ আদায়ের পাশাপাশি ইসলামিক শিক্ষা, ধর্মীয় আলোচনা ও সাংস্কৃতিক কার্যক্রম পরিচালনার সুযোগ রয়েছে। মসজিদটির নান্দনিক স্থাপত্য, প্রশস্ত পরিবেশ এবং ধর্মীয় আবহ দর্শনার্থীদের আকর্ষণ করে। এটি নালিতাবাড়ীর ধর্মীয় ও সাংস্কৃতিক ঐতিহ্যের একটি গুরুত্বপূর্ণ অংশ হিসেবে বিবেচিত।",
-  highlights: [
-    "আধুনিক ইসলামিক স্থাপত্য",
-    "নামাজ আদায়ের সুবিধা",
-    "ইসলামিক শিক্ষা ও ধর্মীয় কার্যক্রম",
-    "ইসলামিক ঐতিহ্য ও সংস্কৃতি চর্চা",
-    "পরিচ্ছন্ন ও মনোরম পরিবেশ",
-    "স্থানীয় মুসল্লি ও দর্শনার্থীদের জন্য গুরুত্বপূর্ণ স্থান",
-  ],
-  travel:
-    "নালিতাবাড়ী উপজেলা সদর থেকে সহজেই অটোরিকশা, সিএনজি, মোটরসাইকেল বা ব্যক্তিগত যানবাহনে মডেল মসজিদ ও ইসলামিক ঐতিহ্য কেন্দ্রে যাওয়া যায়। গুগল ম্যাপ ব্যবহার করে সরাসরি লোকেশন অনুসরণ করা যাবে।",
-  mapQuery:
-    "Nalitabari Upazila Model Mosque and Islamic Cultural Centre, Nalitabari, Sherpur, Bangladesh",
-  mapsUrl:
-    "https://maps.app.goo.gl/YtUPCngBJeGNc5xf6",
-},
 
-  {
-    id: "panihata",
-    name: "পানিহাতা",
-    englishName: "Panihata",
-    location: "পানিহাতা, নালিতাবাড়ী, শেরপুর",
-    category: "পাহাড় ও সীমান্ত",
-    icon: Mountain,
-    image:
-      "/places/Panihata.png",
-    description:
-      "পানিহাতা নালিতাবাড়ী উপজেলার একটি সীমান্তবর্তী প্রাকৃতিক সৌন্দর্যের এলাকা। গারো পাহাড়ের পাদদেশ, সবুজ প্রকৃতি ও সীমান্তবর্তী পরিবেশ এখানকার প্রধান আকর্ষণ।",
-    details:
-      "পানিহাতা অঞ্চলে পাহাড়ি প্রকৃতি ও গ্রামীণ পরিবেশের একটি সুন্দর সমন্বয় দেখা যায়। প্রকৃতি দেখা, ছবি তোলা এবং শান্ত পরিবেশ উপভোগ করার জন্য জায়গাটি বিশেষভাবে উপযোগী।",
-    highlights: [
-      "গারো পাহাড়ের প্রাকৃতিক পরিবেশ",
-      "সীমান্তবর্তী এলাকা",
-      "সবুজ পাহাড় ও বন",
-      "ফটোগ্রাফি",
-      "প্রকৃতি ভ্রমণ",
-    ],
-    travel:
-      "নালিতাবাড়ী সদর থেকে পানিহাতা এলাকার দিকে স্থানীয় যানবাহন বা মোটরসাইকেলে যাওয়া যায়। সীমান্তবর্তী এলাকায় যাওয়ার সময় স্থানীয় নির্দেশনা ও নিরাপত্তা বিধি মেনে চলুন।",
-    mapQuery: "Panihata, Nalitabari, Sherpur, Bangladesh",
-  },
 
-  {
-    id: "nalitabari-rubber-dam",
-    name: "নালিতাবাড়ী রাবার ড্যাম",
-    englishName: "Nalitabari Rubber Dam",
-    location: "সন্যাসীভিটা, বাঘবেড় ইউনিয়ন, নালিতাবাড়ী",
-    category: "নদী ও জলপ্রকৃতি",
-    icon: Waves,
-    image:
-      "/places/RDN.png",
-    description:
-      "চেল্লাখালী নদীর ওপর নির্মিত নালিতাবাড়ী রাবার ড্যাম উপজেলার পরিচিত দর্শনীয় স্থানগুলোর একটি। নদীর পানি, ড্যাম ও আশপাশের সবুজ পরিবেশ এখানে সুন্দর একটি প্রাকৃতিক দৃশ্য তৈরি করে।",
-    details:
-      "সন্যাসীভিটা গ্রামের সন্যাসীভিটা বাজারের সংলগ্ন চেল্লাখালী নদীর ওপর এই রাবার ড্যাম অবস্থিত। বর্ষা ও বিভিন্ন মৌসুমে নদীর পানির দৃশ্য এবং আশপাশের পরিবেশ দর্শনার্থীদের আকর্ষণ করে।",
-    highlights: [
-      "চেল্লাখালী নদী",
-      "রাবার ড্যাম",
-      "গ্রামীণ পরিবেশ",
-      "প্রাকৃতিক দৃশ্য",
-      "ফটোগ্রাফি",
-    ],
-    travel:
-      "নালিতাবাড়ী সদর থেকে স্থানীয় সড়কপথে সন্যাসীভিটা এলাকায় যাওয়া যায়। স্থানীয়দের কাছ থেকে ড্যামের সঠিক প্রবেশপথ জেনে নেওয়া সুবিধাজনক।",
-    mapQuery:
-      "Nalitabari Rubber Dam, Sannyasibhita, Sherpur, Bangladesh",
-  },
-
-  {
-    id: "baruamari-mission",
-    name: "বারুয়ামারী মিশন",
-    englishName: "Baruamari Mission",
-    location: "বারুয়ামারী, নালিতাবাড়ী, শেরপুর",
-    category: "ঐতিহ্য ও সংস্কৃতি",
-    icon: Camera,
-    image:
-      "/places/BM.png",
-    description:
-      "বারুয়ামারী মিশন নালিতাবাড়ী উপজেলার উল্লেখযোগ্য ঐতিহাসিক ও সাংস্কৃতিক স্থানগুলোর একটি। স্থানীয় ইতিহাস ও সংস্কৃতির সঙ্গে এই এলাকার সম্পর্ক রয়েছে।",
-    details:
-      "নালিতাবাড়ী উপজেলার সরকারি তথ্যসূত্রে বারুয়ামারী মিশনকে দর্শনীয় স্থান হিসেবে উল্লেখ করা হয়েছে। ঐতিহ্য ও স্থানীয় সংস্কৃতি সম্পর্কে জানতে আগ্রহী দর্শনার্থীদের জন্য এটি একটি গুরুত্বপূর্ণ স্থান।",
-    highlights: [
-      "ঐতিহাসিক পরিবেশ",
-      "স্থানীয় সংস্কৃতি",
-      "ঐতিহ্যবাহী এলাকা",
-      "ফটোগ্রাফি",
-    ],
-    travel:
-      "নালিতাবাড়ী সদর থেকে স্থানীয় যানবাহনের মাধ্যমে বারুয়ামারী এলাকায় যাওয়া যায়। যাওয়ার আগে স্থানীয়ভাবে বর্তমান যাতায়াত ও দর্শনার্থী সুবিধা সম্পর্কে জেনে নেওয়া ভালো।",
-    mapQuery: "Baruamari Mission, Nalitabari, Sherpur, Bangladesh",
-  },
-];
-
-export function generateStaticParams() {
-  return places.map((place) => ({
-    slug: place.id,
-  }));
-}
+type PlaceDetailRecord = {
+  id: string;
+  name: string;
+  englishName: string;
+  location: string;
+  category: string;
+  icon: string;
+  image: string;
+  description: string;
+  details: string;
+  highlights: string[];
+  travel: string;
+  mapQuery: string;
+  mapsUrl?: string;
+};
 
 export async function generateMetadata({
   params,
@@ -167,6 +45,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const places = await getRouteData<PlaceDetailRecord>("place-details");
   const place = places.find((item) => item.id === slug);
 
   if (!place) {
@@ -188,13 +67,12 @@ export default async function PlaceDetailsPage({
 }) {
   const { slug } = await params;
 
+  const places = await getRouteData<PlaceDetailRecord>("place-details");
   const place = places.find((item) => item.id === slug);
 
   if (!place) {
     notFound();
   }
-
-  const Icon = place.icon;
 
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     place.mapQuery
@@ -230,7 +108,7 @@ export default async function PlaceDetailsPage({
 
               <div className="mb-4 flex flex-wrap gap-2">
                 <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-sm backdrop-blur">
-                  <Icon className="h-4 w-4" />
+                  <RouteIcon name={place.icon} className="h-4 w-4" />
                   {place.category}
                 </span>
 
@@ -288,7 +166,7 @@ export default async function PlaceDetailsPage({
                       className="flex items-center gap-3 rounded-lg border p-4"
                     >
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                        <Icon className="h-4 w-4 text-primary" />
+                        <RouteIcon name={place.icon} className="h-4 w-4 text-primary" />
                       </div>
 
                       <span className="text-sm font-medium">

@@ -14,7 +14,8 @@ import {
   CalendarDays,
 } from "lucide-react";
 
-import { schools, type SchoolType } from "../../public/data/schools";
+import type { SchoolData, SchoolType } from "@/types/school";
+import { useRouteData } from "@/components/data/use-route-data";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -48,7 +49,7 @@ const typeColors: Record<SchoolType, string> = {
 function SchoolCard({
   school,
 }: {
-  school: (typeof schools)[number];
+  school: SchoolData;
 }) {
   return (
     <Card className="group h-full overflow-hidden rounded-2xl border bg-background/70 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
@@ -169,6 +170,7 @@ function SchoolCard({
 /* -------------------------------------------------------------------------- */
 
 export default function SchoolsPage() {
+  const { data: schools } = useRouteData<SchoolData>("schools");
   const [search, setSearch] = React.useState("");
   const [selectedType, setSelectedType] = React.useState<
     SchoolType | "All"
@@ -208,7 +210,7 @@ export default function SchoolsPage() {
       academy,
       privateSchool,
     };
-  }, []);
+  }, [schools]);
 
   /* ------------------------------------------------------------------------ */
   /*                                FILTERING                                 */
@@ -230,7 +232,7 @@ export default function SchoolsPage() {
 
       return matchesType && matchesSearch;
     });
-  }, [search, selectedType]);
+  }, [schools, search, selectedType]);
 
   /* ------------------------------------------------------------------------ */
   /*                                  RESET                                   */

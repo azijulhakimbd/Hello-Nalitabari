@@ -2,10 +2,8 @@ import Link from "next/link";
 import {
   ArrowRight,
   Building2,
-  FileText,
   Landmark,
   MapPin,
-  Scale,
   Search,
   Users,
 } from "lucide-react";
@@ -14,53 +12,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { RouteIcon } from "@/components/data/route-icon";
+import { getRouteData } from "@/lib/route-data";
 
-const services = [
-  {
-    title: "উপজেলা প্রশাসন",
-    description:
-      "উপজেলা প্রশাসনের বিভিন্ন কার্যক্রম ও যোগাযোগ তথ্য।",
-    icon: Landmark,
-  },
-  {
-    title: "ইউনিয়ন পরিষদ",
-    description:
-      "নালিতাবাড়ীর বিভিন্ন ইউনিয়ন পরিষদের তথ্য।",
-    icon: Building2,
-  },
-  {
-    title: "ভূমি সেবা",
-    description:
-      "ভূমি সংক্রান্ত সরকারি সেবা ও তথ্য।",
-    icon: FileText,
-  },
-  {
-    title: "আইন ও বিচার",
-    description:
-      "আইন, বিচার ও সংশ্লিষ্ট সরকারি প্রতিষ্ঠানের তথ্য।",
-    icon: Scale,
-  },
-];
 
-const offices = [
-  {
-    name: "উপজেলা নির্বাহী অফিসারের কার্যালয়",
-    type: "উপজেলা প্রশাসন",
-    location: "নালিতাবাড়ী, শেরপুর",
-  },
-  {
-    name: "উপজেলা ভূমি অফিস",
-    type: "ভূমি সেবা",
-    location: "নালিতাবাড়ী, শেরপুর",
-  },
-  {
-    name: "নালিতাবাড়ী পৌরসভা",
-    type: "স্থানীয় সরকার",
-    location: "নালিতাবাড়ী, শেরপুর",
-  },
-];
 
-export default function GovernmentPage() {
+
+
+type GovernmentService = { title: string; description: string; icon: string };
+type GovernmentOffice = { name: string; type: string; location: string };
+
+export default async function GovernmentPage() {
+  const [services, offices] = await Promise.all([
+    getRouteData<GovernmentService>("government-services"),
+    getRouteData<GovernmentOffice>("government-offices"),
+  ]);
   return (
     <main>
       {/* Hero */}
@@ -120,8 +86,6 @@ export default function GovernmentPage() {
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service) => {
-            const Icon = service.icon;
-
             return (
               <Card
                 key={service.title}
@@ -129,7 +93,7 @@ export default function GovernmentPage() {
               >
                 <CardContent className="p-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-100 text-violet-600 dark:bg-violet-950/50">
-                    <Icon className="h-6 w-6" />
+                    <RouteIcon name={service.icon} className="h-6 w-6" />
                   </div>
 
                   <h3 className="mt-5 text-lg font-semibold">

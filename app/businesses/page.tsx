@@ -10,10 +10,6 @@ import {
   Store,
   ExternalLink,
   Filter,
-  ShoppingBag,
-  Utensils,
-  Wrench,
-  BriefcaseBusiness,
 } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -33,6 +29,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { RouteIcon } from "@/components/data/route-icon";
+import { useRouteData } from "@/components/data/use-route-data";
 
 type Business = {
   id: number;
@@ -43,92 +41,19 @@ type Business = {
   phone?: string;
   website?: string;
   mapsUrl?: string;
-  icon: React.ElementType;
+  icon: string;
 };
 
-const businesses: Business[] = [
-  {
-    id: 1,
-    name: "নালিতাবাড়ী বাজার",
-    category: "বাজার ও শপিং",
-    description:
-      "নালিতাবাড়ী উপজেলার অন্যতম প্রধান বাণিজ্যিক এলাকা। এখানে বিভিন্ন ধরনের দোকান ও ব্যবসা প্রতিষ্ঠান রয়েছে।",
-    address: "নালিতাবাড়ী পৌরসভা, শেরপুর",
-    mapsUrl: "https://maps.google.com/?q=Nalitabari+Bazar",
-    icon: ShoppingBag,
-  },
-  {
-    id: 2,
-    name: "নালিতাবাড়ী হোটেল অ্যান্ড রেস্টুরেন্ট",
-    category: "রেস্টুরেন্ট",
-    description:
-      "স্থানীয় ও দেশীয় খাবারের জন্য একটি খাবারের প্রতিষ্ঠান।",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "01700000000",
-    mapsUrl:
-      "https://maps.google.com/?q=Nalitabari+Sherpur",
-    icon: Utensils,
-  },
-  {
-    id: 3,
-    name: "মা ডিজিটাল সেন্টার",
-    category: "ডিজিটাল সেবা",
-    description:
-      "অনলাইন আবেদন, প্রিন্ট, ফটোকপি, কম্পিউটার ও বিভিন্ন ডিজিটাল সেবা প্রদান করা হয়।",
-    address: "নালিতাবাড়ী বাজার, শেরপুর",
-    phone: "01800000000",
-    mapsUrl:
-      "https://maps.google.com/?q=Nalitabari+Sherpur",
-    icon: BriefcaseBusiness,
-  },
-  {
-    id: 4,
-    name: "নালিতাবাড়ী ইলেকট্রনিক্স",
-    category: "ইলেকট্রনিক্স",
-    description:
-      "ইলেকট্রনিক পণ্য, মোবাইল অ্যাক্সেসরিজ এবং বিভিন্ন প্রযুক্তি পণ্য পাওয়া যায়।",
-    address: "নালিতাবাড়ী বাজার, শেরপুর",
-    phone: "01900000000",
-    mapsUrl:
-      "https://maps.google.com/?q=Nalitabari+Sherpur",
-    icon: Store,
-  },
-  {
-    id: 5,
-    name: "জনতা হার্ডওয়্যার",
-    category: "হার্ডওয়্যার",
-    description:
-      "নির্মাণ সামগ্রী, হার্ডওয়্যার ও বিভিন্ন প্রয়োজনীয় সরঞ্জামের দোকান।",
-    address: "নালিতাবাড়ী, শেরপুর",
-    phone: "01600000000",
-    mapsUrl:
-      "https://maps.google.com/?q=Nalitabari+Sherpur",
-    icon: Wrench,
-  },
-  {
-    id: 6,
-    name: "নালিতাবাড়ী ফার্মেসি",
-    category: "ফার্মেসি",
-    description:
-      "স্থানীয়ভাবে ওষুধ ও স্বাস্থ্যসেবা সংক্রান্ত পণ্য সরবরাহকারী প্রতিষ্ঠান।",
-    address: "নালিতাবাড়ী সদর, শেরপুর",
-    phone: "01500000000",
-    mapsUrl:
-      "https://maps.google.com/?q=Nalitabari+Sherpur",
-    icon: Building2,
-  },
-];
 
-const categories = [
-  "সকল",
-  ...Array.from(
-    new Set(businesses.map((business) => business.category))
-  ),
-];
 
 export default function BusinessesPage() {
+  const { data: businesses, loading } = useRouteData<Business>("businesses");
   const [search, setSearch] = React.useState("");
   const [category, setCategory] = React.useState("সকল");
+  const categories = [
+    "সকল",
+    ...Array.from(new Set(businesses.map((business) => business.category))),
+  ];
 
   const filteredBusinesses = businesses.filter((business) => {
     const searchText = search.toLowerCase().trim();
@@ -257,11 +182,11 @@ export default function BusinessesPage() {
           </Badge>
         </div>
 
-        {filteredBusinesses.length > 0 ? (
+        {loading ? (
+          <p className="py-12 text-center text-sm text-muted-foreground">তথ্য লোড হচ্ছে...</p>
+        ) : filteredBusinesses.length > 0 ? (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredBusinesses.map((business) => {
-              const Icon = business.icon;
-
               return (
                 <Card
                   key={business.id}
@@ -272,7 +197,7 @@ export default function BusinessesPage() {
                   <CardHeader>
                     <div className="mb-3 flex items-start justify-between gap-3">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400">
-                        <Icon className="h-6 w-6" />
+                        <RouteIcon name={String(business.icon)} className="h-6 w-6" />
                       </div>
 
                       <Badge variant="outline">

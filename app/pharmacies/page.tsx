@@ -23,6 +23,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useRouteData } from "@/components/data/use-route-data";
 
 /* 
    TYPES
@@ -46,236 +47,9 @@ type Pharmacy = {
    
 */
 
-const pharmacies: Pharmacy[] = [
-  {
-    id: "maa-medical-hall",
-    name: "মা মেডিকেল হল",
-    address:
-      "35RR+MP, নালিতাবাড়ী-শেরপুর রোড, নালিতাবাড়ী 2110",
-    phone: "+8801721239650",
-    rating: 5,
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন ৮:০০ সকাল – ১১:৫৯ রাত",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Maa+Medical+Hall+Nalitabari",
-  },
-  {
-    id: "ziaul-medical-hall",
-    name: "Ziaul Medical Hall",
-    address:
-      "তারাগঞ্জ মধ্য বাজার, নালিতাবাড়ী-নকলা রোড, নালিতাবাড়ী",
-    rating: 2.5,
-    reviewCount: 2,
-    category: "ফার্মেসি",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Ziaul+Medical+Hall+Nalitabari",
-  },
-  {
-    id: "gopal-medicine-corner",
-    name: "Gopal Medicine Corner",
-    address:
-      "নালিতাবাড়ী-নকলা রোড, নালিতাবাড়ী",
-    phone: "+8801730182981",
-    rating: 5,
-    reviewCount: 3,
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন ৮:৩০ সকাল – রাত ১২:০০",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Gopal+Medicine+Corner+Nalitabari",
-  },
-  {
-    id: "borsha-medical-hall",
-    name: "Borsha Medical Hall",
-    address:
-      "নালিতাবাড়ী রোড, নালিতাবাড়ী",
-    rating: 4,
-    reviewCount: 2,
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন ৮:০০ সকাল – ১১:০০ রাত",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Borsha+Medical+Hall+Nalitabari",
-  },
-  {
-    id: "gourhari-medical-hall",
-    name: "Gourhari Medical Hall",
-    address:
-      "নালিতাবাড়ী-নকলা রোড, নালিতাবাড়ী 2110",
-    phone: "+8801924691969",
-    rating: 4.8,
-    reviewCount: 9,
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন ৮:৩০ সকাল – ১১:০০ রাত",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Gourhari+Medical+Hall+Nalitabari",
-  },
-  {
-    id: "sristy-medicine-corner",
-    name: "Sristy Medicine Corner",
-    address:
-      "আরাইআনী কাঁচা বাজার, জেলখানা রোড, নালিতাবাড়ী",
-    phone: "+8801923494964",
-    category: "ফার্মেসি",
-    hours: "২৪ ঘণ্টা",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Sristy+Medicine+Corner+Nalitabari",
-  },
-  {
-    id: "shrabon-medicine-corner",
-    name: "Shrabon Medicine Corner",
-    address:
-      "নালিতাবাড়ী, শেরপুর",
-    rating: 5,
-    reviewCount: 1,
-    category: "ফার্মেসি",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Shrabon+Medicine+Corner+Nalitabari",
-  },
-  {
-    id: "sharowar-medicine-corner",
-    name: "Sharowar Medicine Corner",
-    address:
-      "তারাগঞ্জ মধ্য বাজার, নালিতাবাড়ী 2110",
-    phone: "+8801711174014",
-    rating: 5,
-    category: "ফার্মেসি",
-    hours: "২৪ ঘণ্টা",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Sharowar+Medicine+Corner+Nalitabari",
-  },
-  {
-    id: "nipa-medical-hall",
-    name: "Nipa Medical Hall",
-    address:
-      "Z4602, নালিতাবাড়ী",
-    phone: "+8801793787689",
-    rating: 3,
-    reviewCount: 1,
-    category: "ফার্মেসি",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Nipa+Medical+Hall+Nalitabari",
-  },
-  {
-    id: "devnath-pharmacy",
-    name: "Devnath Pharmacy",
-    address:
-      "তারাগঞ্জ মধ্য বাজার, নালিতাবাড়ী 2110",
-    phone: "+8801717230660",
-    rating: 5,
-    reviewCount: 1,
-    category: "ফার্মেসি",
-    hours: "দিনভেদে সময় পরিবর্তিত হতে পারে",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Devnath+Pharmacy+Nalitabari",
-  },
-  {
-    id: "kanchan-medical-hall",
-    name: "কাঞ্চন মেডিকেল হল",
-    address:
-      "তারাগঞ্জ মধ্য বাজার, নালিতাবাড়ী রোড, নালিতাবাড়ী",
-    phone: "+8801729954525",
-    rating: 3.5,
-    reviewCount: 2,
-    category: "ফার্মেসি",
-    hours: "অনেক দিন ২৪ ঘণ্টা খোলা",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Kanchan+Medical+Hall+Nalitabari",
-  },
-  {
-    id: "mostofa-pharmacy",
-    name: "Mostofa Pharmacy",
-    address:
-      "তারাগঞ্জ দক্ষিণ বাজার, নালিতাবাড়ী-শেরপুর রোড, নালিতাবাড়ী 2110",
-    phone: "+8801841328499",
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন সকাল থেকে রাত",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Mostofa+Pharmacy+Nalitabari",
-  },
-  {
-    id: "desh-pharmacy",
-    name: "Desh Pharmacy",
-    address:
-      "নালিতাবাড়ী-শেরপুর রোড, নালিতাবাড়ী 2110",
-    phone: "+8801611220668",
-    rating: 5,
-    reviewCount: 4,
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন ৮:০০ সকাল – ১০:০০ রাত",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Desh+Pharmacy+Nalitabari",
-  },
-  {
-    id: "norohori-pharmacy",
-    name: "Norohori Pharmacy",
-    address:
-      "নালিতাবাড়ী, শেরপুর",
-    phone: "+8801981258362",
-    rating: 2.5,
-    reviewCount: 2,
-    category: "ফার্মেসি",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Norohori+Pharmacy+Nalitabari",
-  },
-  {
-    id: "mitali-pharmacy",
-    name: "মিতালী ফার্মেসী",
-    address:
-      "Z3040, নালিতাবাড়ী",
-    rating: undefined,
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন প্রায় ২৪ ঘণ্টা",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Mitali+Pharmacy+Nalitabari",
-  },
-  {
-    id: "mufti-pharma",
-    name: "মেসার্স মুফতি ফার্মা এন্ড সার্জিক্যাল",
-    address:
-      "গড়কান্দা এতিমখানা ভবন, ডিজিটাল ডায়াগনস্টিক সেন্টার, নালিতাবাড়ী 2110",
-    phone: "+8801719284441",
-    category: "ফার্মেসি",
-    hours: "সকাল থেকে রাত",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Mufti+Pharma+Nalitabari",
-  },
-  {
-    id: "jononi-medical-hall",
-    name: "জননী মেডিকেল হল",
-    address:
-      "নালিতাবাড়ী-নকলা রোড, নালিতাবাড়ী",
-    phone: "+8801687036004",
-    rating: 4.7,
-    reviewCount: 3,
-    category: "ফার্মেসি",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Jononi+Medical+Hall+Nalitabari",
-  },
-  {
-    id: "madina-medical-hall",
-    name: "মদিনা মেডিকেল হল",
-    address:
-      "নালিতাবাড়ী, শেরপুর",
-    phone: "+8801951143948",
-    rating: 5,
-    reviewCount: 2,
-    category: "ফার্মেসি",
-    hours: "প্রতিদিন ৮:৩০ সকাল – ১১:০০ রাত",
-    openNow: true,
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Madina+Medical+Hall+Nalitabari",
-  },
-];
+
+
+type PharmacyRecord = Pharmacy;
 
 /*
    HELPERS
@@ -290,6 +64,7 @@ function formatPhoneForTel(phone: string) {
  */
 
 export default function PharmaciesPage() {
+  const { data: pharmacies } = useRouteData<PharmacyRecord>("pharmacies");
   const [search, setSearch] = React.useState("");
   const [openOnly, setOpenOnly] = React.useState(false);
 
@@ -313,7 +88,7 @@ export default function PharmaciesPage() {
 
       return matchesSearch && matchesOpen;
     });
-  }, [search, openOnly]);
+  }, [pharmacies, search, openOnly]);
 
   return (
     <main className="min-h-screen bg-background">

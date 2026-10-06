@@ -15,6 +15,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
+import { useRouteData } from "@/components/data/use-route-data";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -25,112 +26,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const colleges = [
-  {
-    id: "nazmul-smriti",
-    name: "সরকারি নাজমুল স্মৃতি কলেজ",
-    englishName: "Govt. Nazmul Smriti College",
-    eiin: "113826",
-    type: "Government College",
-    level: "Degree & Honours",
-    location: "নালিতাবাড়ী পৌরসভা, নালিতাবাড়ী, শেরপুর",
-    phone: "01984389699",
-    established: "1972",
-    image:
-      "/colleges/Nazmul.png",
-    description:
-      "নালিতাবাড়ী উপজেলার অন্যতম গুরুত্বপূর্ণ উচ্চশিক্ষা প্রতিষ্ঠান। কলেজটি উচ্চ মাধ্যমিক ও উচ্চশিক্ষার বিভিন্ন কার্যক্রম পরিচালনা করে।",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Govt+Nazmul+Smriti+College+Nalitabari+Sherpur",
-  },
-  {
-    id: "shahid-abdur-rashid",
-    name: "নালিতাবাড়ী শহীদ আব্দুর রশিদ মহিলা কলেজ",
-    englishName: "Nalitabari Shahid Abdur Rashid Mohila College",
-    eiin: "113827",
-    type: "Women's College",
-    level: "Degree (Pass)",
-    location: "সিটপাড়া, নালিতাবাড়ী, শেরপুর",
-    phone: "01712942828",
-    established: "1996",
-    image:
-      "/colleges/Abdur.png",
-    description:
-      "নালিতাবাড়ীর নারী শিক্ষার্থীদের জন্য গুরুত্বপূর্ণ একটি শিক্ষা প্রতিষ্ঠান। প্রতিষ্ঠানটি ডিগ্রি পর্যায় পর্যন্ত শিক্ষা কার্যক্রম পরিচালনা করে।",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Shahid+Abdur+Rashid+Mohila+College",
-  },
-  {
-    id: "shahid-muktijoddha",
-    name: "শহীদ মুক্তিযোদ্ধা কলেজ",
-    englishName: "Shaheed Muktijoddha College",
-    eiin: "131499",
-    type: "College",
-    level: "Higher Secondary",
-    location: "নালিতাবাড়ী, শেরপুর",
-    phone: "01914624625",
-    established: "2009",
-    image:
-      "/colleges/Shohid.png",
-    description:
-      "নালিতাবাড়ী উপজেলার একটি উচ্চ মাধ্যমিক শিক্ষা প্রতিষ্ঠান। বিজ্ঞান, মানবিক ও ব্যবসায় শিক্ষা বিভাগে শিক্ষা কার্যক্রম রয়েছে।",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Shaheed+Muktijoddha+College+Nalitabari+Sherpur",
-  },
-  {
-    id: "haji-nurul-haque",
-    name: "হাজী নুরুল হক নননী পোড়াগাঁও মৈত্রী কলেজ",
-    englishName: "Haji Nurul Haque Nonni Poragaon Moitry College",
-    eiin: "135248",
-    type: "Non-Government College",
-    level: "Higher Secondary",
-    location: "নন্নী, নালিতাবাড়ী, শেরপুর",
-    phone: "01716235623",
-    established: "2011",
-    image:
-      "/colleges/Hazi.png",
-    description:
-      "নন্নী এলাকায় অবস্থিত একটি বেসরকারি কলেজ। প্রতিষ্ঠানটিতে বিজ্ঞান, মানবিক ও ব্যবসায় শিক্ষা বিভাগে উচ্চ মাধ্যমিক শিক্ষা কার্যক্রম রয়েছে।",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Haji+Nurul+Haque+Nonni+Poragaon+Moitry+College",
-  },
-  {
-    id: "adarsha-technical",
-    name: "আদর্শ টেকনিক্যাল অ্যান্ড বিজনেস ম্যানেজমেন্ট কলেজ",
-    englishName: "Adarsha Technical and Business Management College",
-    eiin: "132878",
-    type: "Technical College",
-    level: "Technical & Business Management",
-    location: "কালিনগর, নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    established: "",
-    image:
-      "/colleges/ATSC.png",
-    description:
-      "কারিগরি ও ব্যবসায় ব্যবস্থাপনা শিক্ষার জন্য নালিতাবাড়ী উপজেলার একটি শিক্ষা প্রতিষ্ঠান।",
-    mapUrl:
-      "",
-  },
-  {
-    id: "technical-business",
-    name: "নালিতাবাড়ী টেকনিক্যাল অ্যান্ড বিজনেস ম্যানেজমেন্ট কলেজ",
-    englishName: "Nalitabari Technical and Business Management College",
-    eiin: "132533",
-    type: "Technical College",
-    level: "Technical & Business Management",
-    location: "রাণীগাও, নালিতাবাড়ী, শেরপুর",
-    phone: "",
-    established: "2004",
-    image:
-      "/colleges/NTBC.png",
-    description:
-      "কারিগরি ও ব্যবসায় ব্যবস্থাপনা বিষয়ে শিক্ষা প্রদানের জন্য নালিতাবাড়ীতে অবস্থিত একটি প্রতিষ্ঠান।",
-    mapUrl:
-      "https://www.google.com/maps/search/?api=1&query=Nalitabari+Technical+Business+Management+College",
-  },
-];
+
+
+type College = {
+  id: string;
+  name: string;
+  englishName: string;
+  eiin: string;
+  type: string;
+  level: string;
+  location: string;
+  phone: string;
+  established: string;
+  image: string;
+  description: string;
+  mapUrl: string;
+};
 
 export default function CollegesPage() {
+  const { data: colleges } = useRouteData<College>("colleges");
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredColleges = useMemo(() => {
@@ -151,7 +65,7 @@ export default function CollegesPage() {
         .toLowerCase()
         .includes(query)
     );
-  }, [searchTerm]);
+  }, [colleges, searchTerm]);
 
   const clearSearch = () => {
     setSearchTerm("");

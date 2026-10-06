@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import {
   Activity,
   Hospital,
@@ -8,7 +8,8 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react"
-import { doctors } from "@/components/doctors/doctor-data"
+import type { Doctor } from "@/types/doctor"
+import { useRouteData } from "@/components/data/use-route-data"
 import DoctorFilters from "@/components/doctors/doctor-filters"
 import DoctorCard from "@/components/doctors/doctor-card"
 
@@ -16,6 +17,7 @@ import DoctorCard from "@/components/doctors/doctor-card"
 
 
 export default function DoctorsPage() {
+  const { data: doctors, loading } = useRouteData<Doctor>("doctors")
   const [search, setSearch] = useState("")
   const [specialization, setSpecialization] = useState("all")
 
@@ -23,8 +25,7 @@ export default function DoctorsPage() {
     setSpecialization(value ?? "all")
   }
 
-  const filteredDoctors = useMemo(() => {
-    return doctors.filter((doctor) => {
+  const filteredDoctors = doctors.filter((doctor) => {
       const searchText = search.toLowerCase()
 
       const matchesSearch =
@@ -38,7 +39,6 @@ export default function DoctorsPage() {
 
       return matchesSearch && matchesSpecialization
     })
-  }, [search, specialization])
 
   return (
     <main className="min-h-screen bg-background">
@@ -147,6 +147,8 @@ export default function DoctorsPage() {
             setSpecialization={handleSpecializationChange}
           />
         </div>
+
+        {loading && <p className="mb-4 text-sm text-muted-foreground">তথ্য লোড হচ্ছে...</p>}
 
         <div className="mb-5 flex items-center justify-between">
           <div>

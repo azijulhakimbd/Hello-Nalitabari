@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed:route-data": "node scripts/seed-route-data.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.42",
