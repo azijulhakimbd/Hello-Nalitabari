@@ -3,6 +3,7 @@
 import * as React from "react";
 import {
   ArrowLeft,
+  CircleCheck,
   
   Globe,
   ImagePlus,
@@ -19,6 +20,7 @@ import {
   
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,6 +42,12 @@ type SocialLink = {
 };
 
 export default function SubmitPage() {
+  const router = useRouter();
+  const [category, setCategory] = React.useState("");
+  const [imageData, setImageData] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitMessage, setSubmitMessage] = React.useState("");
+  const [submitError, setSubmitError] = React.useState("");
   const [socialLinks, setSocialLinks] = React.useState<SocialLink[]>([
     { platform: "Facebook", url: "" },
   ]);
@@ -85,6 +93,64 @@ export default function SubmitPage() {
         i === index ? { ...item, url } : item
       )
     );
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formElement = event.currentTarget;
+    setIsSubmitting(true);
+    setSubmitError("");
+    setSubmitMessage("");
+
+    const form = new FormData(formElement);
+    const payload = {
+      name: form.get("name"),
+      category,
+      description: form.get("description"),
+      address: form.get("address"),
+      mapUrl: form.get("mapUrl"),
+      latitude: form.get("latitude"),
+      longitude: form.get("longitude"),
+      phoneNumbers: form.getAll("phoneNumbers").filter(Boolean),
+      email: form.get("email"),
+      website: form.get("website"),
+      socialLinks: socialLinks.filter((social) => social.url.trim()),
+      imageData,
+      openingHours: form.get("openingHours"),
+      weeklyClosing: form.get("weeklyClosing"),
+      additionalInfo: form.get("additionalInfo"),
+      submitterName: form.get("submitterName"),
+      submitterPhone: form.get("submitterPhone"),
+    };
+
+    try {
+      const response = await fetch("/api/submissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (response.status === 401) {
+        router.push("/auth/login?callbackUrl=/submit");
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(result.message || "তথ্য জমা দেওয়া যায়নি।");
+      }
+
+      setSubmitMessage("তথ্যটি পর্যালোচনার জন্য জমা হয়েছে।");
+      formElement.reset();
+      setCategory("");
+      setImageData("");
+      setPhones([""]);
+      setSocialLinks([{ platform: "Facebook", url: "" }]);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "আবার চেষ্টা করুন।");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -151,7 +217,15 @@ export default function SubmitPage() {
 
       {/* Form */}
       <section className="container mx-auto px-4 py-10 md:py-16">
-        <form className="mx-auto max-w-4xl space-y-6">
+        <form onSubmit={handleSubmit} className="mx-auto max-w-4xl space-y-6">
+          <input type="hidden" name="category" value={category} />
+          {submitMessage && (
+            <div role="status" className="flex items-center gap-2 rounded-lg border border-emerald-600/20 bg-emerald-600/10 p-4 text-sm text-emerald-800 dark:text-emerald-300">
+              <CircleCheck className="size-4 shrink-0" />
+              {submitMessage} <Link className="font-semibold underline" href="/dashboard">ড্যাশবোর্ড দেখুন</Link>
+            </div>
+          )}
+          {submitError && <p role="alert" className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive">{submitError}</p>}
 
           {/* Basic Information */}
           <Card className="border-emerald-500/10 bg-background/70 shadow-sm backdrop-blur-xl">
@@ -176,6 +250,7 @@ export default function SubmitPage() {
                   </Label>
 
                   <Input
+                    name="name"
                     placeholder="যেমন: নালিতাবাড়ী উপজেলা স্বাস্থ্য কমপ্লেক্স"
                     className="h-11"
                     required
@@ -188,7 +263,7 @@ export default function SubmitPage() {
                     ক্যাটাগরি <span className="text-red-500">*</span>
                   </Label>
 
-                  <Select required>
+                  <Select value={category} onValueChange={(value) => setCategory(value ?? "")}>
                     <SelectTrigger className="h-11">
                       <SelectValue placeholder="ক্যাটাগরি নির্বাচন করুন" />
                     </SelectTrigger>
@@ -215,6 +290,7 @@ export default function SubmitPage() {
                 <Label>সংক্ষিপ্ত বিবরণ</Label>
 
                 <Textarea
+                  name="description"
                   placeholder="প্রতিষ্ঠান বা তথ্য সম্পর্কে সংক্ষিপ্ত বিবরণ লিখুন..."
                   className="min-h-32 resize-none"
                 />
@@ -231,6 +307,7 @@ export default function SubmitPage() {
                 </Label>
 
                 <Textarea
+                  name="address"
                   placeholder="বাড়ি/রোড, বাজার, ইউনিয়ন, উপজেলা, জেলা..."
                   className="min-h-24 resize-none"
                   required
@@ -260,6 +337,7 @@ export default function SubmitPage() {
                   <MapPin className="absolute left-3 top-3 size-4 text-muted-foreground" />
 
                   <Input
+                    name="mapUrl"
                     placeholder="https://maps.google.com/..."
                     className="h-11 pl-10"
                     type="url"
@@ -274,12 +352,12 @@ export default function SubmitPage() {
               <div className="grid gap-5 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label>অক্ষাংশ (Latitude)</Label>
-                  <Input placeholder="যেমন: 25.0886" />
+                  <Input name="latitude" placeholder="যেমন: 25.0886" />
                 </div>
 
                 <div className="space-y-2">
                   <Label>দ্রাঘিমাংশ (Longitude)</Label>
-                  <Input placeholder="যেমন: 90.1687" />
+                  <Input name="longitude" placeholder="যেমন: 90.1687" />
                 </div>
               </div>
 
@@ -329,6 +407,7 @@ export default function SubmitPage() {
                       <Phone className="absolute left-3 top-3 size-4 text-muted-foreground" />
 
                       <Input
+                        name="phoneNumbers"
                         value={phone}
                         onChange={(e) =>
                           updatePhone(index, e.target.value)
@@ -365,6 +444,7 @@ export default function SubmitPage() {
                   <Mail className="absolute left-3 top-3 size-4 text-muted-foreground" />
 
                   <Input
+                    name="email"
                     type="email"
                     placeholder="example@email.com"
                     className="h-11 pl-10"
@@ -380,6 +460,7 @@ export default function SubmitPage() {
                   <Globe className="absolute left-3 top-3 size-4 text-muted-foreground" />
 
                   <Input
+                    name="website"
                     type="url"
                     placeholder="https://example.com"
                     className="h-11 pl-10"
@@ -529,6 +610,18 @@ export default function SubmitPage() {
                   type="file"
                   accept="image/png,image/jpeg,image/webp"
                   className="hidden"
+                  onChange={(event) => {
+                    const file = event.currentTarget.files?.[0];
+                    if (!file) return;
+                    if (file.size > 5 * 1024 * 1024) {
+                      setSubmitError("ছবির আকার ৫MB-এর বেশি হতে পারবে না।");
+                      event.currentTarget.value = "";
+                      return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = () => setImageData(String(reader.result));
+                    reader.readAsDataURL(file);
+                  }}
                 />
               </label>
             </CardContent>
@@ -552,6 +645,7 @@ export default function SubmitPage() {
                 <div className="space-y-2">
                   <Label>খোলার সময়</Label>
                   <Input
+                    name="openingHours"
                     placeholder="সকাল ৯টা - রাত ৮টা"
                     className="h-11"
                   />
@@ -560,6 +654,7 @@ export default function SubmitPage() {
                 <div className="space-y-2">
                   <Label>সাপ্তাহিক বন্ধ</Label>
                   <Input
+                    name="weeklyClosing"
                     placeholder="শুক্রবার"
                     className="h-11"
                   />
@@ -570,6 +665,7 @@ export default function SubmitPage() {
                 <Label>অতিরিক্ত তথ্য</Label>
 
                 <Textarea
+                  name="additionalInfo"
                   placeholder="প্রয়োজনীয় অন্য কোনো তথ্য এখানে লিখুন..."
                   className="min-h-28 resize-none"
                 />
@@ -598,6 +694,7 @@ export default function SubmitPage() {
                   </Label>
 
                   <Input
+                    name="submitterName"
                     placeholder="আপনার পূর্ণ নাম"
                     className="h-11"
                     required
@@ -610,6 +707,7 @@ export default function SubmitPage() {
                   </Label>
 
                   <Input
+                    name="submitterPhone"
                     placeholder="০১XXXXXXXXX"
                     className="h-11"
                     type="tel"
@@ -644,6 +742,7 @@ export default function SubmitPage() {
               <Button
                 type="submit"
                 size="lg"
+                disabled={isSubmitting || !category}
                 className="
                   gap-2
                   bg-gradient-to-r
@@ -657,7 +756,7 @@ export default function SubmitPage() {
                 "
               >
                 <Send className="size-4" />
-                তথ্য জমা দিন
+                {isSubmitting ? "জমা হচ্ছে..." : "তথ্য জমা দিন"}
               </Button>
             </div>
           </div>

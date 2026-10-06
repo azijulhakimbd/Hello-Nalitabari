@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import clientPromise from "@/lib/mongodb"
+import clientPromise, { getMongoDatabase } from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 import { NextResponse } from "next/server"
 
@@ -55,7 +55,7 @@ export async function PATCH(
     }
 
     const client = await clientPromise
-    const db = client.db()
+    const db = getMongoDatabase(client)
 
     const result = await db
       .collection("users")

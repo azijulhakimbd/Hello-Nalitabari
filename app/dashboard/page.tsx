@@ -13,6 +13,19 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import clientPromise, { getMongoDatabase } from "@/lib/mongodb"
+
+const categoryLabels: Record<string, string> = {
+  doctor: "ডাক্তার",
+  hospital: "হাসপাতাল / ক্লিনিক",
+  school: "স্কুল",
+  college: "কলেজ",
+  business: "ব্যবসা প্রতিষ্ঠান",
+  government: "সরকারি প্রতিষ্ঠান",
+  emergency: "জরুরি সেবা",
+  place: "দর্শনীয় স্থান",
+  other: "অন্যান্য",
+}
 
 export default async function DashboardPage() {
   const session = await auth()
@@ -26,6 +39,14 @@ export default async function DashboardPage() {
 
   const isAdmin = role === "admin"
   const isEditor = role === "editor"
+  const client = await clientPromise
+  const submissionsCollection = getMongoDatabase(client).collection("submissions")
+  const [totalSubmissions, approvedSubmissions, pendingSubmissions, recentSubmissions] = await Promise.all([
+    submissionsCollection.countDocuments({ userId: user.id }),
+    submissionsCollection.countDocuments({ userId: user.id, status: "approved" }),
+    submissionsCollection.countDocuments({ userId: user.id, status: "pending" }),
+    submissionsCollection.find({ userId: user.id }).sort({ createdAt: -1 }).limit(5).toArray(),
+  ])
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-12">
@@ -184,7 +205,7 @@ export default async function DashboardPage() {
               </p>
 
               <p className="mt-2 text-3xl font-bold">
-                0
+                {totalSubmissions.toLocaleString("bn-BD")}
               </p>
             </div>
 
@@ -194,7 +215,7 @@ export default async function DashboardPage() {
               </p>
 
               <p className="mt-2 text-3xl font-bold">
-                0
+                {approvedSubmissions.toLocaleString("bn-BD")}
               </p>
             </div>
 
@@ -204,10 +225,40 @@ export default async function DashboardPage() {
               </p>
 
               <p className="mt-2 text-3xl font-bold">
-                0
+                {pendingSubmissions.toLocaleString("bn-BD")}
               </p>
             </div>
           </div>
+        </CardContent>
+      </Card>
+
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle>সাম্প্রতিক সাবমিশন</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {recentSubmissions.length === 0 ? (
+            <div className="py-4 text-sm text-muted-foreground">
+              এখনো কোনো তথ্য জমা দেননি।{" "}
+              <Link className="font-medium text-primary underline underline-offset-4" href="/submit">নতুন তথ্য যোগ করুন</Link>
+            </div>
+          ) : (
+            <div className="divide-y">
+              {recentSubmissions.map((submission) => (
+                <div key={submission._id.toString()} className="flex flex-col gap-2 py-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-medium">{submission.name}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {categoryLabels[submission.category] ?? submission.category} · {new Date(submission.createdAt).toLocaleDateString("bn-BD")}
+                    </p>
+                  </div>
+                  <Badge variant={submission.status === "approved" ? "default" : submission.status === "rejected" ? "destructive" : "secondary"}>
+                    {submission.status === "approved" ? "অনুমোদিত" : submission.status === "rejected" ? "প্রত্যাখ্যাত" : "পর্যালোচনাধীন"}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          )}
         </CardContent>
       </Card>
     </main>

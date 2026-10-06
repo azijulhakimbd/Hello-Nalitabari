@@ -3,10 +3,12 @@ import Credentials from "next-auth/providers/credentials"
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import { compare } from "bcryptjs"
 
-import clientPromise from "@/lib/mongodb"
+import clientPromise, { getMongoDatabase, MONGODB_DATABASE } from "@/lib/mongodb"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise, {
+    databaseName: MONGODB_DATABASE,
+  }),
 
   session: {
     strategy: "jwt",
@@ -49,7 +51,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         )
 
         const client = await clientPromise
-        const db = client.db()
+        const db = getMongoDatabase(client)
 
         let user
 

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { hash } from "bcryptjs"
 
-import clientPromise from "@/lib/mongodb"
+import clientPromise, { getMongoDatabase } from "@/lib/mongodb"
 
 export async function POST(request: Request) {
   try {
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
     }
 
     const client = await clientPromise
-    const db = client.db()
+    const db = getMongoDatabase(client)
 
     // Check existing email
     const existingEmail = await db

@@ -1,11 +1,23 @@
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { AdminHeader } from "@/components/admin/admin-header";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  if (!session?.user) {
+    redirect("/auth/login?callbackUrl=/admin");
+  }
+
+  if (session.user.role !== "admin") {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="min-h-screen bg-muted/30">
       <AdminSidebar />

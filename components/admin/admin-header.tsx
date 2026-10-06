@@ -1,6 +1,7 @@
 "use client";
 
-import { Menu, Moon, Sun } from "lucide-react";
+import { ClipboardList, LayoutDashboard, Moon, Sun, Users } from "lucide-react";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -16,9 +17,17 @@ export function AdminHeader() {
 
   return (
     <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur md:px-6 lg:px-8">
-      <Button variant="ghost" size="icon" className="lg:hidden">
-        <Menu className="size-5" />
-      </Button>
+      <nav aria-label="অ্যাডমিন নেভিগেশন" className="flex items-center gap-1 lg:hidden">
+        <Button asChild variant="ghost" size="icon" title="ড্যাশবোর্ড">
+          <Link href="/admin"><LayoutDashboard className="size-4" /><span className="sr-only">ড্যাশবোর্ড</span></Link>
+        </Button>
+        <Button asChild variant="ghost" size="icon" title="ব্যবহারকারী">
+          <Link href="/admin/users"><Users className="size-4" /><span className="sr-only">ব্যবহারকারী</span></Link>
+        </Button>
+        <Button asChild variant="ghost" size="icon" title="সাবমিশন">
+          <Link href="/admin/submissions"><ClipboardList className="size-4" /><span className="sr-only">সাবমিশন</span></Link>
+        </Button>
+      </nav>
 
       <div className="ml-auto flex items-center gap-2">
         <DropdownMenu>

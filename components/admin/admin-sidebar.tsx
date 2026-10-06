@@ -5,14 +5,12 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
-  FileText,
-  FolderTree,
   ClipboardList,
-  Settings,
   Home,
   LogOut,
   MapPin,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -30,24 +28,9 @@ const menuItems = [
     icon: Users,
   },
   {
-    title: "তথ্য ব্যবস্থাপনা",
-    href: "/admin/content",
-    icon: FileText,
-  },
-  {
-    title: "ক্যাটাগরি",
-    href: "/admin/categories",
-    icon: FolderTree,
-  },
-  {
     title: "সাবমিশন",
     href: "/admin/submissions",
     icon: ClipboardList,
-  },
-  {
-    title: "সেটিংস",
-    href: "/admin/settings",
-    icon: Settings,
   },
 ];
 
@@ -105,6 +88,7 @@ export function AdminSidebar() {
         <Button
           variant="ghost"
           className="w-full justify-start text-destructive"
+          onClick={() => signOut({ callbackUrl: "/" })}
         >
           <LogOut className="mr-2 size-4" />
           লগআউট

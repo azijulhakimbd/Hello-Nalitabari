@@ -1,4 +1,6 @@
-import { MongoClient } from "mongodb"
+import { MongoClient, type Db } from "mongodb"
+
+export const MONGODB_DATABASE = "Nalitabari-portal"
 
 const uri = process.env.MONGODB_URI
 
@@ -28,3 +30,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export default clientPromise
+
+export function getMongoDatabase(client: MongoClient): Db {
+  return client.db(MONGODB_DATABASE)
+}
