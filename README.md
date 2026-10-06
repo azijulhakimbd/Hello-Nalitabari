@@ -1,30 +1,30 @@
 # Hello Nalitabari
 
-Hello Nalitabari is a local information portal for Nalitabari Upazila. It combines public directory data, authentication, admin tools, email notifications, and an AI-powered assistant into a single Next.js application.
+A local information portal for Nalitabari Upazila built with Next.js. The application brings together community directories, public service listings, user authentication, admin workflows, and AI assistance in one place.
 
 ## Overview
 
-The app helps residents discover local services and institutions such as:
+Hello Nalitabari helps residents discover nearby services and institutions, including:
 
-- hospitals and clinics
-- schools and colleges
-- government offices and unions
-- businesses and public places
-- notices, news, and emergency information
+- hospitals, clinics, and pharmacies
+- schools, colleges, and universities
+- government offices, unions, and public offices
+- businesses, local places, and community resources
+- news, notices, and emergency information
 
-It also includes user-authenticated flows for registration/login, password recovery, submissions, and a lightweight admin dashboard.
+The app also supports authenticated user actions such as registration, login, password recovery, submissions, and an admin dashboard for reviewing content and user activity.
 
 ## Features
 
-- Bilingual UI with Bangla/English switching
-- Dark/light theme support
-- Local directory pages for schools, colleges, hospitals, doctors, businesses, and places
-- Searchable public listing data backed by MongoDB
-- User authentication with email/mobile credentials
-- Password reset and contact email actions via Resend
-- AI chat endpoint for local data search and answer generation
-- Admin views for managing users and submissions
-- Responsive layout using Tailwind CSS and shadcn-style UI primitives
+- Bangla/English interface toggle
+- Light/dark theme support
+- Responsive pages for schools, colleges, hospitals, doctors, businesses, and places
+- Searchable public listings backed by MongoDB
+- User authentication with NextAuth
+- Email-powered password reset and contact flows using Resend
+- AI chat integration for local information lookup and answers
+- Admin management screens for users and submissions
+- Tailwind + shadcn-style UI components
 
 ## Tech Stack
 
@@ -35,109 +35,55 @@ It also includes user-authenticated flows for registration/login, password recov
 - MongoDB
 - NextAuth
 - Resend
-- AI SDK / OpenAI
-- shadcn-style UI components
-
-## Requirements
-
-Before starting, make sure you have:
-
-- Node.js 20+
-- npm
-- A MongoDB connection string
-- An OpenAI API key if you want the AI chat route enabled
-- A Resend API key if you want email features enabled
-
-## Environment Variables
-
-Create a `.env.local` file in the project root with values like:
-
-```bash
-MONGODB_URI="mongodb+srv://<user>:<password>@<cluster>/..."
-AUTH_SECRET="your-auth-secret"
-AUTH_URL="http://localhost:3000"
-RESEND_API_KEY="re_..."
-OPENAI_API_KEY="sk-..."
-CLOUDINARY_CLOUD_NAME="your-cloud-name"
-CLOUDINARY_API_KEY="your-api-key"
-CLOUDINARY_API_SECRET="your-api-secret"
-```
-
-Notes:
-
-- `MONGODB_URI` is required for database access.
-- `AUTH_SECRET` is required by NextAuth.
-- `AUTH_URL` or `NEXTAUTH_URL` can be used for local auth callback URLs.
-- `RESEND_API_KEY` is needed for password reset and contact email flows.
-- `OPENAI_API_KEY` is needed for the AI chat API route.
-- The `CLOUDINARY_*` values enable server-side image uploads for submissions. Uploaded images are stored in Cloudinary, and MongoDB stores their secure URLs.
-
-## Getting Started
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Then open:
-
-```text
-http://localhost:3000
-```
-
-## Database Seed
-
-The app expects route and listing records in the MongoDB database. The checked-in JSON snapshot is used to initialize missing data from the `routeData` collection in the `Nalitabari-portal` database.
-
-Run the seed script:
-
-```bash
-npm run seed:route-data
-```
-
-Useful flag:
-
-```bash
-npm run seed:route-data -- --dry-run
-```
-
-This performs a no-write preview and helps confirm what would be inserted without changing the database.
-
-## Available Scripts
-
-```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
-npm run seed:route-data
-```
+- OpenAI / AI SDK
+- Cloudinary
 
 ## Project Structure
 
 ```bash
 app/
+  about/
   admin/
+  ai/
   api/
   auth/
+  businesses/
+  colleges/
+  community/
+  contact/
   dashboard/
-  ...
+  directory/
+  doctors/
+  education/
+  emergency/
+  events/
+  government/
+  health/
+  hospitals/
+  news/
+  notices/
+  pharmacies/
+  places/
+  schools/
+  submit/
+  transport/
+  unions/
 components/
   admin/
   auth/
+  data/
+  doctors/
+  Home/
+  layout/
   ui/
-  ...
 lib/
   ai/
+  auth-utils.ts
+  google-news.ts
   mongodb.ts
   route-data.ts
+  route-data-keys.ts
+  utils.ts
 models/
 providers/
 public/
@@ -151,12 +97,96 @@ scripts/
 types/
 ```
 
-## Notes
+## Prerequisites
 
-- Public listing pages are backed by MongoDB data.
-- The repository keeps static content and image assets in `public/` and data snapshots under `data/`.
-- The app is designed for a local information portal and can be extended with additional admin workflows or data imports.
+Before running the project locally, make sure you have:
+
+- Node.js 20+
+- npm
+- A MongoDB connection string
+- An OpenAI API key for AI features
+- A Resend API key for email-based flows
+- Optional Cloudinary credentials for submission image uploads
+
+## Environment Variables
+
+Create a `.env.local` file in the project root with values like the following:
+
+```bash
+MONGODB_URI="mongodb+srv://<user>:<password>@<cluster>/..."
+AUTH_SECRET="your-auth-secret"
+AUTH_URL="http://localhost:3000"
+NEXTAUTH_URL="http://localhost:3000"
+RESEND_API_KEY="re_..."
+OPENAI_API_KEY="sk-..."
+CLOUDINARY_CLOUD_NAME="your-cloud-name"
+CLOUDINARY_API_KEY="your-api-key"
+CLOUDINARY_API_SECRET="your-api-secret"
+```
+
+### Notes
+
+- `MONGODB_URI` is required for data access.
+- `AUTH_SECRET` is required by NextAuth.
+- `AUTH_URL` / `NEXTAUTH_URL` are used for auth callback generation in local development.
+- `RESEND_API_KEY` is required for password reset and contact email flows.
+- `OPENAI_API_KEY` is required for the AI route.
+- `CLOUDINARY_*` parameters enable image upload support for submissions.
+
+## Getting Started
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Start the development server
+
+```bash
+npm run dev
+```
+
+Then open the app in your browser:
+
+```text
+http://localhost:3000
+```
+
+## Database and Seed Data
+
+This project expects route and listing data to exist in MongoDB. The repository includes a seed script and JSON snapshot data for initializing core directory records.
+
+### Seed route data
+
+```bash
+npm run seed:route-data
+```
+
+### Dry run preview
+
+```bash
+npm run seed:route-data -- --dry-run
+```
+
+This previews what would be inserted without writing to the database.
+
+## Available Scripts
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+npm run seed:route-data
+```
+
+## Deployment Notes
+
+- This app is designed for deployment on platforms like Vercel.
+- Ensure all environment variables are configured in the hosting environment.
+- For production, use secure values for `AUTH_SECRET`, API keys, and database credentials.
 
 ## License
 
-This project does not currently include a license file. Add one before production deployment or public distribution if you need explicit open-source or commercial licensing.
+This project does not currently include a license file. If you plan to distribute or deploy it publicly, add a license before release.
