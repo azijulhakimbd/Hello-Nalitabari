@@ -9,6 +9,7 @@ import {
   Home,
   LogOut,
   MapPin,
+  Files,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -31,6 +32,11 @@ const menuItems = [
     title: "সাবমিশন",
     href: "/admin/submissions",
     icon: ClipboardList,
+  },
+  {
+    title: "পৃষ্ঠা ও তথ্য",
+    href: "/admin/routes",
+    icon: Files,
   },
 ];
 

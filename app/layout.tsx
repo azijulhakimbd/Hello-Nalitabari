@@ -5,9 +5,8 @@ import "./globals.css";
 
 import { auth } from "@/auth";
 import { ThemeProvider } from "@/providers/theme-provider";
-import { Footer } from "@/components/layout/footer";
 import { AuthSessionProvider } from "@/providers/session-provider";
-import { Navbar } from "@/components/layout/navbar";
+import { SiteShell } from "@/components/layout/site-shell";
 import DisableInspect from "@/components/DisableInspect";
 
 const hindSiliguri = Hind_Siliguri({
@@ -119,13 +118,7 @@ export default async function RootLayout({
             <DisableInspect />
         <AuthSessionProvider>
           <ThemeProvider>
-            <Navbar session={session} />
-
-            <main className="flex-1">
-              {children}
-            </main>
-
-            <Footer />
+            <SiteShell session={session}>{children}</SiteShell>
           </ThemeProvider>
         </AuthSessionProvider>
       </body>

@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { ClipboardList, FileText, FolderTree, Users } from "lucide-react";
+import { ClipboardList, FileText, FolderTree, MapPin, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import clientPromise, { getMongoDatabase } from "@/lib/mongodb";
+import { ROUTE_DATA_KEYS } from "@/lib/route-data-keys";
 
 const categoryLabels: Record<string, string> = {
   doctor: "ডাক্তার",
@@ -34,6 +35,7 @@ export default async function AdminDashboard() {
     { title: "মোট জমা তথ্য", value: informationCount, icon: FileText },
     { title: "ক্যাটাগরি", value: categories.length, icon: FolderTree },
     { title: "অপেক্ষমাণ সাবমিশন", value: pendingCount, icon: ClipboardList },
+    { title: "পরিচালনাযোগ্য পৃষ্ঠা", value: ROUTE_DATA_KEYS.length, icon: MapPin },
   ];
 
   return (
@@ -44,7 +46,7 @@ export default async function AdminDashboard() {
         <p className="mt-1 text-muted-foreground">ব্যবহারকারী এবং জমা দেওয়া তথ্য পরিচালনা করুন।</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {stats.map(({ title, value, icon: Icon }) => (
           <Card key={title}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -98,6 +100,10 @@ export default async function AdminDashboard() {
             <Link href="/admin/users" className="block rounded-md border p-3 transition-colors hover:bg-muted">
               <span className="font-medium">ব্যবহারকারী পরিচালনা</span>
               <span className="mt-1 block text-xs text-muted-foreground">অ্যাকাউন্ট ও ভূমিকা</span>
+            </Link>
+            <Link href="/admin/routes" className="block rounded-md border p-3 transition-colors hover:bg-muted">
+              <span className="font-medium">পৃষ্ঠা ও তথ্য পরিচালনা</span>
+              <span className="mt-1 block text-xs text-muted-foreground">সব রুটের তথ্য ও ছবি</span>
             </Link>
           </CardContent>
         </Card>
