@@ -1,3 +1,7 @@
+
+"use client";
+
+import Link from "next/link";
 import {
   Activity,
   ArrowRight,
@@ -17,7 +21,11 @@ import {
   Store,
   Users,
 } from "lucide-react";
-import Link from "next/link";
+import {
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 
 const features = [
   {
@@ -150,257 +158,350 @@ const features = [
   },
 ];
 
+const sectionVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: "easeOut",
+    },
+  },
+};
+
+const gridVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    scale: 0.97,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
 export default function FeaturesPage() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const revealProps = shouldReduceMotion
+    ? {}
+    : {
+        initial: "hidden" as const,
+        whileInView: "visible" as const,
+        viewport: {
+          once: true,
+          amount: 0.15,
+        },
+      };
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
-  {/* Modern Green Background */}
-  <div className="pointer-events-none absolute inset-0 -z-10">
-    {/* Green radial gradients */}
-    <div
-      className="
-        absolute inset-0
-        bg-[radial-gradient(circle_at_15%_10%,rgba(34,197,94,0.16),transparent_30%),radial-gradient(circle_at_85%_20%,rgba(16,185,129,0.13),transparent_28%),radial-gradient(circle_at_50%_80%,rgba(20,184,166,0.08),transparent_35%)]
-      "
-    />
-
-    {/* Green grid pattern */}
-    <div
-      className="absolute inset-0 opacity-[0.035]"
-      style={{
-        backgroundImage: `
-          linear-gradient(to right, rgb(34 197 94) 1px, transparent 1px),
-          linear-gradient(to bottom, rgb(34 197 94) 1px, transparent 1px)
-        `,
-        backgroundSize: "40px 40px",
-      }}
-    />
-
-    {/* Soft green glow */}
-    <div className="absolute left-1/2 top-0 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />
-  </div>
-
-
-  {/* Features */}
-  <section className="relative">
-    <div className="container mx-auto px-4 py-16 md:py-24">
-
-      {/* Section Header */}
-      <div className="mb-12 text-center">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-          আমাদের সুবিধাসমূহ
-        </p>
-
-        <h2 className="text-3xl font-bold md:text-4xl">
-          আপনার প্রয়োজনীয় সবকিছু
-        </h2>
-
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          নালিতাবাড়ীর দৈনন্দিন জীবনকে আরও সহজ করতে বিভিন্ন গুরুত্বপূর্ণ
-          তথ্য ও সেবা একটি প্ল্যাটফর্মে সাজানো হয়েছে।
-        </p>
-      </div>
-
-      {/* Feature Cards */}
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {features.map((feature) => {
-          const Icon = feature.icon;
-
-          return (
-            <Link
-              key={feature.title}
-              href={feature.href}
-              className="
-                group relative overflow-hidden rounded-2xl
-                border border-emerald-500/10
-                bg-background/60 p-6
-                shadow-sm backdrop-blur-xl
-                transition-all duration-300
-                hover:-translate-y-1
-                hover:border-emerald-500/30
-                hover:bg-emerald-500/[0.03]
-                hover:shadow-xl
-                hover:shadow-emerald-500/10
-              "
-            >
-              {/* Card Glow */}
-              <div
-                className="
-                  absolute -right-10 -top-10 size-28
-                  rounded-full
-                  bg-emerald-500/10
-                  blur-2xl
-                  transition-all duration-500
-                  group-hover:bg-green-500/20
-                "
-              />
-
-              <div className="relative">
-
-                {/* Icon + Arrow */}
-                <div className="mb-5 flex items-start justify-between">
-
-                  <div
-                    className="
-                      flex size-12 items-center justify-center
-                      rounded-xl
-                      bg-gradient-to-br
-                      from-green-500/15
-                      via-emerald-500/10
-                      to-teal-500/10
-                      text-emerald-600
-                      ring-1 ring-emerald-500/10
-                      transition-all duration-300
-
-                      group-hover:from-green-600
-                      group-hover:via-emerald-500
-                      group-hover:to-teal-500
-                      group-hover:text-white
-                      group-hover:shadow-lg
-                      group-hover:shadow-emerald-500/20
-                    "
-                  >
-                    <Icon className="size-6" />
-                  </div>
-
-                  <ArrowRight
-                    className="
-                      size-5
-                      text-muted-foreground
-                      transition-all duration-300
-                      group-hover:translate-x-1
-                      group-hover:text-emerald-600
-                    "
-                  />
-                </div>
-
-                {/* Category */}
-                <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
-                  {feature.category}
-                </span>
-
-                {/* Title */}
-                <h3 className="mt-2 text-lg font-semibold">
-                  {feature.title}
-                </h3>
-
-                {/* Description */}
-                <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">
-                  {feature.description}
-                </p>
-
-                {/* Link */}
-                <div className="mt-5 text-sm font-medium text-emerald-600 dark:text-emerald-400">
-                  বিস্তারিত দেখুন →
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  {/* CTA */}
-  <section className="relative overflow-hidden border-t">
-    <div
-      className="
-        absolute inset-0
-        bg-gradient-to-br
-        from-green-500/[0.08]
-        via-background
-        to-emerald-500/[0.06]
-      "
-    />
-
-    <div className="relative container mx-auto px-4 py-16 md:py-20">
-      <div
-        className="
-          mx-auto max-w-4xl rounded-3xl
-          border border-emerald-500/15
-          bg-background/60
-          p-8 text-center
-          shadow-xl
-          shadow-emerald-500/5
-          backdrop-blur-xl
-          md:p-12
-        "
-      >
-
-        {/* Icon */}
+      {/* Modern green background */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
         <div
           className="
-            mx-auto flex size-14 items-center justify-center
-            rounded-full
-            bg-gradient-to-br
-            from-green-500/15
-            to-emerald-500/10
-            text-emerald-600
-            ring-1 ring-emerald-500/10
+            absolute inset-0
+            bg-[radial-gradient(circle_at_15%_10%,rgba(34,197,94,0.16),transparent_30%),radial-gradient(circle_at_85%_20%,rgba(16,185,129,0.13),transparent_28%),radial-gradient(circle_at_50%_80%,rgba(20,184,166,0.08),transparent_35%)]
           "
-        >
-          <Users className="size-7" />
-        </div>
+        />
 
-        {/* Title */}
-        <h2 className="mt-6 text-2xl font-bold md:text-3xl">
-          আপনার এলাকার তথ্য যোগ করুন
-        </h2>
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgb(34 197 94) 1px, transparent 1px),
+              linear-gradient(to bottom, rgb(34 197 94) 1px, transparent 1px)
+            `,
+            backgroundSize: "40px 40px",
+          }}
+        />
 
-        {/* Description */}
-        <p className="mx-auto mt-4 max-w-2xl leading-7 text-muted-foreground">
-          আপনার পরিচিত কোনো ডাক্তার, প্রতিষ্ঠান, ব্যবসা, শিক্ষা প্রতিষ্ঠান
-          অথবা গুরুত্বপূর্ণ তথ্য আমাদের জানাতে পারেন।
-        </p>
-
-        {/* Buttons */}
-        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-
-          <Link
-            href="/submit"
-            className="
-              inline-flex items-center justify-center gap-2
-              rounded-lg
-              bg-gradient-to-r
-              from-green-600
-              via-emerald-600
-              to-teal-600
-              px-5 py-3
-              text-sm font-medium
-              text-white
-              shadow-lg
-              shadow-emerald-500/20
-              transition-all
-              hover:-translate-y-0.5
-              hover:shadow-xl
-              hover:shadow-emerald-500/30
-            "
-          >
-            তথ্য যোগ করুন
-            <ArrowRight className="size-4" />
-          </Link>
-
-          <Link
-            href="/contact"
-            className="
-              inline-flex items-center justify-center
-              rounded-lg
-              border border-emerald-500/15
-              bg-background/60
-              px-5 py-3
-              text-sm font-medium
-              backdrop-blur
-              transition-colors
-              hover:border-emerald-500/30
-              hover:bg-emerald-500/5
-            "
-          >
-            যোগাযোগ করুন
-          </Link>
-
-        </div>
+        {/* Green glow */}
+        <div className="absolute left-1/2 top-0 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />
       </div>
-    </div>
-  </section>
-</main>
+
+      {/* Features section */}
+      <section className="relative">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          {/* Section header */}
+          <motion.div
+            variants={sectionVariants}
+            {...revealProps}
+            className="mb-12 text-center"
+          >
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              whileInView={
+                shouldReduceMotion ? undefined : { opacity: 1, y: 0 }
+              }
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="mb-3 text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400"
+            >
+              আমাদের সুবিধাসমূহ
+            </motion.p>
+
+            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+              আপনার প্রয়োজনীয় সবকিছু
+            </h1>
+
+            <p className="mx-auto mt-4 max-w-2xl leading-7 text-muted-foreground">
+              নালিতাবাড়ীর দৈনন্দিন জীবনকে আরও সহজ করতে বিভিন্ন গুরুত্বপূর্ণ
+              তথ্য ও সেবা একটি প্ল্যাটফর্মে সাজানো হয়েছে।
+            </p>
+          </motion.div>
+
+          {/* Feature cards */}
+          <motion.div
+            variants={gridVariants}
+            {...revealProps}
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          >
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+
+              return (
+                <motion.div
+                  key={feature.href}
+                  variants={cardVariants}
+                  whileHover={
+                    shouldReduceMotion
+                      ? undefined
+                      : {
+                          y: -6,
+                          transition: { duration: 0.2 },
+                        }
+                  }
+                  whileTap={
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: 0.985 }
+                  }
+                  className="h-full"
+                >
+                  <Link
+                    href={feature.href}
+                    aria-label={`${feature.title} — বিস্তারিত দেখুন`}
+                    className="
+                      group relative flex h-full min-h-[250px]
+                      flex-col overflow-hidden rounded-2xl
+                      border border-emerald-500/10
+                      bg-background/60 p-6
+                      shadow-sm backdrop-blur-xl
+                      transition-colors duration-300
+                      hover:border-emerald-500/30
+                      hover:bg-emerald-500/[0.03]
+                      hover:shadow-xl
+                      hover:shadow-emerald-500/10
+                      focus-visible:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-emerald-500
+                      focus-visible:ring-offset-2
+                    "
+                  >
+                    {/* Card glow */}
+                    <div
+                      className="
+                        pointer-events-none absolute -right-10 -top-10
+                        size-28 rounded-full bg-emerald-500/10
+                        blur-2xl transition-colors duration-500
+                        group-hover:bg-green-500/20
+                      "
+                    />
+
+                    <div className="relative flex h-full flex-col">
+                      {/* Icon and arrow */}
+                      <div className="mb-5 flex items-start justify-between">
+                        <motion.div
+                          whileHover={
+                            shouldReduceMotion
+                              ? undefined
+                              : { rotate: -5, scale: 1.06 }
+                          }
+                          transition={{ duration: 0.2 }}
+                          className="
+                            flex size-12 items-center justify-center
+                            rounded-xl bg-gradient-to-br
+                            from-green-500/15 via-emerald-500/10
+                            to-teal-500/10 text-emerald-600
+                            ring-1 ring-emerald-500/10
+                            transition-colors duration-300
+                            group-hover:from-green-600
+                            group-hover:via-emerald-500
+                            group-hover:to-teal-500
+                            group-hover:text-white
+                            group-hover:shadow-lg
+                            group-hover:shadow-emerald-500/20
+                          "
+                        >
+                          <Icon className="size-6" aria-hidden="true" />
+                        </motion.div>
+
+                        <motion.span
+                          animate={
+                            shouldReduceMotion ? undefined : { x: [0, 3, 0] }
+                          }
+                          transition={{
+                            duration: 1.8,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: index * 0.05,
+                          }}
+                          className="text-muted-foreground transition-colors group-hover:text-emerald-600"
+                        >
+                          <ArrowRight className="size-5" aria-hidden="true" />
+                        </motion.span>
+                      </div>
+
+                      {/* Category */}
+                      <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                        {feature.category}
+                      </span>
+
+                      {/* Title */}
+                      <h2 className="mt-2 text-lg font-semibold">
+                        {feature.title}
+                      </h2>
+
+                      {/* Description */}
+                      <p className="mt-3 line-clamp-3 flex-1 text-sm leading-6 text-muted-foreground">
+                        {feature.description}
+                      </p>
+
+                      {/* Link label */}
+                      <div className="mt-5 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                        বিস্তারিত দেখুন
+                        <span aria-hidden="true"> →</span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Call to action */}
+      <section className="relative overflow-hidden border-t border-emerald-500/10">
+        <div
+          className="
+            pointer-events-none absolute inset-0
+            bg-gradient-to-br from-green-500/[0.08]
+            via-background to-emerald-500/[0.06]
+          "
+        />
+
+        <div className="relative container mx-auto px-4 py-16 md:py-20">
+          <motion.div
+            variants={sectionVariants}
+            {...revealProps}
+            className="
+              mx-auto max-w-4xl rounded-3xl
+              border border-emerald-500/15
+              bg-background/60 p-8 text-center
+              shadow-xl shadow-emerald-500/5
+              backdrop-blur-xl md:p-12
+            "
+          >
+            {/* CTA icon */}
+            <motion.div
+              whileHover={
+                shouldReduceMotion
+                  ? undefined
+                  : { scale: 1.08, rotate: 5 }
+              }
+              className="
+                mx-auto flex size-14 items-center justify-center
+                rounded-full bg-gradient-to-br
+                from-green-500/15 to-emerald-500/10
+                text-emerald-600 ring-1 ring-emerald-500/10
+              "
+            >
+              <Users className="size-7" aria-hidden="true" />
+            </motion.div>
+
+            <h2 className="mt-6 text-2xl font-bold md:text-3xl">
+              আপনার এলাকার তথ্য যোগ করুন
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl leading-7 text-muted-foreground">
+              আপনার পরিচিত কোনো ডাক্তার, প্রতিষ্ঠান, ব্যবসা, শিক্ষা প্রতিষ্ঠান
+              অথবা গুরুত্বপূর্ণ তথ্য আমাদের জানাতে পারেন।
+            </p>
+
+            {/* CTA buttons */}
+            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              >
+                <Link
+                  href="/submit"
+                  className="
+                    inline-flex items-center justify-center gap-2
+                    rounded-lg bg-gradient-to-r
+                    from-green-600 via-emerald-600 to-teal-600
+                    px-5 py-3 text-sm font-medium text-white
+                    shadow-lg shadow-emerald-500/20
+                    transition-shadow hover:shadow-xl
+                    hover:shadow-emerald-500/30
+                    focus-visible:outline-none
+                    focus-visible:ring-2 focus-visible:ring-emerald-500
+                    focus-visible:ring-offset-2
+                  "
+                >
+                  তথ্য যোগ করুন
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
+              </motion.div>
+
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              >
+                <Link
+                  href="/contact"
+                  className="
+                    inline-flex items-center justify-center
+                    rounded-lg border border-emerald-500/15
+                    bg-background/60 px-5 py-3
+                    text-sm font-medium backdrop-blur
+                    transition-colors hover:border-emerald-500/30
+                    hover:bg-emerald-500/5
+                    focus-visible:outline-none
+                    focus-visible:ring-2 focus-visible:ring-emerald-500
+                    focus-visible:ring-offset-2
+                  "
+                >
+                  যোগাযোগ করুন
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </main>
   );
 }
