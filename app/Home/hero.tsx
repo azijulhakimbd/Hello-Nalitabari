@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -11,6 +10,7 @@ import {
   Search,
   Siren,
 } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,7 +33,6 @@ const content = {
       emergency: "জরুরি সেবা",
     },
   },
-
   en: {
     title: "Nalitabari Upazila",
     highlight: "All Information in One Place",
@@ -52,47 +51,121 @@ const content = {
   },
 };
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
 export function Hero() {
   const language: "bn" | "en" = "bn";
-
   const t = content[language];
+  const shouldReduceMotion = useReducedMotion();
+
+  const floatingTransition = {
+    duration: 4,
+    repeat: Infinity,
+    repeatType: "reverse" as const,
+    ease: "easeInOut" as const,
+  };
 
   return (
     <section className="relative isolate min-h-[calc(100vh-64px)] overflow-hidden border-b border-border/60 bg-background">
-      {/* Modern shadcn-inspired background */}
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.15),transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(34,197,94,0.12),transparent_33%),linear-gradient(to_br,_background,_background)]" />
+      {/* Background */}
+      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.15),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(34,197,94,0.12),transparent_33%)]" />
 
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:42px_42px] [mask-image:radial-gradient(circle_at_center,black_35%,transparent_80%)]" />
 
-      <div className="absolute -left-24 top-10 -z-10 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
-      <div className="absolute right-0 top-20 -z-10 h-80 w-80 rounded-full bg-green-500/12 blur-3xl" />
+      <motion.div
+        aria-hidden="true"
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : { x: [0, 25, 0], y: [0, 18, 0], scale: [1, 1.08, 1] }
+        }
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -left-24 top-10 -z-10 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl"
+      />
+
+      <motion.div
+        aria-hidden="true"
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : { x: [0, -20, 0], y: [0, 20, 0] }
+        }
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute right-0 top-20 -z-10 h-80 w-80 rounded-full bg-green-500/12 blur-3xl"
+      />
+
       <div className="absolute bottom-0 left-1/3 -z-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
 
       <div className="container mx-auto flex min-h-[calc(100vh-64px)] items-center px-4 py-20">
         <div className="grid w-full items-center gap-12 lg:grid-cols-2">
-          {/* Left */}
-          <div className="max-w-3xl">
-            <Badge
-              variant="secondary"
-              className="mb-6 gap-2 rounded-full px-4 py-2"
+          {/* Left Content */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="max-w-3xl"
+          >
+            <motion.div variants={itemVariants}>
+              <Badge
+                variant="secondary"
+                className="mb-6 gap-2 rounded-full px-4 py-2"
+              >
+                <MapPin className="h-4 w-4 text-emerald-600" />
+                {t.location}
+              </Badge>
+            </motion.div>
+
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl"
             >
-              <MapPin className="h-4 w-4 text-emerald-600" />
-              {t.location}
-            </Badge>
-
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
               {t.title}
-              <span className="mt-2 block bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">
+              <motion.span
+                initial={
+                  shouldReduceMotion
+                    ? false
+                    : { opacity: 0, x: -20 }
+                }
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.35 }}
+                className="mt-2 block bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent"
+              >
                 {t.highlight}
-              </span>
-            </h1>
+              </motion.span>
+            </motion.h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
+            <motion.p
+              variants={itemVariants}
+              className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl"
+            >
               {t.description}
-            </p>
+            </motion.p>
 
             {/* Search */}
-            <div className="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row">
+            <motion.div
+              variants={itemVariants}
+              className="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row"
+            >
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
 
@@ -102,80 +175,128 @@ export function Hero() {
                 />
               </div>
 
-              <Button
-                size="lg"
-                className="h-14 rounded-xl bg-emerald-600 px-7 hover:bg-emerald-700"
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.04 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
               >
-                <Search className="mr-2 h-5 w-5" />
-                {language === "bn" ? "খুঁজুন" : "Search"}
-              </Button>
-            </div>
+                <Button
+                  size="lg"
+                  className="h-14 w-full rounded-xl bg-emerald-600 px-7 hover:bg-emerald-700 sm:w-auto"
+                >
+                  <Search className="mr-2 h-5 w-5" />
+                  {language === "bn" ? "খুঁজুন" : "Search"}
+                </Button>
+              </motion.div>
+            </motion.div>
 
-            {/* CTA */}
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                variant="destructive"
-                className="rounded-xl"
+            {/* Call-to-action Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-6 flex flex-col gap-3 sm:flex-row"
+            >
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
               >
-                <Link href="/emergency">
-                  <Siren className="mr-2 h-5 w-5" />
-                  {t.emergency}
-                </Link>
-              </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="destructive"
+                  className="w-full rounded-xl sm:w-auto"
+                >
+                  <Link href="/emergency">
+                    <Siren className="mr-2 h-5 w-5" />
+                    {t.emergency}
+                  </Link>
+                </Button>
+              </motion.div>
 
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-xl"
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
               >
-                <Link href="/directory">
-                  {t.explore}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="w-full rounded-xl sm:w-auto"
+                >
+                  <Link href="/directory">
+                    {t.explore}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+              </motion.div>
+            </motion.div>
 
-            {/* Categories */}
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {/* Category Cards */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4"
+            >
               <Category
                 icon={HeartPulse}
                 label={t.categories.health}
                 href="/health"
+                reducedMotion={!!shouldReduceMotion}
               />
 
               <Category
                 icon={GraduationCap}
                 label={t.categories.education}
                 href="/education"
+                reducedMotion={!!shouldReduceMotion}
               />
 
               <Category
                 icon={Building2}
                 label={t.categories.government}
                 href="/government"
+                reducedMotion={!!shouldReduceMotion}
               />
 
               <Category
                 icon={Siren}
                 label={t.categories.emergency}
                 href="/emergency"
+                reducedMotion={!!shouldReduceMotion}
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Visual */}
-          <div className="relative hidden lg:block">
+          <motion.div
+            initial={
+              shouldReduceMotion
+                ? false
+                : { opacity: 0, x: 40, scale: 0.96 }
+            }
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="relative hidden lg:block"
+          >
             <div className="relative mx-auto aspect-square max-w-[520px]">
-              {/* Main card */}
-              <div className="absolute inset-8 rounded-[2rem] border border-border/70 bg-card/80 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:shadow-[0_30px_80px_rgba(2,6,23,0.45)]">
+              {/* Main Information Card */}
+              <motion.div
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.015 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-8 rounded-[2rem] border border-border/70 bg-card/80 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:shadow-[0_30px_80px_rgba(2,6,23,0.45)]"
+              >
                 <div className="flex h-full flex-col justify-between rounded-[1.5rem] bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700 p-8 text-white shadow-inner">
                   <div>
-                    <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
+                    <motion.div
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : { rotate: [0, 5, -5, 0] }
+                      }
+                      transition={{ duration: 5, repeat: Infinity }}
+                      className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15"
+                    >
                       <MapPin className="h-7 w-7" />
-                    </div>
+                    </motion.div>
 
                     <p className="text-sm font-medium text-white/70">
                       {language === "bn"
@@ -184,9 +305,7 @@ export function Hero() {
                     </p>
 
                     <h2 className="mt-3 text-4xl font-bold">
-                      {language === "bn"
-                        ? "নালিতাবাড়ী"
-                        : "Nalitabari"}
+                      {language === "bn" ? "নালিতাবাড়ী" : "Nalitabari"}
                     </h2>
 
                     <p className="mt-2 text-white/70">
@@ -200,28 +319,27 @@ export function Hero() {
                     <InfoBox
                       icon={HeartPulse}
                       value="24/7"
-                      label={
-                        language === "bn"
-                          ? "জরুরি সেবা"
-                          : "Emergency"
-                      }
+                      label={language === "bn" ? "জরুরি সেবা" : "Emergency"}
                     />
 
                     <InfoBox
                       icon={Building2}
                       value="100+"
-                      label={
-                        language === "bn"
-                          ? "সেবা"
-                          : "Services"
-                      }
+                      label={language === "bn" ? "সেবা" : "Services"}
                     />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Floating card */}
-              <div className="absolute -right-2 top-20 rounded-2xl border border-border/70 bg-card/90 p-4 shadow-xl backdrop-blur">
+              {/* Floating Emergency Card */}
+              <motion.div
+                animate={
+                  shouldReduceMotion ? undefined : { y: [0, -10, 0] }
+                }
+                transition={floatingTransition}
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+                className="absolute -right-2 top-20 rounded-2xl border border-border/70 bg-card/90 p-4 shadow-xl backdrop-blur"
+              >
                 <div className="flex items-center gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950">
                     <Siren className="h-5 w-5" />
@@ -229,22 +347,29 @@ export function Hero() {
 
                   <div>
                     <p className="text-xs text-muted-foreground">
-                      {language === "bn"
-                        ? "দ্রুত সহায়তা"
-                        : "Quick Help"}
+                      {language === "bn" ? "দ্রুত সহায়তা" : "Quick Help"}
                     </p>
 
                     <p className="font-semibold">
-                      {language === "bn"
-                        ? "জরুরি সেবা"
-                        : "Emergency"}
+                      {language === "bn" ? "জরুরি সেবা" : "Emergency"}
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Bottom card */}
-              <div className="absolute -bottom-2 -left-6 rounded-2xl border border-border/70 bg-card/90 p-4 shadow-xl backdrop-blur">
+              {/* Floating Education Card */}
+              <motion.div
+                animate={
+                  shouldReduceMotion ? undefined : { y: [0, 10, 0] }
+                }
+                transition={{
+                  ...floatingTransition,
+                  duration: 4.5,
+                  delay: 0.5,
+                }}
+                whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+                className="absolute -bottom-2 -left-6 rounded-2xl border border-border/70 bg-card/90 p-4 shadow-xl backdrop-blur"
+              >
                 <div className="flex items-center gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950">
                     <GraduationCap className="h-5 w-5" />
@@ -252,9 +377,7 @@ export function Hero() {
 
                   <div>
                     <p className="text-xs text-muted-foreground">
-                      {language === "bn"
-                        ? "শিক্ষা"
-                        : "Education"}
+                      {language === "bn" ? "শিক্ষা" : "Education"}
                     </p>
 
                     <p className="font-semibold">
@@ -264,9 +387,9 @@ export function Hero() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -277,22 +400,30 @@ function Category({
   icon: Icon,
   label,
   href,
+  reducedMotion,
 }: {
   icon: React.ElementType;
   label: string;
   href: string;
+  reducedMotion: boolean;
 }) {
   return (
-    <Link
-      href={href}
-      className="group flex items-center gap-3 rounded-xl border bg-background/60 p-3 transition-all hover:-translate-y-1 hover:border-emerald-500/40 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+    <motion.div
+      variants={itemVariants}
+      whileHover={reducedMotion ? undefined : { y: -5, scale: 1.02 }}
+      whileTap={reducedMotion ? undefined : { scale: 0.97 }}
     >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 dark:bg-emerald-950">
-        <Icon className="h-4 w-4" />
-      </div>
+      <Link
+        href={href}
+        className="group flex items-center gap-3 rounded-xl border bg-background/60 p-3 transition-colors hover:border-emerald-500/40 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+      >
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 transition-transform group-hover:scale-110 dark:bg-emerald-950">
+          <Icon className="h-4 w-4" />
+        </div>
 
-      <span className="text-sm font-medium">{label}</span>
-    </Link>
+        <span className="text-sm font-medium">{label}</span>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -306,12 +437,15 @@ function InfoBox({
   label: string;
 }) {
   return (
-    <div className="rounded-xl bg-white/10 p-4 backdrop-blur">
+    <motion.div
+      whileHover={{ y: -3 }}
+      className="rounded-xl bg-white/10 p-4 backdrop-blur"
+    >
       <Icon className="mb-3 h-5 w-5 text-white/70" />
 
       <p className="text-xl font-bold">{value}</p>
 
       <p className="text-xs text-white/60">{label}</p>
-    </div>
+    </motion.div>
   );
 }
