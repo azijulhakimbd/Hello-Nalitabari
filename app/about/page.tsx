@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, type Variants } from "framer-motion";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -17,12 +20,33 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+const sectionVariants: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const staggerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 22, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 const missionPoints = [
   "সরকারি ও প্রশাসনিক তথ্য সহজ ও সুন্দরভাবে উপস্থাপন করা",
@@ -89,14 +113,28 @@ export default function AboutPage() {
       {/* 
           HERO
       = */}
-      <section className="relative isolate overflow-hidden border-b">
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        className="relative isolate overflow-hidden border-b"
+      >
         {/* Green gradient background */}
         <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_15%_20%,rgba(34,197,94,0.18),transparent_32%),radial-gradient(circle_at_85%_10%,rgba(16,185,129,0.16),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(5,150,105,0.12),transparent_40%)]" />
 
         {/* Decorative blobs */}
-        <div className="absolute -left-32 top-20 -z-10 size-80 rounded-full bg-green-500/10 blur-3xl" />
+        <motion.div
+          animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-32 top-20 -z-10 size-80 rounded-full bg-green-500/10 blur-3xl"
+        />
 
-        <div className="absolute -right-32 top-10 -z-10 size-96 rounded-full bg-emerald-500/10 blur-3xl" />
+        <motion.div
+          animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.9, 0.5] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -right-32 top-10 -z-10 size-96 rounded-full bg-emerald-500/10 blur-3xl"
+        />
 
         <div className="absolute left-1/2 top-1/2 -z-10 size-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-500/5 blur-[120px]" />
 
@@ -104,29 +142,49 @@ export default function AboutPage() {
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-size-[40px_40px]" />
 
         <div className="container mx-auto px-4 py-24 sm:py-32 lg:py-36">
-          <div className="mx-auto max-w-4xl text-center">
-            <Badge
-              variant="outline"
-              className="rounded-full border-green-500/20 bg-background/70 px-4 py-2 text-sm shadow-sm backdrop-blur-xl"
-            >
-              <Sparkles className="mr-2 size-4 text-green-600 dark:text-green-400" />
-              নালিতাবাড়ীর জন্য একটি ডিজিটাল উদ্যোগ
-            </Badge>
+          <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            animate="visible"
+            className="mx-auto max-w-4xl text-center"
+          >
+            {/* Badge */}
+            <motion.div variants={cardVariants}>
+              <Badge
+                variant="outline"
+                className="rounded-full border-green-500/20 bg-background/70 px-4 py-2 text-sm shadow-sm backdrop-blur-xl"
+              >
+                <Sparkles className="mr-2 size-4 text-green-600 dark:text-green-400" />
+                নালিতাবাড়ীর জন্য একটি ডিজিটাল উদ্যোগ
+              </Badge>
+            </motion.div>
 
-            <h1 className="mt-7 text-4xl font-black tracking-tight sm:text-6xl lg:text-7xl">
+            {/* Heading */}
+            <motion.h1
+              variants={cardVariants}
+              className="mt-7 text-4xl font-black tracking-tight sm:text-6xl lg:text-7xl"
+            >
               আমাদের{" "}
               <span className="bg-linear-to-r from-green-500 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
                 সম্পর্কে
               </span>
-            </h1>
+            </motion.h1>
 
-            <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
+            {/* Description */}
+            <motion.p
+              variants={cardVariants}
+              className="mx-auto mt-7 max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg"
+            >
               নালিতাবাড়ীর মানুষের কাছে প্রয়োজনীয় তথ্যকে সহজ, দ্রুত,
-              নির্ভরযোগ্য ও আধুনিকভাবে পৌঁছে দেওয়ার একটি নাগরিকবান্ধব
-              ডিজিটাল উদ্যোগ।
-            </p>
+              নির্ভরযোগ্য ও আধুনিকভাবে পৌঁছে দেওয়ার একটি নাগরিকবান্ধব ডিজিটাল
+              উদ্যোগ।
+            </motion.p>
 
-            <div className="mt-9 flex flex-wrap justify-center gap-3">
+            {/* Location and Platform Badges */}
+            <motion.div
+              variants={cardVariants}
+              className="mt-9 flex flex-wrap justify-center gap-3"
+            >
               <Badge
                 variant="secondary"
                 className="rounded-full border border-green-500/10 px-4 py-2"
@@ -142,15 +200,19 @@ export default function AboutPage() {
                 <Code2 className="mr-2 size-4 text-emerald-600 dark:text-emerald-400" />
                 ডিজিটাল তথ্য প্ল্যাটফর্ম
               </Badge>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* 
-          ABOUT
-      = */}
-      <section className="relative py-20 sm:py-24">
+      {/* ABOUT */}
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        className="relative py-20 sm:py-24"
+      >
         <div className="absolute left-0 top-20 -z-10 size-72 rounded-full bg-green-500/5 blur-3xl" />
 
         <div className="container mx-auto px-4">
@@ -172,17 +234,16 @@ export default function AboutPage() {
               </h2>
 
               <p className="mt-6 text-base leading-8 text-muted-foreground">
-                নালিতাবাড়ী উপজেলা তথ্য পোর্টাল একটি আধুনিক ডিজিটাল
-                তথ্যভিত্তিক প্ল্যাটফর্ম। এর মূল লক্ষ্য হলো নালিতাবাড়ী
-                উপজেলার নাগরিকদের জন্য প্রয়োজনীয় সরকারি, স্বাস্থ্য,
-                শিক্ষা, জরুরি সেবা এবং স্থানীয় তথ্য সহজে খুঁজে পাওয়ার
-                সুযোগ তৈরি করা।
+                নালিতাবাড়ী উপজেলা তথ্য পোর্টাল একটি আধুনিক ডিজিটাল তথ্যভিত্তিক
+                প্ল্যাটফর্ম। এর মূল লক্ষ্য হলো নালিতাবাড়ী উপজেলার নাগরিকদের
+                জন্য প্রয়োজনীয় সরকারি, স্বাস্থ্য, শিক্ষা, জরুরি সেবা এবং
+                স্থানীয় তথ্য সহজে খুঁজে পাওয়ার সুযোগ তৈরি করা।
               </p>
 
               <p className="mt-4 text-base leading-8 text-muted-foreground">
-                বিভিন্ন সরকারি ওয়েবসাইট, প্রতিষ্ঠান এবং অন্যান্য উৎসে
-                ছড়িয়ে থাকা গুরুত্বপূর্ণ তথ্যকে একটি সহজ, সুন্দর ও
-                ব্যবহারবান্ধব প্ল্যাটফর্মে একত্রিত করার চেষ্টা করা হচ্ছে।
+                বিভিন্ন সরকারি ওয়েবসাইট, প্রতিষ্ঠান এবং অন্যান্য উৎসে ছড়িয়ে
+                থাকা গুরুত্বপূর্ণ তথ্যকে একটি সহজ, সুন্দর ও ব্যবহারবান্ধব
+                প্ল্যাটফর্মে একত্রিত করার চেষ্টা করা হচ্ছে।
               </p>
 
               <div className="mt-8 flex items-center gap-3">
@@ -224,12 +285,18 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 
           MISSION & VISION
       = */}
-      <section className="relative overflow-hidden border-y bg-linear-to-br from-green-50 via-background to-emerald-50/50 py-20 dark:from-green-950/20 dark:via-background dark:to-emerald-950/20 sm:py-24">
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        className="relative overflow-hidden border-y bg-linear-to-br from-green-50 via-background to-emerald-50/50 py-20 dark:from-green-950/20 dark:via-background dark:to-emerald-950/20 sm:py-24"
+      >
         <div className="absolute -left-32 top-20 size-80 rounded-full bg-green-500/10 blur-3xl" />
 
         <div className="absolute -right-32 bottom-10 size-96 rounded-full bg-emerald-500/10 blur-3xl" />
@@ -243,13 +310,11 @@ export default function AboutPage() {
               আমাদের লক্ষ্য
             </Badge>
 
-            <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-              মিশন ও ভিশন
-            </h2>
+            <h2 className="mt-4 text-3xl font-bold sm:text-4xl">মিশন ও ভিশন</h2>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              একটি তথ্যসমৃদ্ধ, প্রযুক্তিনির্ভর ও ডিজিটাল নালিতাবাড়ী গড়ে
-              তোলার লক্ষ্যে আমাদের যাত্রা।
+              একটি তথ্যসমৃদ্ধ, প্রযুক্তিনির্ভর ও ডিজিটাল নালিতাবাড়ী গড়ে তোলার
+              লক্ষ্যে আমাদের যাত্রা।
             </p>
           </div>
 
@@ -261,16 +326,13 @@ export default function AboutPage() {
                   <Target className="size-7" />
                 </div>
 
-                <CardTitle className="mt-4 text-2xl">
-                  আমাদের মিশন
-                </CardTitle>
+                <CardTitle className="mt-4 text-2xl">আমাদের মিশন</CardTitle>
               </CardHeader>
 
               <CardContent>
                 <p className="leading-8 text-muted-foreground">
-                  নালিতাবাড়ীর মানুষের কাছে প্রয়োজনীয় তথ্যকে আরও সহজ,
-                  দ্রুত এবং নাগরিকবান্ধব করে পৌঁছে দেওয়াই আমাদের প্রধান
-                  লক্ষ্য।
+                  নালিতাবাড়ীর মানুষের কাছে প্রয়োজনীয় তথ্যকে আরও সহজ, দ্রুত
+                  এবং নাগরিকবান্ধব করে পৌঁছে দেওয়াই আমাদের প্রধান লক্ষ্য।
                 </p>
 
                 <div className="mt-7 space-y-3">
@@ -295,40 +357,44 @@ export default function AboutPage() {
                   <Lightbulb className="size-7" />
                 </div>
 
-                <CardTitle className="mt-4 text-2xl">
-                  আমাদের ভিশন
-                </CardTitle>
+                <CardTitle className="mt-4 text-2xl">আমাদের ভিশন</CardTitle>
               </CardHeader>
 
               <CardContent>
                 <p className="leading-8 text-muted-foreground">
-                  নালিতাবাড়ীকে একটি তথ্যসমৃদ্ধ, প্রযুক্তিনির্ভর এবং
-                  ডিজিটালভাবে সংযুক্ত উপজেলা হিসেবে এগিয়ে নিতে সহায়তা
-                  করাই আমাদের দীর্ঘমেয়াদি লক্ষ্য।
+                  নালিতাবাড়ীকে একটি তথ্যসমৃদ্ধ, প্রযুক্তিনির্ভর এবং ডিজিটালভাবে
+                  সংযুক্ত উপজেলা হিসেবে এগিয়ে নিতে সহায়তা করাই আমাদের
+                  দীর্ঘমেয়াদি লক্ষ্য।
                 </p>
 
                 <p className="mt-5 leading-8 text-muted-foreground">
                   ভবিষ্যতে এই প্ল্যাটফর্মকে এমন একটি নির্ভরযোগ্য তথ্যকেন্দ্রে
-                  পরিণত করতে চাই, যেখানে একজন নাগরিক খুব অল্প সময়ের মধ্যে
-                  তার প্রয়োজনীয় স্থানীয় তথ্য খুঁজে পাবেন।
+                  পরিণত করতে চাই, যেখানে একজন নাগরিক খুব অল্প সময়ের মধ্যে তার
+                  প্রয়োজনীয় স্থানীয় তথ্য খুঁজে পাবেন।
                 </p>
 
                 <div className="mt-7 rounded-xl border border-emerald-500/10 bg-emerald-500/5 p-4">
                   <p className="text-sm leading-7 text-muted-foreground">
-                    আমাদের লক্ষ্য শুধু তথ্য প্রকাশ করা নয়; বরং তথ্যকে
-                    মানুষের দৈনন্দিন জীবনের জন্য কার্যকর করে তোলা।
+                    আমাদের লক্ষ্য শুধু তথ্য প্রকাশ করা নয়; বরং তথ্যকে মানুষের
+                    দৈনন্দিন জীবনের জন্য কার্যকর করে তোলা।
                   </p>
                 </div>
               </CardContent>
             </Card>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 
           FOUNDER
       = */}
-      <section className="relative overflow-hidden py-20 sm:py-28">
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        className="relative overflow-hidden py-20 sm:py-28"
+      >
         <div className="absolute left-1/2 top-1/2 -z-10 size-125 -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-500/10 blur-[120px]" />
 
         <div className="absolute right-0 top-20 -z-10 size-72 rounded-full bg-emerald-500/5 blur-3xl" />
@@ -352,94 +418,100 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <Card className="mx-auto max-w-5xl overflow-hidden border-green-500/10 bg-background/80 shadow-2xl shadow-green-500/10 backdrop-blur-xl">
-            <div className="grid lg:grid-cols-[0.85fr_1.15fr]">
-              {/* Developer Image */}
-              <div className="relative min-h-105 overflow-hidden bg-muted lg:min-h-125">
-                <Image
-                  src="/developer.png"
-                  alt="মোঃ আজিজুল হাকিম"
-                  fill
-                  priority
-                  className="object-cover object-center transition-transform duration-700 hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                />
+          <motion.div
+            variants={cardVariants}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Card className="mx-auto max-w-5xl overflow-hidden border-green-500/10 bg-background/80 shadow-2xl shadow-green-500/10 backdrop-blur-xl">
+              <div className="grid lg:grid-cols-[0.85fr_1.15fr]">
+                {/* Developer Image */}
+                <div className="relative min-h-105 overflow-hidden bg-muted lg:min-h-125">
+                  <Image
+                    src="/developer.png"
+                    alt="মোঃ আজিজুল হাকিম"
+                    fill
+                    priority
+                    className="object-cover object-center transition-transform duration-700 hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
 
-                <div className="absolute inset-0 bg-linear-to-t from-green-950/80 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-green-950/80 via-black/10 to-transparent" />
 
-                <div className="absolute bottom-6 left-6">
-                  <Badge className="border border-green-400/20 bg-green-950/50 text-white backdrop-blur-md hover:bg-green-950/60">
-                    প্রতিষ্ঠাতা • ডেভেলপার
-                  </Badge>
-                </div>
-              </div>
-
-              {/* Developer Information */}
-              <CardContent className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
-                <span className="text-sm font-semibold text-green-600 dark:text-green-400">
-                  প্রতিষ্ঠাতা ও ডেভেলপার
-                </span>
-
-                <h3 className="mt-2 text-3xl font-bold sm:text-4xl">
-                  মোঃ আজিজুল হাকিম
-                </h3>
-
-                <p className="mt-2 text-muted-foreground">
-                  ফ্রন্ট-এন্ড ডেভেলপার ও প্রযুক্তিপ্রেমী
-                </p>
-
-                <p className="mt-6 leading-8 text-muted-foreground">
-                  নালিতাবাড়ী উপজেলা তথ্য পোর্টালের ধারণা, ডিজাইন এবং
-                  প্রযুক্তিগত উন্নয়নের সঙ্গে যুক্ত রয়েছেন{" "}
-                  <strong className="text-foreground">
-                    মোঃ আজিজুল হাকিম
-                  </strong>
-                  , একজন ফ্রন্ট-এন্ড ডেভেলপার ও প্রযুক্তিপ্রেমী।
-                </p>
-
-                <p className="mt-4 leading-8 text-muted-foreground">
-                  ওয়েব প্রযুক্তি ব্যবহার করে মানুষের দৈনন্দিন জীবনের
-                  বাস্তব সমস্যার সহজ সমাধান তৈরি করার আগ্রহ থেকেই এই
-                  প্ল্যাটফর্মের যাত্রা শুরু হয়েছে।
-                </p>
-
-                {/* Technology */}
-                <div className="mt-7">
-                  <p className="mb-3 text-sm font-semibold">
-                    ব্যবহৃত প্রযুক্তি
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {technologies.map((technology) => (
-                      <Badge
-                        key={technology}
-                        variant="secondary"
-                        className="rounded-full border border-green-500/10"
-                      >
-                        {technology}
-                      </Badge>
-                    ))}
+                  <div className="absolute bottom-6 left-6">
+                    <Badge className="border border-green-400/20 bg-green-950/50 text-white backdrop-blur-md hover:bg-green-950/60">
+                      প্রতিষ্ঠাতা • ডেভেলপার
+                    </Badge>
                   </div>
                 </div>
 
-                <div className="mt-8">
-                  <Button
-                    asChild
-                    className="bg-linear-to-r from-green-600 to-emerald-600 shadow-lg shadow-green-500/20 hover:from-green-700 hover:to-emerald-700"
-                  >
-                    <Link
-                      href="https://azijul.pro.bd"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                {/* Developer Information */}
+                <CardContent className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
+                  <span className="text-sm font-semibold text-green-600 dark:text-green-400">
+                    প্রতিষ্ঠাতা ও ডেভেলপার
+                  </span>
+
+                  <h3 className="mt-2 text-3xl font-bold sm:text-4xl">
+                    মোঃ আজিজুল হাকিম
+                  </h3>
+
+                  <p className="mt-2 text-muted-foreground">
+                    ফ্রন্ট-এন্ড ডেভেলপার ও প্রযুক্তিপ্রেমী
+                  </p>
+
+                  <p className="mt-6 leading-8 text-muted-foreground">
+                    নালিতাবাড়ী উপজেলা তথ্য পোর্টালের ধারণা, ডিজাইন এবং
+                    প্রযুক্তিগত উন্নয়নের সঙ্গে যুক্ত রয়েছেন{" "}
+                    <strong className="text-foreground">
+                      মোঃ আজিজুল হাকিম
+                    </strong>
+                    , একজন ফ্রন্ট-এন্ড ডেভেলপার ও প্রযুক্তিপ্রেমী।
+                  </p>
+
+                  <p className="mt-4 leading-8 text-muted-foreground">
+                    ওয়েব প্রযুক্তি ব্যবহার করে মানুষের দৈনন্দিন জীবনের বাস্তব
+                    সমস্যার সহজ সমাধান তৈরি করার আগ্রহ থেকেই এই প্ল্যাটফর্মের
+                    যাত্রা শুরু হয়েছে।
+                  </p>
+
+                  {/* Technology */}
+                  <div className="mt-7">
+                    <p className="mb-3 text-sm font-semibold">
+                      ব্যবহৃত প্রযুক্তি
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+                      {technologies.map((technology) => (
+                        <Badge
+                          key={technology}
+                          variant="secondary"
+                          className="rounded-full border border-green-500/10"
+                        >
+                          {technology}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-8">
+                    <Button
+                      asChild
+                      className="bg-linear-to-r from-green-600 to-emerald-600 shadow-lg shadow-green-500/20 hover:from-green-700 hover:to-emerald-700"
                     >
-                      ডেভেলপারের পোর্টফোলিও
-                      <ArrowUpRight className="ml-2 size-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </div>
-          </Card>
+                      <Link
+                        href="https://azijul.pro.bd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        ডেভেলপারের পোর্টফোলিও
+                        <ArrowUpRight className="ml-2 size-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </div>
+            </Card>
+          </motion.div>
 
           {/* Quote */}
           <div className="mx-auto mt-10 max-w-3xl text-center">
@@ -452,12 +524,18 @@ export default function AboutPage() {
             </blockquote>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 
           WHY THIS PLATFORM
       = */}
-      <section className="relative overflow-hidden border-y bg-linear-to-br from-green-50 via-background to-teal-50/50 py-20 dark:from-green-950/20 dark:via-background dark:to-teal-950/20 sm:py-24">
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        className="relative overflow-hidden border-y bg-linear-to-br from-green-50 via-background to-teal-50/50 py-20 dark:from-green-950/20 dark:via-background dark:to-teal-950/20 sm:py-24"
+      >
         <div className="absolute left-0 top-0 size-96 rounded-full bg-green-500/5 blur-3xl" />
 
         <div className="container relative mx-auto px-4">
@@ -475,13 +553,13 @@ export default function AboutPage() {
 
             <p className="mt-5 leading-8 text-muted-foreground">
               বর্তমানে বিভিন্ন ধরনের স্থানীয় তথ্য বিভিন্ন সরকারি ওয়েবসাইট,
-              প্রতিষ্ঠান এবং অন্যান্য উৎসে ছড়িয়ে রয়েছে। ফলে সাধারণ
-              মানুষের জন্য প্রয়োজনীয় তথ্য খুঁজে পেতে অনেক সময় ব্যয় হয়।
+              প্রতিষ্ঠান এবং অন্যান্য উৎসে ছড়িয়ে রয়েছে। ফলে সাধারণ মানুষের
+              জন্য প্রয়োজনীয় তথ্য খুঁজে পেতে অনেক সময় ব্যয় হয়।
             </p>
 
             <p className="mt-4 leading-8 text-muted-foreground">
-              এই সমস্যাটি কমিয়ে স্থানীয় গুরুত্বপূর্ণ তথ্যকে একটি সহজ
-              ডিজিটাল প্ল্যাটফর্মে তুলে ধরাই আমাদের অন্যতম উদ্দেশ্য।
+              এই সমস্যাটি কমিয়ে স্থানীয় গুরুত্বপূর্ণ তথ্যকে একটি সহজ ডিজিটাল
+              প্ল্যাটফর্মে তুলে ধরাই আমাদের অন্যতম উদ্দেশ্য।
             </p>
           </div>
 
@@ -502,12 +580,18 @@ export default function AboutPage() {
             </Card>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 
           FUTURE PLANS
       = */}
-      <section className="relative py-20 sm:py-28">
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        className="relative py-20 sm:py-28"
+      >
         <div className="absolute right-0 top-20 -z-10 size-96 rounded-full bg-emerald-500/5 blur-3xl" />
 
         <div className="container mx-auto px-4">
@@ -524,8 +608,8 @@ export default function AboutPage() {
             </h2>
 
             <p className="mt-5 leading-8 text-muted-foreground">
-              ব্যবহারকারীদের প্রয়োজন ও প্রযুক্তির পরিবর্তনের সঙ্গে তাল
-              মিলিয়ে আমরা ধীরে ধীরে নতুন সুবিধা যুক্ত করার পরিকল্পনা করছি।
+              ব্যবহারকারীদের প্রয়োজন ও প্রযুক্তির পরিবর্তনের সঙ্গে তাল মিলিয়ে
+              আমরা ধীরে ধীরে নতুন সুবিধা যুক্ত করার পরিকল্পনা করছি।
             </p>
           </div>
 
@@ -534,66 +618,141 @@ export default function AboutPage() {
               const Icon = item.icon;
 
               return (
-                <Card
+                <motion.div
                   key={item.title}
-                  className="group border-green-500/10 transition-all duration-300 hover:-translate-y-1 hover:border-green-500/30 hover:shadow-xl hover:shadow-green-500/5"
+                  variants={cardVariants}
+                  whileHover={{
+                    y: -6,
+                    scale: 1.01,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                  }}
+                  className="h-full"
                 >
-                  <CardContent className="p-6">
-                    <div className="flex size-12 items-center justify-center rounded-xl bg-green-500/10 text-green-600 transition-transform duration-300 group-hover:scale-110 dark:text-green-400">
-                      <Icon className="size-5" />
-                    </div>
+                  <Card className="group h-full border-green-500/10 transition-all duration-300 hover:border-green-500/30 hover:shadow-xl hover:shadow-green-500/5">
+                    <CardContent className="p-6">
+                      {/* Icon */}
+                      <div className="flex size-12 items-center justify-center rounded-xl bg-green-500/10 text-green-600 transition-transform duration-300 group-hover:scale-110 dark:text-green-400">
+                        <Icon className="size-5" />
+                      </div>
 
-                    <h3 className="mt-5 text-lg font-semibold">
-                      {item.title}
-                    </h3>
+                      {/* Title */}
+                      <h3 className="mt-5 text-lg font-semibold">
+                        {item.title}
+                      </h3>
 
-                    <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                      {/* Description */}
+                      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        {item.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               );
             })}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 
           FINAL CTA
       = */}
-      <section className="container mx-auto px-4 pb-20 sm:pb-28">
-        <Card className="relative overflow-hidden border-0 bg-linear-to-br from-green-600 via-emerald-600 to-teal-600 text-white shadow-2xl shadow-green-500/20">
-          {/* Decorative gradients */}
-          <div className="absolute -right-24 -top-24 size-80 rounded-full bg-lime-300/20 blur-3xl" />
 
-          <div className="absolute -bottom-24 -left-24 size-80 rounded-full bg-emerald-950/30 blur-3xl" />
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        className="container mx-auto px-4 pb-20 sm:pb-28"
+      >
+        <motion.div
+          variants={cardVariants}
+          whileHover={{ scale: 1.005 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <Card className="relative overflow-hidden border-0 bg-linear-to-br from-green-600 via-emerald-600 to-teal-600 text-white shadow-2xl shadow-green-500/20">
+            {/* Decorative gradients */}
+            <motion.div
+              aria-hidden="true"
+              animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.35, 0.2] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -right-24 -top-24 size-80 rounded-full bg-lime-300/20 blur-3xl"
+            />
 
-          <div className="absolute left-1/2 top-1/2 size-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
+            <motion.div
+              aria-hidden="true"
+              animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.35, 0.2] }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute -bottom-24 -left-24 size-80 rounded-full bg-emerald-950/30 blur-3xl"
+            />
 
-          <CardContent className="relative p-8 text-center sm:p-12 lg:p-16">
-            <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
-              <HeartPulse className="size-7" />
-            </div>
+            <div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 size-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl"
+            />
 
-            <h2 className="mt-6 text-2xl font-bold sm:text-3xl lg:text-4xl">
-              আমাদের উদ্দেশ্য একটাই
-            </h2>
+            <CardContent className="relative p-8 text-center sm:p-12 lg:p-16">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur"
+              >
+                <HeartPulse className="size-7" />
+              </motion.div>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-white/90">
-              নালিতাবাড়ীর তথ্য নালিতাবাড়ীর মানুষের কাছে আরও সহজে পৌঁছে
-              দেওয়া।
-            </p>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+                className="mt-6 text-2xl font-bold sm:text-3xl lg:text-4xl"
+              >
+                আমাদের উদ্দেশ্য একটাই
+              </motion.h2>
 
-            <p className="mt-8 text-xl font-bold sm:text-2xl">
-              একটি তথ্যসমৃদ্ধ ও ডিজিটাল নালিতাবাড়ী গড়ে তোলাই আমাদের স্বপ্ন।
-            </p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-white/90"
+              >
+                নালিতাবাড়ীর তথ্য নালিতাবাড়ীর মানুষের কাছে আরও সহজে পৌঁছে
+                দেওয়া।
+              </motion.p>
 
-            <p className="mt-3 text-sm text-white/75">
-              প্রযুক্তির মাধ্যমে মানুষের জন্য, নালিতাবাড়ীর জন্য।
-            </p>
-          </CardContent>
-        </Card>
-      </section>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.35 }}
+                className="mt-8 text-xl font-bold sm:text-2xl"
+              >
+                একটি তথ্যসমৃদ্ধ ও ডিজিটাল নালিতাবাড়ী গড়ে তোলাই আমাদের স্বপ্ন।
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+                className="mt-3 text-sm text-white/75"
+              >
+                প্রযুক্তির মাধ্যমে মানুষের জন্য, নালিতাবাড়ীর জন্য।
+              </motion.p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.section>
     </main>
   );
 }
