@@ -1,4 +1,7 @@
+
 import Link from "next/link";
+import Image from "next/image";
+
 import {
   ArrowRight,
   Building2,
@@ -10,30 +13,27 @@ import {
   Siren,
 } from "lucide-react";
 
-import Image from "next/image";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RouteIcon } from "@/components/data/route-icon";
 import { getRouteData } from "@/lib/route-data";
 
+import {
+  Reveal,
+  StaggerGrid,
+  StaggerItem,
+} from "@/components/motion/reveal";
+
 /* =========================================================
    Official Bangladesh National Portal Emergency Hotlines
+
    Source:
    https://bangladesh.gov.bd/pages/static-pages/69a55ba386514399668e4e89
 
    Last updated on official portal:
    28 July 2026
 ========================================================= */
-
-
-
-/* =========================================================
-   Quick Emergency Numbers
-========================================================= */
-
-
 
 type EmergencyServiceRecord = {
   title: string;
@@ -45,6 +45,7 @@ type EmergencyServiceRecord = {
   image?: string;
   category?: string;
 };
+
 type QuickEmergencyNumber = {
   title: string;
   number: string;
@@ -52,23 +53,36 @@ type QuickEmergencyNumber = {
   href: string;
 };
 
+export const metadata = {
+  title: "জরুরি সেবা | নালিতাবাড়ী উপজেলা তথ্য পোর্টাল",
+  description:
+    "নালিতাবাড়ী উপজেলার নাগরিকদের জন্য সরকারি জরুরি হটলাইন, গুরুত্বপূর্ণ যোগাযোগ নম্বর ও জরুরি সেবার তথ্য।",
+};
+
 export default async function EmergencyPage() {
-  const [emergencyServices, quickEmergencyNumbers] = await Promise.all([
-    getRouteData<EmergencyServiceRecord>("emergency-services"),
-    getRouteData<QuickEmergencyNumber>("emergency-quick-numbers"),
-  ]);
+  const [emergencyServices, quickEmergencyNumbers] =
+    await Promise.all([
+      getRouteData<EmergencyServiceRecord>(
+        "emergency-services"
+      ),
+      getRouteData<QuickEmergencyNumber>(
+        "emergency-quick-numbers"
+      ),
+    ]);
+
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen overflow-hidden">
       {/* =====================================================
           HERO
       ===================================================== */}
       <section className="relative overflow-hidden border-b bg-gradient-to-br from-red-50 via-background to-orange-50 dark:from-red-950/20 dark:via-background dark:to-orange-950/20">
         {/* Background decoration */}
         <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-red-500/10 blur-3xl" />
+
         <div className="pointer-events-none absolute -bottom-32 -right-32 h-80 w-80 rounded-full bg-orange-500/10 blur-3xl" />
 
         <div className="container relative mx-auto px-4 py-16 md:py-24">
-          <div className="mx-auto max-w-4xl text-center">
+          <Reveal className="mx-auto max-w-4xl text-center">
             <Badge
               variant="destructive"
               className="mb-5 rounded-full px-4 py-2"
@@ -79,6 +93,7 @@ export default async function EmergencyPage() {
 
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               জরুরি সেবা
+
               <span className="mt-2 block text-red-600 dark:text-red-500">
                 এক ক্লিকেই গুরুত্বপূর্ণ সহায়তা
               </span>
@@ -95,7 +110,7 @@ export default async function EmergencyPage() {
                 asChild
                 size="lg"
                 variant="destructive"
-                className="rounded-xl"
+                className="rounded-xl transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]"
               >
                 <a href="tel:999">
                   <Phone className="mr-2 h-5 w-5" />
@@ -107,7 +122,7 @@ export default async function EmergencyPage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="rounded-xl"
+                className="rounded-xl transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]"
               >
                 <Link href="/health">
                   স্বাস্থ্যসেবা দেখুন
@@ -117,31 +132,36 @@ export default async function EmergencyPage() {
             </div>
 
             <p className="mt-5 text-xs text-muted-foreground">
-              তথ্যসূত্র: বাংলাদেশ জাতীয় তথ্য বাতায়ন 
+              তথ্যসূত্র: বাংলাদেশ জাতীয় তথ্য বাতায়ন
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* =====================================================
-          QUICK NUMBERS
+          QUICK EMERGENCY NUMBERS
       ===================================================== */}
       <section className="border-b bg-background">
         <div className="container mx-auto px-4 py-10">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {quickEmergencyNumbers.map((item) => {
-              return (
+          <StaggerGrid
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            stagger={0.1}
+          >
+            {quickEmergencyNumbers.map((item) => (
+              <StaggerItem key={item.number}>
                 <a
-                  key={item.number}
                   href={item.href}
-                  className="group rounded-2xl border bg-card p-5 transition-all hover:-translate-y-1 hover:border-red-300 hover:shadow-lg dark:hover:border-red-900"
+                  className="group block h-full rounded-2xl border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-red-300 hover:shadow-lg dark:hover:border-red-900"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/50">
-                      <RouteIcon name={item.icon} className="h-6 w-6" />
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600 transition-transform duration-300 group-hover:scale-110 dark:bg-red-950/50">
+                      <RouteIcon
+                        name={item.icon}
+                        className="h-6 w-6"
+                      />
                     </div>
 
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm text-muted-foreground">
                         {item.title}
                       </p>
@@ -151,20 +171,20 @@ export default async function EmergencyPage() {
                       </p>
                     </div>
 
-                    <ArrowRight className="ml-auto h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="ml-auto h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </a>
-              );
-            })}
-          </div>
+              </StaggerItem>
+            ))}
+          </StaggerGrid>
         </div>
       </section>
 
       {/* =====================================================
-          ALL SERVICES
+          ALL EMERGENCY SERVICES
       ===================================================== */}
       <section className="container mx-auto px-4 py-16">
-        <div className="mb-10">
+        <Reveal className="mb-10">
           <p className="text-sm font-semibold text-red-600">
             সরকারি জরুরি হটলাইন
           </p>
@@ -177,35 +197,46 @@ export default async function EmergencyPage() {
             বাংলাদেশ জাতীয় তথ্য বাতায়নে প্রকাশিত বিভিন্ন সরকারি
             হটলাইন ও সেবা নম্বর থেকে প্রয়োজনীয় সেবাটি নির্বাচন করুন।
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {emergencyServices.map((service) => {
-            return (
-              <Card
-                key={`${service.title}-${service.number}`}
-                className="group overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                {/* Official Image */}
+        <StaggerGrid
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          stagger={0.08}
+        >
+          {emergencyServices.map((service) => (
+            <StaggerItem
+              key={`${service.title}-${service.number}`}
+              className="h-full"
+            >
+              <Card className="group h-full overflow-hidden border-border/70 transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-xl dark:hover:border-red-900/70">
+                {/* Service image */}
                 <div className="relative flex h-40 items-center justify-center overflow-hidden bg-muted/40 p-6">
                   <Image
                     src={service.image ?? "/logo.png"}
                     alt={`${service.title} - ${service.number}`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-contain p-5 transition-transform duration-300 group-hover:scale-105"
+                    className="object-contain p-5 transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/50">
-                      <RouteIcon name={service.icon} className="h-5 w-5" />
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600 transition-transform duration-300 group-hover:scale-110 dark:bg-red-950/50">
+                      <RouteIcon
+                        name={service.icon}
+                        className="h-5 w-5"
+                      />
                     </div>
 
-                    <Badge variant="secondary" className="rounded-full">
-                      {service.category}
-                    </Badge>
+                    {service.category && (
+                      <Badge
+                        variant="secondary"
+                        className="rounded-full"
+                      >
+                        {service.category}
+                      </Badge>
+                    )}
                   </div>
 
                   <h3 className="mt-5 text-xl font-semibold">
@@ -216,19 +247,24 @@ export default async function EmergencyPage() {
                     {service.description}
                   </p>
 
-                  {/* Call Button */}
+                  {/* Call button */}
                   <a
-                    href={service.href}
-                    className="mt-5 flex items-center justify-between rounded-xl bg-red-50 px-4 py-3 font-bold text-red-600 transition-colors hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-950/50"
+                    href={
+                      service.href ??
+                      `tel:${service.number.replace(/[^\d+]/g, "")}`
+                    }
+                    className="mt-5 flex items-center justify-between gap-3 rounded-xl bg-red-50 px-4 py-3 font-bold text-red-600 transition-colors hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-950/50"
                   >
-                    <span className="text-lg">{service.number}</span>
+                    <span className="text-lg">
+                      {service.number}
+                    </span>
 
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-600 text-white">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-600 text-white transition-transform duration-200 group-hover:scale-105">
                       <Phone className="h-4 w-4" />
                     </span>
                   </a>
 
-                  {/* Official Website */}
+                  {/* Official website */}
                   {service.website && (
                     <a
                       href={service.website}
@@ -237,23 +273,26 @@ export default async function EmergencyPage() {
                       className="mt-3 flex items-center justify-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-red-600"
                     >
                       সরকারি ওয়েবসাইট
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                     </a>
                   )}
                 </CardContent>
               </Card>
-            );
-          })}
-        </div>
+            </StaggerItem>
+          ))}
+        </StaggerGrid>
       </section>
 
       {/* =====================================================
-          LOCAL SECTION
+          LOCAL EMERGENCY ASSISTANCE
       ===================================================== */}
       <section className="border-y bg-muted/30">
         <div className="container mx-auto px-4 py-16">
-          <div className="mb-8">
-            <Badge variant="outline" className="rounded-full">
+          <Reveal className="mb-8">
+            <Badge
+              variant="outline"
+              className="rounded-full"
+            >
               নালিতাবাড়ী
             </Badge>
 
@@ -262,79 +301,100 @@ export default async function EmergencyPage() {
             </h2>
 
             <p className="mt-2 max-w-2xl text-muted-foreground">
-              স্থানীয় উপজেলা পর্যায়ের নির্দিষ্ট যোগাযোগ নম্বর যোগ করার
-              জন্য এই অংশটি ব্যবহার করা যাবে। অফিসিয়ালভাবে যাচাই করা
-              নম্বর ছাড়া কোনো নম্বর প্রকাশ না করাই নিরাপদ।
+              স্থানীয় উপজেলা পর্যায়ের নির্দিষ্ট যোগাযোগ নম্বর যোগ
+              করার জন্য এই অংশটি ব্যবহার করা যাবে। অফিসিয়ালভাবে
+              যাচাই করা নম্বর ছাড়া কোনো নম্বর প্রকাশ না করাই নিরাপদ।
             </p>
-          </div>
+          </Reveal>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Card>
-              <CardContent className="flex items-center gap-4 p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
-                  <HeartPulse className="h-5 w-5" />
-                </div>
+          <StaggerGrid
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            stagger={0.1}
+          >
+            {/* Health complex */}
+            <StaggerItem>
+              <Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
+                    <HeartPulse className="h-5 w-5" />
+                  </div>
 
-                <div>
-                  <h3 className="font-medium">
-                    উপজেলা স্বাস্থ্য কমপ্লেক্স
-                  </h3>
+                  <div>
+                    <h3 className="font-medium">
+                      উপজেলা স্বাস্থ্য কমপ্লেক্স
+                    </h3>
 
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    অফিসিয়াল নম্বর যাচাইাধীন
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      অফিসিয়াল নম্বর যাচাইাধীন
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </StaggerItem>
 
-            <Card>
-              <CardContent className="flex items-center gap-4 p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
-                  <ShieldCheck className="h-5 w-5" />
-                </div>
+            {/* Police */}
+            <StaggerItem>
+              <Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
+                    <ShieldCheck className="h-5 w-5" />
+                  </div>
 
-                <div>
-                  <h3 className="font-medium">নালিতাবাড়ী থানা</h3>
+                  <div>
+                    <h3 className="font-medium">
+                      নালিতাবাড়ী থানা
+                    </h3>
 
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    জরুরি প্রয়োজনে ৯৯৯
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      জরুরি প্রয়োজনে ৯৯৯
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </StaggerItem>
 
-            <Card>
-              <CardContent className="flex items-center gap-4 p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
-                  <Flame className="h-5 w-5" />
-                </div>
+            {/* Fire service */}
+            <StaggerItem>
+              <Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
+                    <Flame className="h-5 w-5" />
+                  </div>
 
-                <div>
-                  <h3 className="font-medium">ফায়ার সার্ভিস</h3>
+                  <div>
+                    <h3 className="font-medium">
+                      ফায়ার সার্ভিস
+                    </h3>
 
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    জরুরি প্রয়োজনে ১০২
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      জরুরি প্রয়োজনে ১০২
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </StaggerItem>
 
-            <Card>
-              <CardContent className="flex items-center gap-4 p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
-                  <Building2 className="h-5 w-5" />
-                </div>
+            {/* Upazila administration */}
+            <StaggerItem>
+              <Card className="h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600 dark:bg-red-950/50">
+                    <Building2 className="h-5 w-5" />
+                  </div>
 
-                <div>
-                  <h3 className="font-medium">উপজেলা প্রশাসন</h3>
+                  <div>
+                    <h3 className="font-medium">
+                      উপজেলা প্রশাসন
+                    </h3>
 
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    সরকারি তথ্যের জন্য ৩৩৩
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      সরকারি তথ্যের জন্য ৩৩৩
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </StaggerItem>
+          </StaggerGrid>
         </div>
       </section>
 
@@ -342,34 +402,37 @@ export default async function EmergencyPage() {
           IMPORTANT WARNING
       ===================================================== */}
       <section className="container mx-auto px-4 py-12">
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-6 dark:border-red-900/50 dark:bg-red-950/20">
-          <div className="flex gap-4">
-            <ShieldAlert className="mt-1 h-6 w-6 shrink-0 text-red-600" />
+        <Reveal>
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-6 dark:border-red-900/50 dark:bg-red-950/20">
+            <div className="flex gap-4">
+              <ShieldAlert className="mt-1 h-6 w-6 shrink-0 text-red-600" />
 
-            <div>
-              <h3 className="font-semibold text-red-700 dark:text-red-400">
-                গুরুত্বপূর্ণ সতর্কতা
-              </h3>
+              <div>
+                <h3 className="font-semibold text-red-700 dark:text-red-400">
+                  গুরুত্বপূর্ণ সতর্কতা
+                </h3>
 
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                জরুরি পরিস্থিতিতে প্রয়োজন অনুযায়ী সংশ্লিষ্ট সরকারি
-                হটলাইনে যোগাযোগ করুন। কোনো নম্বর বা সেবা পরিবর্তিত
-                হতে পারে। সর্বশেষ তথ্যের জন্য সংশ্লিষ্ট সরকারি
-                ওয়েবসাইট এবং বাংলাদেশ জাতীয় তথ্য বাতায়ন যাচাই করুন।
-              </p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  জরুরি পরিস্থিতিতে প্রয়োজন অনুযায়ী সংশ্লিষ্ট
+                  সরকারি হটলাইনে যোগাযোগ করুন। কোনো নম্বর বা সেবা
+                  পরিবর্তিত হতে পারে। সর্বশেষ তথ্যের জন্য সংশ্লিষ্ট
+                  সরকারি ওয়েবসাইট এবং বাংলাদেশ জাতীয় তথ্য বাতায়ন
+                  যাচাই করুন।
+                </p>
 
-              <a
-                href="https://bangladesh.gov.bd/pages/static-pages/69a55ba386514399668e4e89"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:underline"
-              >
-                বাংলাদেশ জাতীয় তথ্য বাতায়ন দেখুন
-                <ArrowRight className="h-4 w-4" />
-              </a>
+                <a
+                  href="https://bangladesh.gov.bd/pages/static-pages/69a55ba386514399668e4e89"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-red-600 transition-colors hover:text-red-700 hover:underline"
+                >
+                  বাংলাদেশ জাতীয় তথ্য বাতায়ন দেখুন
+                  <ArrowRight className="h-4 w-4 transition-transform duration-200 hover:translate-x-1" />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
