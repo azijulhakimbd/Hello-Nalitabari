@@ -1,200 +1,232 @@
+
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
   Building2,
   GraduationCap,
-  MapPin,
   School,
-  Search,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { getRouteData } from "@/lib/route-data";
 
 const categories = [
   {
     title: "প্রাথমিক বিদ্যালয়",
     description: "নালিতাবাড়ীর প্রাথমিক শিক্ষা প্রতিষ্ঠান।",
     icon: School,
+    href: "/schools",
   },
   {
     title: "মাধ্যমিক বিদ্যালয়",
     description: "মাধ্যমিক ও উচ্চ মাধ্যমিক বিদ্যালয়ের তথ্য।",
     icon: Building2,
+    href: "/schools",
   },
   {
     title: "কলেজ",
     description: "কলেজ ও উচ্চশিক্ষা প্রতিষ্ঠানের তথ্য।",
     icon: GraduationCap,
+    href: "/colleges",
   },
   {
     title: "মাদ্রাসা",
     description: "স্থানীয় মাদ্রাসা শিক্ষা প্রতিষ্ঠানের তথ্য।",
     icon: BookOpen,
+    href: "/schools",
   },
 ];
 
-
-
-type EducationInstitution = {
-  name: string;
-  type: string;
-  location: string;
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
 };
 
-export default async function EducationPage() {
-  const institutions = await getRouteData<EducationInstitution>("education-institutions");
-  return (
-    <main>
-      {/* Hero */}
-      <section className="border-b bg-gradient-to-br from-blue-50 via-background to-indigo-50 dark:from-blue-950/20 dark:via-background dark:to-indigo-950/20">
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <Badge className="mb-5 rounded-full bg-blue-100 px-4 py-2 text-blue-700 hover:bg-blue-100 dark:bg-blue-950 dark:text-blue-400">
-              <GraduationCap className="mr-2 h-4 w-4" />
-              শিক্ষা
-            </Badge>
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const,
+    },
+  },
+};
 
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
+export default function EducationPage() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <main className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative isolate overflow-hidden border-b bg-gradient-to-br from-blue-50 via-background to-indigo-50 dark:from-blue-950/20 dark:via-background dark:to-indigo-950/20">
+        {!shouldReduceMotion && (
+          <>
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-blue-400/10 blur-3xl"
+              animate={{
+                scale: [1, 1.15, 1],
+                opacity: [0.4, 0.7, 0.4],
+              }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+
+            <motion.div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-indigo-400/10 blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 9,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </>
+        )}
+
+        <div className="container relative mx-auto px-4 py-16 md:py-24">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="mx-auto max-w-3xl text-center"
+          >
+            <motion.div variants={fadeUpVariants}>
+              <Badge className="mb-5 rounded-full bg-blue-100 px-4 py-2 text-blue-700 hover:bg-blue-100 dark:bg-blue-950 dark:text-blue-400">
+                <GraduationCap className="mr-2 h-4 w-4" />
+                শিক্ষা
+              </Badge>
+            </motion.div>
+
+            <motion.h1
+              variants={fadeUpVariants}
+              className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl"
+            >
               নালিতাবাড়ীর
               <span className="mt-2 block text-blue-600">
                 শিক্ষা প্রতিষ্ঠান
               </span>
-            </h1>
+            </motion.h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+            <motion.p
+              variants={fadeUpVariants}
+              className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground"
+            >
               স্কুল, কলেজ, মাদ্রাসা ও অন্যান্য শিক্ষা প্রতিষ্ঠানের
               তথ্য সহজে খুঁজে নিন।
-            </p>
-
-            {/* Search */}
-            <div className="mx-auto mt-8 flex max-w-xl gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-
-                <Input
-                  placeholder="প্রতিষ্ঠানের নাম খুঁজুন..."
-                  className="h-12 pl-10"
-                />
-              </div>
-
-              <Button size="lg" className="h-12">
-                খুঁজুন
-              </Button>
-            </div>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Education Categories */}
       <section className="container mx-auto px-4 py-16">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold">
+        <motion.div
+          initial={shouldReduceMotion ? false : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUpVariants}
+          className="mb-8"
+        >
+          <h2 className="text-2xl font-bold sm:text-3xl">
             শিক্ষা প্রতিষ্ঠানের ধরন
           </h2>
 
           <p className="mt-2 text-muted-foreground">
             আপনার প্রয়োজনীয় প্রতিষ্ঠানের ধরন নির্বাচন করুন।
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          variants={containerVariants}
+          initial={shouldReduceMotion ? false : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
           {categories.map((category) => {
             const Icon = category.icon;
 
             return (
-              <Card
+              <motion.div
                 key={category.title}
-                className="transition-all hover:-translate-y-1 hover:shadow-lg"
+                variants={cardVariants}
+                whileHover={
+                  shouldReduceMotion
+                    ? undefined
+                    : { y: -6, scale: 1.015 }
+                }
+                className="h-full"
               >
-                <CardContent className="p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950/50">
-                    <Icon className="h-6 w-6" />
-                  </div>
+                <Link
+                  href={category.href}
+                  aria-label={`${category.title} দেখুন`}
+                  className="group block h-full rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                >
+                  <Card className="h-full border-border/70 transition-colors duration-300 group-hover:border-blue-300 group-hover:shadow-lg dark:group-hover:border-blue-800">
+                    <CardContent className="p-6">
+                      <motion.div
+                        whileHover={
+                          shouldReduceMotion
+                            ? undefined
+                            : { rotate: -5, scale: 1.08 }
+                        }
+                        transition={{ duration: 0.2 }}
+                        className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400"
+                      >
+                        <Icon className="h-6 w-6" />
+                      </motion.div>
 
-                  <h3 className="mt-5 font-semibold">
-                    {category.title}
-                  </h3>
+                      <h3 className="mt-5 font-semibold">
+                        {category.title}
+                      </h3>
 
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                    {category.description}
-                  </p>
+                      <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                        {category.description}
+                      </p>
 
-                  <Button
-                    variant="ghost"
-                    className="mt-3 px-0 text-blue-600 hover:bg-transparent"
-                  >
-                    প্রতিষ্ঠান দেখুন
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
+                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400">
+                        প্রতিষ্ঠান দেখুন
+                        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
             );
           })}
-        </div>
-      </section>
-
-      {/* Institution List */}
-      <section className="border-y bg-muted/30">
-        <div className="container mx-auto px-4 py-16">
-          <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <p className="text-sm font-semibold text-blue-600">
-                শিক্ষা ডিরেক্টরি
-              </p>
-
-              <h2 className="mt-2 text-3xl font-bold">
-                জনপ্রিয় প্রতিষ্ঠান
-              </h2>
-            </div>
-
-            <Button asChild variant="outline">
-              <Link href="/directory?category=education">
-                সব প্রতিষ্ঠান
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            {institutions.map((institution) => (
-              <Card key={institution.name}>
-                <CardContent className="p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 dark:bg-blue-950/50">
-                    <GraduationCap className="h-6 w-6" />
-                  </div>
-
-                  <Badge className="mt-5" variant="secondary">
-                    {institution.type}
-                  </Badge>
-
-                  <h3 className="mt-3 text-lg font-semibold">
-                    {institution.name}
-                  </h3>
-
-                  <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
-                    {institution.location}
-                  </div>
-
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="mt-5 w-full"
-                  >
-                    <Link href="/contact">
-                      বিস্তারিত
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   );
