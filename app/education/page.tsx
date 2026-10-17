@@ -15,30 +15,42 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 const categories = [
-  {
-    title: "প্রাথমিক বিদ্যালয়",
-    description: "নালিতাবাড়ীর প্রাথমিক শিক্ষা প্রতিষ্ঠান।",
-    icon: School,
-    href: "/schools",
-  },
-  {
-    title: "মাধ্যমিক বিদ্যালয়",
-    description: "মাধ্যমিক ও উচ্চ মাধ্যমিক বিদ্যালয়ের তথ্য।",
-    icon: Building2,
-    href: "/schools",
-  },
-  {
-    title: "কলেজ",
-    description: "কলেজ ও উচ্চশিক্ষা প্রতিষ্ঠানের তথ্য।",
-    icon: GraduationCap,
-    href: "/colleges",
-  },
-  {
-    title: "মাদ্রাসা",
-    description: "স্থানীয় মাদ্রাসা শিক্ষা প্রতিষ্ঠানের তথ্য।",
-    icon: BookOpen,
-    href: "/schools",
-  },
+{
+title: "প্রাথমিক বিদ্যালয়",
+description: "নালিতাবাড়ীর প্রাথমিক শিক্ষা প্রতিষ্ঠান।",
+icon: School,
+href: "/schools?type=Primary+School",
+},
+{
+title: "মাধ্যমিক বিদ্যালয়",
+description: "মাধ্যমিক ও উচ্চ মাধ্যমিক বিদ্যালয়ের তথ্য।",
+icon: Building2,
+href: "/schools?type=Secondary+School",
+},
+{
+title: "কলেজ",
+description: "কলেজ ও উচ্চশিক্ষা প্রতিষ্ঠানের তথ্য।",
+icon: GraduationCap,
+href: "/colleges",
+},
+{
+title: "মাদ্রাসা",
+description: "স্থানীয় মাদ্রাসা শিক্ষা প্রতিষ্ঠানের তথ্য।",
+icon: BookOpen,
+href: "/schools?type=Madrasa",
+},
+{
+title: "প্রাইভেট স্কুল",
+description: "নালিতাবাড়ীর বেসরকারি স্কুল ও শিক্ষা প্রতিষ্ঠানের তথ্য।",
+icon: Building2,
+href: "/schools?type=Private+School",
+},
+{
+title: "একাডেমি",
+description: "স্থানীয় একাডেমি ও বিশেষায়িত শিক্ষা প্রতিষ্ঠানের তথ্য।",
+icon: GraduationCap,
+href: "/schools?type=Academy",
+},
 ];
 
 const containerVariants = {
