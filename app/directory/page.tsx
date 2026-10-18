@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -5,27 +6,27 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  Search,
-  Phone,
-  MapPin,
   ArrowRight,
-  ExternalLink,
-  X,
   Building2,
+  BriefcaseBusiness,
+  ChevronRight,
+  Clock3,
+  ExternalLink,
+  Globe,
   GraduationCap,
   HeartPulse,
+  Info,
   Landmark,
-  ShieldCheck,
-  Users,
-  BriefcaseBusiness,
-  Globe,
-  Clock3,
-  Sparkles,
+  MapPin,
+  Phone,
+  PhoneCall,
+  Search,
   SearchX,
   Send,
-  ChevronRight,
-  PhoneCall,
-  Info,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  X,
 } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,7 +43,7 @@ import { useRouteData } from "@/components/data/use-route-data";
 type DirectoryCategory = {
   title: string;
   description: string;
-  icon: React.ElementType | string;
+  icon: string;
   count: string;
   color: string;
   href: string;
@@ -52,7 +53,7 @@ type DirectoryCategory = {
 type EmergencyService = {
   title: string;
   number: string;
-  icon: React.ElementType | string;
+  icon: string;
   href?: string;
 };
 
@@ -60,20 +61,8 @@ type PopularDirectory = {
   title: string;
   category: string;
   location: string;
-  icon: React.ElementType | string;
+  icon: string;
   href: string;
-};
-
-type MongoDirectoryCategory = Omit<DirectoryCategory, "icon"> & {
-  icon: string;
-};
-
-type MongoEmergencyService = Omit<EmergencyService, "icon"> & {
-  icon: string;
-};
-
-type MongoPopularDirectory = Omit<PopularDirectory, "icon"> & {
-  icon: string;
 };
 
 /* =========================================================
@@ -83,29 +72,24 @@ type MongoPopularDirectory = Omit<PopularDirectory, "icon"> & {
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
+    transition: { staggerChildren: 0.07 },
   },
 };
 
 const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 22,
-  },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.45,
+      duration: 0.4,
       ease: "easeOut" as const,
     },
   },
 };
 
 /* =========================================================
-   STATIC INFORMATION
+   QUICK LINKS
 ========================================================= */
 
 const quickLinks = [
@@ -135,7 +119,11 @@ const quickLinks = [
   },
 ];
 
-const emergencyFallback = [
+/* =========================================================
+   FALLBACK DATA
+========================================================= */
+
+const emergencyFallback: EmergencyService[] = [
   {
     title: "জাতীয় জরুরি সেবা",
     number: "999",
@@ -158,7 +146,7 @@ const emergencyFallback = [
   },
 ];
 
-const popularFallback = [
+const popularFallback: PopularDirectory[] = [
   {
     title: "নালিতাবাড়ী উপজেলা পরিষদ",
     category: "সরকারি অফিস",
@@ -176,6 +164,200 @@ const popularFallback = [
 ];
 
 /* =========================================================
+   ADDITIONAL DIRECTORY CATEGORIES
+========================================================= */
+
+const additionalDirectoryCategories: DirectoryCategory[] = [
+  {
+    title: "ডাক্তার খুঁজুন",
+    description:
+      "নালিতাবাড়ী উপজেলার বিভিন্ন এলাকার ডাক্তারদের নাম, বিশেষত্ব, চেম্বার ও যোগাযোগের তথ্য খুঁজে নিন।",
+    icon: "heart-pulse",
+    count: "ডাক্তার",
+    color: "bg-rose-100 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400",
+    href: "/doctors",
+    items: ["ডাক্তারের তালিকা", "চিকিৎসকের বিশেষত্ব", "চেম্বার ও যোগাযোগ"],
+  },
+  {
+    title: "হাসপাতাল ও ক্লিনিক",
+    description:
+      "হাসপাতাল, ক্লিনিক, ডায়াগনস্টিক সেন্টার এবং অন্যান্য স্বাস্থ্যসেবা প্রতিষ্ঠানের তথ্য দেখুন।",
+    icon: "hospital",
+    count: "প্রতিষ্ঠান",
+    color: "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-400",
+    href: "/hospitals",
+    items: ["হাসপাতাল", "ক্লিনিক", "ডায়াগনস্টিক সেন্টার"],
+  },
+  {
+    title: "জরুরি সেবা",
+    description:
+      "পুলিশ, ফায়ার সার্ভিস, অ্যাম্বুলেন্সসহ গুরুত্বপূর্ণ জরুরি নম্বরগুলো দ্রুত খুঁজে নিন।",
+    icon: "shield-alert",
+    count: "জরুরি",
+    color: "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400",
+    href: "/emergency",
+    items: ["পুলিশ", "ফায়ার সার্ভিস", "অ্যাম্বুলেন্স ও জরুরি নম্বর"],
+  },
+  {
+    title: "স্কুল ও শিক্ষা প্রতিষ্ঠান",
+    description:
+      "নালিতাবাড়ীর স্কুল, মাদ্রাসা ও অন্যান্য শিক্ষা প্রতিষ্ঠানের বিস্তারিত তথ্য খুঁজুন।",
+    icon: "school",
+    count: "শিক্ষা",
+    color: "bg-blue-100 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400",
+    href: "/schools",
+    items: ["প্রাথমিক বিদ্যালয়", "মাধ্যমিক বিদ্যালয়", "মাদ্রাসা"],
+  },
+  {
+    title: "কলেজ",
+    description:
+      "উপজেলার বিভিন্ন কলেজের ঠিকানা, যোগাযোগ এবং অন্যান্য প্রয়োজনীয় তথ্য দেখুন।",
+    icon: "graduation-cap",
+    count: "শিক্ষা",
+    color: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-400",
+    href: "/colleges",
+    items: ["কলেজের তালিকা", "ঠিকানা", "যোগাযোগের তথ্য"],
+  },
+  {
+    title: "সরকারি সেবা",
+    description:
+      "সরকারি অফিস, কর্মকর্তাদের তথ্য, নাগরিক সেবা এবং গুরুত্বপূর্ণ সরকারি তথ্য এক জায়গায়।",
+    icon: "landmark",
+    count: "সরকারি",
+    color: "bg-violet-100 text-violet-700 dark:bg-violet-950/40 dark:text-violet-400",
+    href: "/government",
+    items: ["সরকারি অফিস", "কর্মকর্তাদের তথ্য", "নাগরিক সেবা"],
+  },
+  {
+    title: "স্থানীয় ব্যবসা",
+    description:
+      "দোকান, রেস্টুরেন্ট, ফার্মেসি, সার্ভিস সেন্টারসহ স্থানীয় ব্যবসা খুঁজে নিন।",
+    icon: "store",
+    count: "ব্যবসা",
+    color: "bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-400",
+    href: "/businesses",
+    items: ["দোকান ও মার্কেট", "রেস্টুরেন্ট", "ফার্মেসি ও সার্ভিস সেন্টার"],
+  },
+  {
+    title: "দর্শনীয় স্থান",
+    description:
+      "নালিতাবাড়ী উপজেলার দর্শনীয় স্থান, ঐতিহাসিক স্থান এবং ভ্রমণযোগ্য জায়গাগুলো আবিষ্কার করুন।",
+    icon: "map-pin",
+    count: "ভ্রমণ",
+    color: "bg-teal-100 text-teal-700 dark:bg-teal-950/40 dark:text-teal-400",
+    href: "/places",
+    items: ["দর্শনীয় স্থান", "ঐতিহাসিক স্থান", "ভ্রমণ নির্দেশনা"],
+  },
+  {
+    title: "স্থানীয় খবর",
+    description:
+      "নালিতাবাড়ী ও আশেপাশের এলাকার সর্বশেষ খবর এবং গুরুত্বপূর্ণ আপডেট দেখুন।",
+    icon: "newspaper",
+    count: "সংবাদ",
+    color: "bg-sky-100 text-sky-700 dark:bg-sky-950/40 dark:text-sky-400",
+    href: "/news",
+    items: ["সর্বশেষ খবর", "স্থানীয় সংবাদ", "গুরুত্বপূর্ণ আপডেট"],
+  },
+  {
+    title: "নোটিশ ও ঘোষণা",
+    description:
+      "সরকারি নোটিশ, স্থানীয় ঘোষণা, বিজ্ঞপ্তি এবং গুরুত্বপূর্ণ আপডেট এক জায়গায় পান।",
+    icon: "megaphone",
+    count: "নোটিশ",
+    color: "bg-purple-100 text-purple-700 dark:bg-purple-950/40 dark:text-purple-400",
+    href: "/notices",
+    items: ["সরকারি নোটিশ", "স্থানীয় ঘোষণা", "গুরুত্বপূর্ণ বিজ্ঞপ্তি"],
+  },
+  {
+    title: "যোগাযোগ তথ্য",
+    description:
+      "প্রয়োজনীয় ব্যক্তি, প্রতিষ্ঠান ও সেবার যোগাযোগের তথ্য সহজেই খুঁজে নিন।",
+    icon: "phone-call",
+    count: "যোগাযোগ",
+    color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/40 dark:text-cyan-400",
+    href: "/contact",
+    items: ["প্রয়োজনীয় ফোন নম্বর", "প্রতিষ্ঠানের যোগাযোগ", "সহায়তা"],
+  },
+  {
+    title: "স্থানীয় ইভেন্ট",
+    description:
+      "নালিতাবাড়ীতে অনুষ্ঠিতব্য অনুষ্ঠান, মেলা, সভা ও অন্যান্য গুরুত্বপূর্ণ ইভেন্ট সম্পর্কে জানুন।",
+    icon: "calendar-days",
+    count: "ইভেন্ট",
+    color: "bg-pink-100 text-pink-700 dark:bg-pink-950/40 dark:text-pink-400",
+    href: "/events",
+    items: ["স্থানীয় অনুষ্ঠান", "মেলা ও সভা", "আসন্ন ইভেন্ট"],
+  },
+  {
+    title: "পরিবহন তথ্য",
+    description:
+      "স্থানীয় পরিবহন, বাস, অটো, সিএনজি এবং গুরুত্বপূর্ণ যাতায়াতের তথ্য খুঁজে নিন।",
+    icon: "bus",
+    count: "পরিবহন",
+    color: "bg-lime-100 text-lime-800 dark:bg-lime-950/40 dark:text-lime-400",
+    href: "/transport",
+    items: ["বাস ও রুট", "অটো ও সিএনজি", "যাতায়াতের তথ্য"],
+  },
+  {
+    title: "ইউনিয়ন তথ্য",
+    description:
+      "নালিতাবাড়ী উপজেলার বিভিন্ন ইউনিয়ন, ওয়ার্ড এবং স্থানীয় প্রশাসনের তথ্য দেখুন।",
+    icon: "building-2",
+    count: "প্রশাসন",
+    color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400",
+    href: "/unions",
+    items: ["ইউনিয়ন পরিষদ", "ওয়ার্ডের তথ্য", "স্থানীয় প্রশাসন"],
+  },
+  {
+    title: "কমিউনিটি তথ্য",
+    description:
+      "স্থানীয় মানুষদের সহযোগিতায় গুরুত্বপূর্ণ প্রতিষ্ঠান ও সেবার তথ্য যুক্ত ও আপডেট করুন।",
+    icon: "users",
+    count: "কমিউনিটি",
+    color: "bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-950/40 dark:text-fuchsia-400",
+    href: "/community",
+    items: ["স্থানীয় উদ্যোগ", "কমিউনিটি তথ্য", "তথ্য হালনাগাদ"],
+  },
+  {
+    title: "স্বাস্থ্য সচেতনতা",
+    description:
+      "স্বাস্থ্য, পরিচর্যা, রোগ প্রতিরোধ ও জরুরি স্বাস্থ্য বিষয়ক গুরুত্বপূর্ণ তথ্য পড়ুন।",
+    icon: "activity",
+    count: "স্বাস্থ্য",
+    color: "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400",
+    href: "/health",
+    items: ["স্বাস্থ্য পরামর্শ", "রোগ প্রতিরোধ", "স্বাস্থ্য সচেতনতা"],
+  },
+];
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function mergeCategories(
+  mongoCategories: DirectoryCategory[],
+  fallbackCategories: DirectoryCategory[],
+): DirectoryCategory[] {
+  const merged = new Map<string, DirectoryCategory>();
+
+  // MongoDB data takes priority.
+  for (const category of mongoCategories) {
+    if (category?.href) {
+      merged.set(category.href, category);
+    }
+  }
+
+  // Add only missing categories.
+  for (const category of fallbackCategories) {
+    if (category?.href && !merged.has(category.href)) {
+      merged.set(category.href, category);
+    }
+  }
+
+  return Array.from(merged.values());
+}
+
+/* =========================================================
    PAGE
 ========================================================= */
 
@@ -185,30 +367,23 @@ export default function DirectoryPage() {
   const searchParams = useSearchParams();
   const shouldReduceMotion = useReducedMotion();
 
-  const {
-    data: directoryData = [],
-  } = useRouteData<MongoDirectoryCategory>("directory-categories");
+  const { data: directoryData = [] } =
+    useRouteData<DirectoryCategory>("directory-categories");
 
-  const {
-    data: emergencyServices = [],
-  } = useRouteData<MongoEmergencyService>(
-    "directory-emergency-services",
-  );
+  const { data: emergencyServices = [] } =
+    useRouteData<EmergencyService>("directory-emergency-services");
 
-  const {
-    data: popularDirectory = [],
-  } = useRouteData<MongoPopularDirectory>("directory-popular");
+  const { data: popularDirectory = [] } =
+    useRouteData<PopularDirectory>("directory-popular");
 
   const urlSearch = searchParams.get("search") ?? "";
-
   const [search, setSearch] = React.useState(urlSearch);
 
-  /* Sync input with browser navigation and shared URLs. */
   React.useEffect(() => {
     setSearch(urlSearch);
   }, [urlSearch]);
 
-  /* Update the URL as the user searches. */
+  // Keep the URL synchronized with the search input.
   React.useEffect(() => {
     const normalizedSearch = search.trim();
 
@@ -224,9 +399,7 @@ export default function DirectoryPage() {
       }
 
       const queryString = params.toString();
-      const nextUrl = queryString
-        ? `${pathname}?${queryString}`
-        : pathname;
+      const nextUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
       router.replace(nextUrl, { scroll: false });
     }, 250);
@@ -234,15 +407,22 @@ export default function DirectoryPage() {
     return () => window.clearTimeout(timeout);
   }, [search, urlSearch, pathname, router, searchParams]);
 
-  const categories = directoryData ?? [];
+  const categories = React.useMemo(
+    () =>
+      mergeCategories(
+        Array.isArray(directoryData) ? directoryData : [],
+        additionalDirectoryCategories,
+      ),
+    [directoryData],
+  );
 
   const emergencyList =
-    emergencyServices?.length > 0
+    Array.isArray(emergencyServices) && emergencyServices.length > 0
       ? emergencyServices
       : emergencyFallback;
 
   const popularList =
-    popularDirectory?.length > 0
+    Array.isArray(popularDirectory) && popularDirectory.length > 0
       ? popularDirectory
       : popularFallback;
 
@@ -251,18 +431,17 @@ export default function DirectoryPage() {
 
     if (!query) return categories;
 
-    return categories.filter((item) => {
-      const searchableText = [
+    return categories.filter((item) =>
+      [
         item.title,
         item.description,
         item.count,
-        ...item.items,
+        ...(Array.isArray(item.items) ? item.items : []),
       ]
         .join(" ")
-        .toLocaleLowerCase();
-
-      return searchableText.includes(query);
-    });
+        .toLocaleLowerCase()
+        .includes(query),
+    );
   }, [categories, search]);
 
   const filteredPopular = React.useMemo(() => {
@@ -271,11 +450,7 @@ export default function DirectoryPage() {
     if (!query) return popularList;
 
     return popularList.filter((item) =>
-      [
-        item.title,
-        item.category,
-        item.location,
-      ]
+      [item.title, item.category, item.location]
         .join(" ")
         .toLocaleLowerCase()
         .includes(query),
@@ -321,10 +496,7 @@ export default function DirectoryPage() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-background">
-      {/* =====================================================
-          HERO + DYNAMIC SEARCH
-      ====================================================== */}
-
+      {/* HERO + SEARCH */}
       <section className="relative isolate overflow-hidden bg-gradient-to-br from-green-950 via-green-800 to-emerald-600 text-white">
         <div
           aria-hidden="true"
@@ -348,7 +520,7 @@ export default function DirectoryPage() {
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.65 }}
           className="container mx-auto px-4 pb-24 pt-16 md:pb-32 md:pt-24"
         >
           <div className="mx-auto max-w-4xl text-center">
@@ -365,12 +537,11 @@ export default function DirectoryPage() {
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-green-50/90 md:text-lg">
-              সরকারি অফিস, শিক্ষাপ্রতিষ্ঠান, হাসপাতাল, ব্যাংক,
-              জরুরি সেবা এবং এলাকার গুরুত্বপূর্ণ যোগাযোগের তথ্য
-              খুঁজুন একটি নির্ভরযোগ্য ডিজিটাল প্ল্যাটফর্মে।
+              সরকারি অফিস, শিক্ষাপ্রতিষ্ঠান, হাসপাতাল, ব্যাংক, জরুরি সেবা
+              এবং এলাকার গুরুত্বপূর্ণ যোগাযোগের তথ্য খুঁজুন একটি নির্ভরযোগ্য
+              ডিজিটাল প্ল্যাটফর্মে।
             </p>
 
-            {/* Search box */}
             <div className="mx-auto mt-10 max-w-2xl">
               <div className="group relative rounded-2xl bg-white p-2 shadow-2xl shadow-green-950/20 transition-shadow focus-within:ring-4 focus-within:ring-white/20">
                 <div className="flex items-center gap-2">
@@ -378,20 +549,19 @@ export default function DirectoryPage() {
 
                   <Input
                     value={search}
-                    onChange={(event) =>
-                      setSearch(event.target.value)
-                    }
+                    onChange={(event) => setSearch(event.target.value)}
                     placeholder="প্রতিষ্ঠান, সেবা বা বিভাগের নাম লিখুন..."
                     aria-label="ডিরেক্টরি অনুসন্ধান"
                     className="h-12 border-0 bg-transparent text-base text-gray-900 shadow-none placeholder:text-gray-400 focus-visible:ring-0"
                   />
 
-                  <AnimatePresence>
+                  <AnimatePresence initial={false}>
                     {search && (
                       <motion.button
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.15 }}
                         type="button"
                         onClick={() => setSearch("")}
                         aria-label="অনুসন্ধান মুছে ফেলুন"
@@ -414,8 +584,7 @@ export default function DirectoryPage() {
                     <span>
                       “{search}” অনুসন্ধানে{" "}
                       <strong>
-                        {filteredCategories.length +
-                          filteredPopular.length}
+                        {filteredCategories.length + filteredPopular.length}
                       </strong>{" "}
                       টি বিভাগ ও প্রতিষ্ঠান পাওয়া গেছে
                     </span>
@@ -424,18 +593,16 @@ export default function DirectoryPage() {
                   <>
                     <Sparkles className="h-4 w-4" />
                     <span>দ্রুত খুঁজুন:</span>
-                    {["শিক্ষা", "হাসপাতাল", "সরকারি অফিস"].map(
-                      (term) => (
-                        <button
-                          key={term}
-                          type="button"
-                          onClick={() => setSearch(term)}
-                          className="rounded-full border border-white/20 bg-white/10 px-3 py-1 transition hover:bg-white/20"
-                        >
-                          {term}
-                        </button>
-                      ),
-                    )}
+                    {["শিক্ষা", "হাসপাতাল", "সরকারি অফিস"].map((term) => (
+                      <button
+                        key={term}
+                        type="button"
+                        onClick={() => setSearch(term)}
+                        className="rounded-full border border-white/20 bg-white/10 px-3 py-1 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                      >
+                        {term}
+                      </button>
+                    ))}
                   </>
                 )}
               </div>
@@ -459,16 +626,13 @@ export default function DirectoryPage() {
         </motion.div>
       </section>
 
-      {/* =====================================================
-          STATS
-      ====================================================== */}
-
+      {/* STATS */}
       <section className="relative z-10 -mt-12">
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
           className="container mx-auto px-4"
         >
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
@@ -508,10 +672,7 @@ export default function DirectoryPage() {
         </motion.div>
       </section>
 
-      {/* =====================================================
-          QUICK LINKS
-      ====================================================== */}
-
+      {/* QUICK LINKS */}
       {!search && (
         <section className="container mx-auto px-4 pb-4 pt-16">
           <motion.div {...fadeIn} className="mb-7">
@@ -556,9 +717,7 @@ export default function DirectoryPage() {
                         </div>
 
                         <div className="min-w-0 flex-1">
-                          <h3 className="font-semibold">
-                            {item.title}
-                          </h3>
+                          <h3 className="font-semibold">{item.title}</h3>
                           <p className="mt-1 text-sm leading-6 text-muted-foreground">
                             {item.description}
                           </p>
@@ -577,10 +736,7 @@ export default function DirectoryPage() {
         </section>
       )}
 
-      {/* =====================================================
-          DIRECTORY CATEGORIES
-      ====================================================== */}
-
+      {/* DIRECTORY CATEGORIES */}
       <section className="container mx-auto px-4 py-16">
         <motion.div
           {...fadeIn}
@@ -655,7 +811,7 @@ export default function DirectoryPage() {
             >
               {filteredCategories.map((item) => (
                 <motion.div
-                  key={item.href + item.title}
+                  key={item.href}
                   variants={shouldReduceMotion ? undefined : itemVariants}
                   whileHover={shouldReduceMotion ? undefined : { y: -5 }}
                   className="h-full"
@@ -669,12 +825,12 @@ export default function DirectoryPage() {
                         <div className="flex-1 p-5 sm:p-6">
                           <div className="flex items-start justify-between gap-3">
                             <div
-                              className={`flex h-14 w-14 items-center justify-center rounded-2xl ${item.color || "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"}`}
+                              className={`flex h-14 w-14 items-center justify-center rounded-2xl ${
+                                item.color ||
+                                "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
+                              }`}
                             >
-                              <RouteIcon
-                                name={item.icon}
-                                className="h-7 w-7"
-                              />
+                              <RouteIcon name={item.icon} className="h-7 w-7" />
                             </div>
 
                             <Badge
@@ -701,9 +857,7 @@ export default function DirectoryPage() {
                                   className="flex items-start gap-2.5 text-sm text-foreground/80"
                                 >
                                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-green-600" />
-                                  <span className="leading-5">
-                                    {subItem}
-                                  </span>
+                                  <span className="leading-5">{subItem}</span>
                                 </li>
                               ))}
                             </ul>
@@ -726,16 +880,10 @@ export default function DirectoryPage() {
         </AnimatePresence>
       </section>
 
-      {/* =====================================================
-          EMERGENCY SERVICES
-      ====================================================== */}
-
+      {/* EMERGENCY SERVICES */}
       <section className="border-y border-red-100/70 bg-red-50/60 py-16 dark:border-red-950/60 dark:bg-red-950/10">
         <div className="container mx-auto px-4">
-          <motion.div
-            {...fadeIn}
-            className="mb-10 text-center"
-          >
+          <motion.div {...fadeIn} className="mb-10 text-center">
             <Badge className="mb-4 border border-red-200 bg-red-100 px-3 py-1.5 text-red-700 hover:bg-red-100 dark:border-red-900 dark:bg-red-950/60 dark:text-red-400">
               <PhoneCall className="mr-1.5 h-3.5 w-3.5" />
               জরুরি যোগাযোগ
@@ -760,22 +908,17 @@ export default function DirectoryPage() {
           >
             {emergencyList.map((service) => (
               <motion.div
-                key={service.title}
+                key={`${service.title}-${service.number}`}
                 variants={shouldReduceMotion ? undefined : itemVariants}
                 whileHover={shouldReduceMotion ? undefined : { y: -4 }}
               >
                 <Card className="h-full border-red-100 bg-background transition-shadow hover:shadow-lg dark:border-red-950">
                   <CardContent className="p-5 text-center sm:p-6">
                     <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400">
-                      <RouteIcon
-                        name={service.icon}
-                        className="h-7 w-7"
-                      />
+                      <RouteIcon name={service.icon} className="h-7 w-7" />
                     </div>
 
-                    <h3 className="mt-4 font-semibold">
-                      {service.title}
-                    </h3>
+                    <h3 className="mt-4 font-semibold">{service.title}</h3>
 
                     <p className="mt-3 text-3xl font-extrabold tracking-tight text-red-600 dark:text-red-400">
                       {service.number}
@@ -803,10 +946,7 @@ export default function DirectoryPage() {
         </div>
       </section>
 
-      {/* =====================================================
-          POPULAR DIRECTORY
-      ====================================================== */}
-
+      {/* POPULAR DIRECTORY */}
       <section className="container mx-auto px-4 py-16">
         <motion.div
           {...fadeIn}
@@ -848,9 +988,7 @@ export default function DirectoryPage() {
           <Card className="mt-8 border-dashed">
             <CardContent className="flex flex-col items-center px-6 py-10 text-center">
               <SearchX className="h-8 w-8 text-muted-foreground" />
-              <p className="mt-3 font-semibold">
-                কোনো প্রতিষ্ঠান পাওয়া যায়নি
-              </p>
+              <p className="mt-3 font-semibold">কোনো প্রতিষ্ঠান পাওয়া যায়নি</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 অন্য শব্দ দিয়ে অনুসন্ধান করুন অথবা সব তথ্য দেখুন।
               </p>
@@ -866,7 +1004,7 @@ export default function DirectoryPage() {
           >
             {filteredPopular.map((item) => (
               <motion.div
-                key={item.title}
+                key={`${item.title}-${item.href}`}
                 variants={shouldReduceMotion ? undefined : itemVariants}
                 whileHover={shouldReduceMotion ? undefined : { y: -3 }}
               >
@@ -877,10 +1015,7 @@ export default function DirectoryPage() {
                   <Card className="h-full border-border/60 transition-all duration-300 group-hover:border-green-300 group-hover:shadow-lg">
                     <CardContent className="flex items-center gap-4 p-5">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-700 dark:bg-green-950/50 dark:text-green-400">
-                        <RouteIcon
-                          name={item.icon}
-                          className="h-6 w-6"
-                        />
+                        <RouteIcon name={item.icon} className="h-6 w-6" />
                       </div>
 
                       <div className="min-w-0 flex-1">
@@ -913,16 +1048,13 @@ export default function DirectoryPage() {
         )}
       </section>
 
-      {/* =====================================================
-          INFORMATION SUBMISSION CTA
-      ====================================================== */}
-
+      {/* SUBMIT INFORMATION CTA */}
       <section className="container mx-auto px-4 pb-16">
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
         >
           <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-green-800 via-green-700 to-emerald-600 text-white shadow-xl shadow-green-900/10">
             <div
@@ -947,9 +1079,9 @@ export default function DirectoryPage() {
                 </h2>
 
                 <p className="mt-4 max-w-xl text-sm leading-7 text-green-50/90 sm:text-base">
-                  কোনো প্রতিষ্ঠান, সেবাকেন্দ্র, যোগাযোগ নম্বর বা
-                  গুরুত্বপূর্ণ তথ্য অনুপস্থিত থাকলে আমাদের জানান।
-                  যাচাইয়ের পর তথ্য ডিরেক্টরিতে যুক্ত করা যেতে পারে।
+                  কোনো প্রতিষ্ঠান, সেবাকেন্দ্র, যোগাযোগ নম্বর বা গুরুত্বপূর্ণ
+                  তথ্য অনুপস্থিত থাকলে আমাদের জানান। যাচাইয়ের পর তথ্য
+                  ডিরেক্টরিতে যুক্ত করা যেতে পারে।
                 </p>
               </div>
 
@@ -972,9 +1104,7 @@ export default function DirectoryPage() {
                   variant="outline"
                   className="border-white/30 bg-white/5 text-white hover:bg-white/15 hover:text-white"
                 >
-                  <Link href="/contact">
-                    যোগাযোগ করুন
-                  </Link>
+                  <Link href="/contact">যোগাযোগ করুন</Link>
                 </Button>
               </div>
             </CardContent>
