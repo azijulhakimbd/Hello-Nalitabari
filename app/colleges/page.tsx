@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   BookOpen,
@@ -46,6 +47,25 @@ type College = {
 export default function CollegesPage() {
   const { data: colleges } = useRouteData<College>("colleges");
   const [searchTerm, setSearchTerm] = useState("");
+  const shouldReduceMotion = useReducedMotion();
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const stagger = {
+    hidden: {},
+    visible: {
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : { staggerChildren: 0.08, delayChildren: 0.05 },
+    },
+  };
+
+  const motionTransition = shouldReduceMotion
+    ? { duration: 0 }
+    : { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const };
 
   const filteredColleges = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
@@ -85,29 +105,54 @@ export default function CollegesPage() {
         </div>
 
         <div className="container relative mx-auto px-4 py-16 md:py-24">
-          <div className="mx-auto max-w-4xl text-center">
+          <motion.div
+            className="mx-auto max-w-4xl text-center"
+            initial={shouldReduceMotion ? false : "hidden"}
+            animate="visible"
+            variants={stagger}
+          >
             {/* Icon */}
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border bg-background/70 shadow-lg backdrop-blur">
+            <motion.div
+              variants={fadeUp}
+              transition={motionTransition}
+              whileHover={shouldReduceMotion ? undefined : { y: -4, rotate: 3 }}
+              className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border bg-background/70 shadow-lg backdrop-blur"
+            >
               <GraduationCap className="h-8 w-8 text-primary" />
-            </div>
+            </motion.div>
 
             {/* Badge */}
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border bg-background/70 px-4 py-2 text-sm shadow-sm backdrop-blur">
+            <motion.div
+              variants={fadeUp}
+              transition={motionTransition}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border bg-background/70 px-4 py-2 text-sm shadow-sm backdrop-blur"
+            >
               <Sparkles className="h-4 w-4 text-primary" />
               Nalitabari Education Directory
-            </div>
+            </motion.div>
 
-            <h1 className="bg-gradient-to-r from-green-700 via-emerald-600 to-teal-600 bg-clip-text p-3 text-4xl font-extrabold tracking-tight text-transparent md:text-6xl dark:from-green-400 dark:via-emerald-400 dark:to-teal-400">
+            <motion.h1
+              variants={fadeUp}
+              transition={motionTransition}
+              className="bg-gradient-to-r from-green-700 via-emerald-600 to-teal-600 bg-clip-text p-3 text-4xl font-extrabold tracking-tight text-transparent md:text-6xl dark:from-green-400 dark:via-emerald-400 dark:to-teal-400">
               নালিতাবাড়ী উপজেলার কলেজসমূহ
-            </h1>
+            </motion.h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+            <motion.p
+              variants={fadeUp}
+              transition={motionTransition}
+              className="mx-auto mt-6 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg"
+            >
               নালিতাবাড়ী উপজেলার কলেজ, ডিগ্রি কলেজ ও কারিগরি শিক্ষা
               প্রতিষ্ঠান সম্পর্কে তথ্য এক জায়গায় খুঁজে দেখুন।
-            </p>
+            </motion.p>
 
             {/* Search */}
-            <div className="mx-auto mt-9 max-w-2xl">
+            <motion.div
+              variants={fadeUp}
+              transition={motionTransition}
+              className="mx-auto mt-9 max-w-2xl"
+            >
               <div className="group relative flex items-center rounded-2xl border bg-background/80 p-2 shadow-xl shadow-primary/5 backdrop-blur-xl transition-all duration-300 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10">
                 <Search className="ml-3 h-5 w-5 shrink-0 text-muted-foreground transition-colors group-focus-within:text-primary" />
 
@@ -144,74 +189,78 @@ export default function CollegesPage() {
                   টি প্রতিষ্ঠান পাওয়া গেছে
                 </div>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* ================= STATS ================= */}
       <section className="container relative mx-auto px-4 py-10">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="border-primary/10 bg-background/70 shadow-sm backdrop-blur transition-all hover:-translate-y-1 hover:shadow-lg">
-            <CardContent className="flex items-center gap-4 p-5">
-              <div className="rounded-2xl bg-primary/10 p-3.5">
-                <School className="h-6 w-6 text-primary" />
-              </div>
+        <motion.div
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          variants={stagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {[
+            {
+              icon: School,
+              value: `${colleges.length}+`,
+              label: "Listed Institutions",
+              color: "text-primary",
+              iconBg: "bg-primary/10",
+              border: "border-primary/10",
+            },
+            {
+              icon: Building2,
+              value: "3+",
+              label: "General Colleges",
+              color: "text-blue-600",
+              iconBg: "bg-blue-500/10",
+              border: "border-blue-500/10",
+            },
+            {
+              icon: BookOpen,
+              value: "2+",
+              label: "Technical Colleges",
+              color: "text-purple-600",
+              iconBg: "bg-purple-500/10",
+              border: "border-purple-500/10",
+            },
+            {
+              icon: GraduationCap,
+              value: "100%",
+              label: "Nalitabari Focused",
+              color: "text-green-600",
+              iconBg: "bg-green-500/10",
+              border: "border-green-500/10",
+            },
+          ].map((stat) => {
+            const Icon = stat.icon;
 
-              <div>
-                <p className="text-2xl font-bold">{colleges.length}+</p>
-                <p className="text-sm text-muted-foreground">
-                  Listed Institutions
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-blue-500/10 bg-background/70 shadow-sm backdrop-blur transition-all hover:-translate-y-1 hover:shadow-lg">
-            <CardContent className="flex items-center gap-4 p-5">
-              <div className="rounded-2xl bg-blue-500/10 p-3.5">
-                <Building2 className="h-6 w-6 text-blue-600" />
-              </div>
-
-              <div>
-                <p className="text-2xl font-bold">3+</p>
-                <p className="text-sm text-muted-foreground">
-                  General Colleges
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-purple-500/10 bg-background/70 shadow-sm backdrop-blur transition-all hover:-translate-y-1 hover:shadow-lg">
-            <CardContent className="flex items-center gap-4 p-5">
-              <div className="rounded-2xl bg-purple-500/10 p-3.5">
-                <BookOpen className="h-6 w-6 text-purple-600" />
-              </div>
-
-              <div>
-                <p className="text-2xl font-bold">2+</p>
-                <p className="text-sm text-muted-foreground">
-                  Technical Colleges
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-green-500/10 bg-background/70 shadow-sm backdrop-blur transition-all hover:-translate-y-1 hover:shadow-lg">
-            <CardContent className="flex items-center gap-4 p-5">
-              <div className="rounded-2xl bg-green-500/10 p-3.5">
-                <GraduationCap className="h-6 w-6 text-green-600" />
-              </div>
-
-              <div>
-                <p className="text-2xl font-bold">100%</p>
-                <p className="text-sm text-muted-foreground">
-                  Nalitabari Focused
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+            return (
+              <motion.div
+                key={stat.label}
+                variants={fadeUp}
+                transition={motionTransition}
+                whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+              >
+                <Card className={`${stat.border} h-full bg-background/70 shadow-sm backdrop-blur transition-shadow hover:shadow-lg`}>
+                  <CardContent className="flex items-center gap-4 p-5">
+                    <div className={`rounded-2xl ${stat.iconBg} p-3.5`}>
+                      <Icon className={`h-6 w-6 ${stat.color}`} />
+                    </div>
+                    <div>
+                      <p className="text-2xl font-bold">{stat.value}</p>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </section>
 
       {/* ================= COLLEGE LIST ================= */}
@@ -238,8 +287,16 @@ export default function CollegesPage() {
         </div>
 
         {/* No result */}
+        <AnimatePresence mode="wait" initial={false}>
         {filteredColleges.length === 0 ? (
-          <div className="rounded-3xl border border-dashed bg-background/60 px-6 py-20 text-center">
+          <motion.div
+            key="empty-state"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
+            transition={motionTransition}
+            className="rounded-3xl border border-dashed bg-background/60 px-6 py-20 text-center"
+          >
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-muted">
               <Search className="h-7 w-7 text-muted-foreground" />
             </div>
@@ -259,12 +316,27 @@ export default function CollegesPage() {
             >
               Search Clear করুন
             </Button>
-          </div>
+          </motion.div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredColleges.map((college) => (
-              <Card
+          <motion.div
+            key="college-grid"
+            className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+          >
+            {filteredColleges.map((college, index) => (
+              <motion.div
                 key={college.id}
+                layout={!shouldReduceMotion}
+                variants={fadeUp}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.97 }}
+                transition={{ ...motionTransition, delay: shouldReduceMotion ? 0 : Math.min(index * 0.04, 0.24) }}
+                whileHover={shouldReduceMotion ? undefined : { y: -6 }}
+              >
+              <Card
                 className="group overflow-hidden border-border/60 bg-background/80 shadow-sm backdrop-blur transition-all duration-300 hover:-translate-y-2 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
               >
                 {/* Image */}
@@ -383,9 +455,11 @@ export default function CollegesPage() {
                   </div>
                 </CardContent>
               </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </section>
 
       {/* ================= FOOTER INFO ================= */}
@@ -393,12 +467,18 @@ export default function CollegesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.04] via-transparent to-blue-500/[0.04]" />
 
         <div className="container relative mx-auto px-4 py-10">
-          <div className="mx-auto max-w-3xl rounded-2xl border bg-background/60 p-6 text-center shadow-sm backdrop-blur">
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={motionTransition}
+            className="mx-auto max-w-3xl rounded-2xl border bg-background/60 p-6 text-center shadow-sm backdrop-blur"
+          >
             <p className="text-sm leading-7 text-muted-foreground">
               তথ্য বিভিন্ন সরকারি শিক্ষা বোর্ড, শিক্ষা প্রতিষ্ঠানের ওয়েবসাইট
               এবং অনলাইন শিক্ষা-তথ্য উৎস থেকে সংগৃহীত। 
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>
